@@ -208,6 +208,20 @@ out.gc = { feasibility: json(path.join(gcDir, "feasibility.json")), observer: js
 const earlierResults = cache("m5/results-unpinned.json");
 if (existsSync(earlierResults)) out.gc.observerEarlier = json(earlierResults).gc.observer;
 
+// ---- M6: Alien on dense slots, end to end ---------------------------------------------------------
+const m6Runs = cache("m6/runs");
+const m6Files = readdirSync(m6Runs);
+const m6Run = (v, w) => m6Files.filter((f) => new RegExp(`^${v}-${w}-\\d+\\.json$`).test(f)).sort().map((f) => json(path.join(m6Runs, f)));
+out.m6 = { check: json(cache("m6/check.json")), workloads: {} };
+for (const w of ["system", "propagate", "dynamic", "create", "app"]) {
+  const f = m6Run("frozen", w), d = m6Run("dense", w);
+  const side = (xs) => ({ ms: spread(xs.map((x) => x.ms)), allocatedBytes: spread(xs.map((x) => x.allocatedBytes)), liveBytes: spread(xs.map((x) => x.liveBytes)), gcMs: spread(xs.map((x) => x.gcMsPerReplay)), maxRssKb: spread(xs.map((x) => x.maxRssKb)) });
+  out.m6.workloads[w] = { runs: f.length, frozen: side(f), dense: side(d), denseOverFrozenMs: ratio(d.map((x) => x.ms), f.map((x) => x.ms)), resolves: m6Run("dense-counted", w)[0].resolves };
+}
+const probes = (v) => m6Files.filter((f) => new RegExp(`^probe-${v}-\\d+\\.json$`).test(f)).map((f) => json(path.join(m6Runs, f)));
+const pd = probes("dense"), pf = probes("frozen");
+out.m6.probes = { runs: pd.length, rounds: pd[0].rounds, frozen: { dropped: spread(pf.map((x) => x.droppedCollected)), disposed: spread(pf.map((x) => x.disposedCollected)) }, dense: { dropped: spread(pd.map((x) => x.droppedCollected)), disposed: spread(pd.map((x) => x.disposedCollected)) }, slotNs: spread([...pf, ...pd].map((x) => x.slotNs)), fieldNs: spread([...pf, ...pd].map((x) => x.fieldNs)) };
+
 mkdirSync(path.join(root, "paper/data"), { recursive: true });
 writeFileSync(path.join(root, "paper/data/results.json"), JSON.stringify(out, null, 1));
 console.log("wrote paper/data/results.json");

@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-Reactive libraries, build systems and query engines all maintain dependency relations between computations, and an effort to standardize signals in JavaScript proposes to specify that graph at the language level. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust. We state a candidate primitive, a store of ordered bidirectional relations with stable identity and walk-safe retirement, as an executable contract of \clauseCount{} clauses, and test which clauses five systems need: Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa. WPF and Salsa are judged by their own executables. Every tested observable behaviour was reproduced with client-owned state. Physically, the systems divide into trace-shaped and graph-shaped workloads that favour different layouts. Contiguous traces were \salsaDensityRatio{} times denser than the leanest linked store on Salsa, and copy-on-write arrays \wpfCowRatio{} times faster on WPF. On the three large graph tapes, dense integer-indexed slots beat pointer-joined records by median factors of \rustRatioMin{} to \rustRatioMax{} in Rust and \jsRatioMin{} to \jsRatioMax{} in plain JavaScript over typed arrays, which stayed \jsOverRustMin{} to \jsOverRustMax{} times slower than Rust. Standard weak-reference APIs sufficed in all \gcScenarios{} collector scenarios on V8. Within the tested single-threaded incremental workloads, no evidence remains that representation must be owned by the VM. This does not exclude a constant-factor gain from a native implementation, which we did not build. We do not propose a replacement signal API.
+Reactive libraries, build systems and query engines all maintain dependency relations between computations, and an effort to standardize signals in JavaScript proposes to specify that graph at the language level. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust. We state a candidate primitive, a store of ordered bidirectional relations with stable identity and walk-safe retirement, as an executable contract of \clauseCount{} clauses, and test which clauses five systems need: Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa. WPF and Salsa are judged by their own executables. Every tested observable behaviour was reproduced with client-owned state. Physically, the systems divide into trace-shaped and graph-shaped workloads that favour different layouts. On the three large graph tapes, dense integer-indexed slots beat pointer-joined records by median factors of \rustRatioMin{} to \rustRatioMax{} in Rust and \jsRatioMin{} to \jsRatioMax{} in plain JavaScript over typed arrays, which stayed \jsOverRustMin{} to \jsOverRustMax{} times slower than Rust. Standard weak-reference APIs sufficed in all \gcScenarios{} collector scenarios on V8. Rebuilt on dense slots, Alien Signals preserved behaviour on \mSixPrograms{} differential programs, but end to end its time was about equal to the original on an application-shaped workload and worse on graph creation, and its integer-named relations were invisible to the collector. The logical relation survived abstraction; no universal physical graph emerged. We found no layout advantage requiring VM ownership in these single-threaded workloads; collector-visible dense relations are the one capability plain JavaScript did not provide. We built no native implementation. We do not propose a replacement signal API.
 \end{abstract}
 
 \section{Introduction}
@@ -33,12 +33,12 @@ In JavaScript these structures have started to look alike. Vue moved its reactiv
 
 This paper tests that reading experimentally. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust.
 
-Discussions of the topic tend to merge three questions, and we keep them apart. Which relational capabilities does a system observably need? Where must those capabilities be held for its behaviour to be preserved? Which physical layout implements them well? A positive answer to the first says nothing about the second, and an answer to the second says little about the third.
+Discussions of the topic tend to merge three questions, and we keep them apart. Which relational capabilities does a system use, and which does it observably require? Where must those capabilities be held for its behaviour to be preserved? Which physical layout implements them well? A positive answer to the first says nothing about the second, and an answer to the second says little about the third.
 
 We pose four research questions.
 
 \begin{description}
-\item[RQ1.] Which relational capabilities do real incremental systems observably need?
+\item[RQ1.] Which relational capabilities do real incremental systems use, and which are observably required?
 \item[RQ2.] Must any of those capabilities live in a runtime-provided store for behaviour to be preserved?
 \item[RQ3.] Which memory layouts do these workloads favour, and does the best layout's advantage require leaving the host language?
 \item[RQ4.] Does a production collector with standard weak-reference APIs leave any tested lifecycle property unattainable?
@@ -49,11 +49,12 @@ We pose four research questions.
 \item An executable contract for a candidate relation primitive (\clauseCount{} clauses) together with \ablationCount{} single-mechanism ablations, each with a shortest witness history. The candidate is treated as guilty until required: a mechanism stays only if some client needs it.
 \item A client-minimality study of five systems, Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa, using ports, one-at-a-time ablations and differential testing. WPF and Salsa are judged by their own executables, not by our translations of them.
 \item A physical study over operation tapes recorded from those clients. It compares contiguous, pointer-joined and dense indexed layouts in Rust and in plain JavaScript, and it includes a grid comparing ten rebuild and reuse strategies.
+\item An end-to-end control: an independent signal runtime rebuilt on dense slots under a protocol fixed in advance, judged by its own tests, by differential search and by a retention probe.
 \item A feasibility study of lifecycle properties under a production collector, including a measured observer effect of \texttt{WeakRef} polling.
 \end{itemize}
 
 \paragraph{Summary of findings.}
-Every tested observable behaviour was reproduced with client-owned state, so behaviour identifies required capabilities and not their substrate. The candidate did not show semantic necessity; that does not reject it as a primitive, since almost any primitive can be emulated. Physically, the systems fall into two families that favour different layouts. The advantage of dense layouts on graph-shaped work reproduces in plain JavaScript over typed arrays. On the studied workloads and implementations we did not find a sufficient advantage for a representation owned by the virtual machine.
+Every tested observable behaviour was reproduced with client-owned state, so behaviour identifies required capabilities and not their substrate. Observable semantics constrains capabilities and cannot establish who owns the substrate: the candidate did not show semantic necessity, which does not reject it as a primitive, since almost any primitive can be emulated. Physically, the systems fall into two families that favour different layouts. The advantage of dense layouts on graph-shaped work reproduces in plain JavaScript over typed arrays. On the studied workloads and implementations we found no layout advantage that required ownership by the virtual machine. Inside a complete runtime the same layout reduced memory and collector work but gave no general gain in time, and it cost something replay cannot show: relations named by integers are invisible to the collector.
 
 These findings are bounded. We measured single-threaded workloads on one machine and one JavaScript engine, we did not build a store inside a VM, and we did not study interoperability between libraries. Section~\ref{sec:threats} states the limits and Section~\ref{sec:implications} separates what the results bear on from what they do not. We do not propose a replacement signal API.
 
@@ -97,7 +98,15 @@ The inclusion rule is strict: a mechanism enters the candidate only if a clause 
 
 The candidate, called L0 below, is an abstract machine rather than an API. A relation $e=(u,v)$ sits in exactly two ordered lists, $L(u)$ and $R(v)$. Nodes and relations are named by handles of slot and generation, and a handle's status only moves forward, from live to retired to stale. Each direction declares its retention at creation, and liveness is the least fixed point of reachability from explicit roots along retaining directions. Operations are \texttt{relate}, \texttt{unlink}, \texttt{moveAfter}, \texttt{first}, \texttt{next}, immutable endpoint and retention readers, one 32-bit metadata word, epoch \texttt{enter} and \texttt{exit}, and an explicit \texttt{collect}.
 
-The \clauseCount{} clauses cover stable identity, dual incidence, order, permutation, reachability, GC transparency, deferred reuse, walk continuation, metadata, multiplicity, failure atomicity, lifecycle, semantic opacity, the absence of callbacks, and local complexity. Each of \ablationCount{} ablations removes one mechanism and yields a shortest history on which a clause breaks, within a bound of 12 operations. The reference machine and two controls are checked exhaustively within small bounds (\exhaustiveStatesA{} and \exhaustiveStatesB{} states). The reference machine is array-backed on purpose, so it cannot test the local-complexity clause; the physical study addresses layouts but does not verify that clause as a bound.
+The \clauseCount{} clauses cover stable identity, dual incidence, order, permutation, reachability, GC transparency, deferred reuse, walk continuation, metadata, multiplicity, failure atomicity, lifecycle, semantic opacity, the absence of callbacks, and local complexity. Each of \ablationCount{} ablations removes one mechanism and yields a shortest history on which a clause breaks, within a bound of 12 operations (Table~\ref{tab:ablations}). Semantic opacity and the absence of callbacks hold by construction, and local complexity is a bound that the model cannot exercise, so these three clauses have no witness. The reference machine and two controls are checked exhaustively within small bounds (\exhaustiveStatesA{} and \exhaustiveStatesB{} states). The reference machine is array-backed on purpose, so it cannot test the local-complexity clause; the physical study addresses layouts but does not verify that clause as a bound.
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\input{tables/ablations}
+\caption{Single-mechanism ablations of the contract. ``Kind'' separates safety, semantic and structural failures from surface entries, which show only that a capability is observable. A witness shows that a mechanism is load-bearing for the contract and not that any client needs it.}
+\label{tab:ablations}
+\end{table}
 
 \subsection{Subjects}
 
@@ -233,7 +242,7 @@ The clients divide by the shape of their relational work. \emph{Trace-shaped} cl
 
 \subsection{What behaviour cannot decide}
 
-A store and a client structure with the same capabilities are indistinguishable through a public API by construction, and for Quant, Alien and the polyfill this was true before any experiment, because each holds its own structure in its frozen source. RQ1 therefore has an answer in the table above. RQ2 has the answer that no tested capability had to live in a runtime-provided store. The candidate did not show semantic necessity. That leaves whether any capability deserves native support as a physical question.
+A store and a client structure with the same capabilities are indistinguishable through a public API by construction, and for Quant, Alien and the polyfill this was true before any experiment, because each holds its own structure in its frozen source. RQ1 therefore has an answer in the table above. RQ2 has the answer that no tested capability had to live in a runtime-provided store. We read this as a separation result and not as a discovery about where state can be kept: in an expressive host language almost any stateful primitive can be emulated, so behaviour constrains capabilities and not ownership. The candidate did not show semantic necessity. Whether any capability deserves native support depends on properties that behaviour cannot show: physical layout, interaction with the collector, concurrency and sharing between libraries.
 
 \section{Physical results}
 \label{sec:physical}
@@ -326,9 +335,46 @@ Table~\ref{tab:ratios} gives those ratios and Table~\ref{tab:js} the absolute va
 
 Typed arrays cannot hold references, so a client must get from its own objects to an integer. From a field on its own object this costs \boundaryFieldNs{} ns, and through a \texttt{WeakMap} \boundaryWeakNs{} ns, about \boundaryRatio{} times more, loop included. One \texttt{WeakMap} lookup costs more than a whole operation of the SoA replay on any of the three large tapes. The tapes assume the field. A library that owns its node objects can use one, and a design that has to associate slots with objects it does not own may lose the layout's gain at that boundary.
 
+\subsection{End to end: Alien Signals on dense slots}
+\label{sec:endtoend}
+
+Replay excludes the client. To test whether the layout effect survives integration, we rebuilt Alien Signals, which the author did not write, with its link objects replaced by seven-word slots in one \texttt{Int32Array}. Nodes stay objects and hold their own slot in a field, and links name nodes through a table from slot to node. The protocol was fixed in the repository before the backend was written: one layout, no tuning after measurement, and the outcome rule below.
+
+The dense build passes \mSixCorpus{} corpus tests and differs on \mSixDiffer{} of \mSixPrograms{} programs from the frozen source. Reaching that took three corrections. Slots are reclaimed only at quiescent points, because Alien's walks read removed links, and one link can be removed twice. A node could keep naming a removed link, so we applied the tail-cursor fix that had already matched the frozen source. And on two programs the frozen source throws a \texttt{TypeError} by reading a missing subscriber list, which the dense build had to reproduce explicitly. Objects tolerate all of this silently, and reuse of a slot does not: that is a cost of the layout in engineering effort.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/endtoend}
+\caption{Wall time per replay over \mSixRuns{} fresh pinned processes, median [min, max]. The ratio is paired by run. By the rule fixed in advance, overlapping process ranges count as about equal.}
+\label{tab:endtoend}
+\end{table}
+
+Table~\ref{tab:endtoend} gives the time. The backend's own operations, with no public API or user code, ran at \mSixSystemRatio{} of the original. That gain did not carry through. On the application-shaped workload the ratio is \mSixAppRatio{} and the ranges overlap, and on static propagation the median ratio of \mSixPropagateRatio{} also falls within overlapping ranges. Creating and disposing graphs was \mSixCreateRatio{} times slower. Under the rule stated in advance, integration costs consumed the layout gain on these workloads: representation alone did not predict runtime performance.
+
+Memory tells a different story (Table~\ref{tab:endmem}). Live bytes were no higher on any workload, and under dependency churn allocation fell from \mSixDynamicAllocF{} to \mSixDynamicAllocD{} MB per replay and collection time from \mSixDynamicGcF{} to \mSixDynamicGcD{} ms.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/endtoend-memory}
+\caption{Medians for the frozen (F) and dense (D) builds: allocated MB per replay, live MB after setup, collection ms per replay, and peak resident MB.}
+\label{tab:endmem}
+\end{table}
+
+Table~\ref{tab:endbound} separates the boundary. A resolution from slot to node cost \mSixSlotNs{} ns in a microbenchmark and following a link object to its node \mSixFieldNs{} ns, so the table lookup is not by itself the reason for the slower cases. The shares are estimates: unit cost times count, measured on a large shuffled table.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/endtoend-boundary}
+\caption{Slot-to-node resolutions in the dense build, and an estimate of their cost.}
+\label{tab:endbound}
+\end{table}
+
 \subsection{Answer to RQ3}
 
-The workloads favour different layouts: contiguous traces where a sequence is replaced as a whole, and dense indexed slots where bidirectional incidence is mutated. Neither shape's best layout is the other's, which makes one universal layout unattractive. The best layout's advantage did not require leaving JavaScript on these tapes. On the studied workloads and implementations, we did not find a sufficient advantage for a VM-owned representation. The remaining gap to Rust is the kind of constant factor that the proposal itself anticipates, and it is not refuted here.
+The workloads favour different layouts: contiguous traces where a sequence is replaced as a whole, and dense indexed slots where bidirectional incidence is mutated. Neither shape's best layout is the other's. That is not by itself an argument against a VM primitive, since a VM could choose a representation per workload behind one abstraction. It is an argument that standardized semantics should not imply a standardized physical graph representation. The best layout's advantage did not require leaving JavaScript on these tapes: we found no layout advantage that required VM ownership on the studied workloads. The remaining gap to Rust is the kind of constant factor that the proposal itself anticipates, and it is not refuted here.
 
 \section{Garbage collection}
 \label{sec:gc}
@@ -355,14 +401,16 @@ Table~\ref{tab:gc} lists \gcScenarios{} scenarios of \gcRounds{} rounds each, on
 \label{tab:observer}
 \end{table}
 
-For RQ4, no tested lifecycle property was unattainable with the standard APIs. Whether collection costs differ between layouts is a separate question: integer slots are not traced by the collector and object records are, and we did not isolate this effect. Self-adjusting computation is known to contradict generational assumptions through old-to-new pointers and long-lived trace data \cite{acar2009,hammer2008}, and a recent report on Vue describes removed links keeping younger effects alive across scavenges \cite{vue16176}, so this is a plausible direction for further work on layouts.
+\paragraph{Dense slots hide relations from the collector.} The scenarios above use client records that the collector can trace. The dense build of Section~\ref{sec:endtoend} cannot offer this: an integer in a typed array is not a reference, and the slot table is a root while a node has links. We predicted the consequence in the protocol. A linked, unwatched graph dropped by the program was collected in \mSixFrozenDropped{} of \mSixProbeRounds{} rounds with object links and \mSixDenseDropped{} of \mSixProbeRounds{} with dense slots. A graph released through its effect was collected in \mSixDenseDisposed{} of \mSixProbeRounds{} in both. So plain JavaScript offers a choice between collector-visible relations and dense layout, and a program using the latter must dispose explicitly. A VM could in principle trace such slots. We did not build that, and the time results above do not show that it would pay.
+
+For RQ4, no tested lifecycle property was unattainable with the standard APIs when relations are objects. With dense slots, collection of an unwatched linked graph was lost. Whether collection costs differ between layouts is a separate question: integer slots are not traced by the collector and object records are, and we did not isolate this effect. Self-adjusting computation is known to contradict generational assumptions through old-to-new pointers and long-lived trace data \cite{acar2009,hammer2008}, and a recent report on Vue describes removed links keeping younger effects alive across scavenges \cite{vue16176}, so this is a plausible direction for further work on layouts.
 
 \section{Threats to validity}
 \label{sec:threats}
 
 \paragraph{No VM implementation.} We did not build a relation store inside a JavaScript engine. In-language dense slots bound what a library can reach. The Rust columns give one estimate of a native layout, and an engine could differ from both in either direction, for example through tighter integration with its collector or through the cost of crossing into the runtime. Our result is that the layout-related advantage did not require a VM on these workloads. It does not establish that a native implementation could not be faster.
 
-\paragraph{Tapes are not applications.} Replays include only structural operations. Corpora are behaviour suites, in which tiny programs and fixed per-program costs weigh heavily, and they are not application benchmarks in the sense of DaCapo \cite{blackburn2006}. Quant and the two synthetics are the only large graph tapes, and the synthetics are ours. No client was rewritten over typed arrays. A client that must reach a relation's integer through a \texttt{WeakMap} instead of a field pays the boundary cost reported in Section~\ref{sec:physical}.
+\paragraph{Tapes are not applications.} Replays include only structural operations. Corpora are behaviour suites, in which tiny programs and fixed per-program costs weigh heavily, and they are not application benchmarks in the sense of DaCapo \cite{blackburn2006}. Quant and the two synthetics are the only large graph tapes, and the synthetics are ours. Only Alien was rewritten over typed arrays, and its workloads are ours. A client that must reach a relation's integer through a \texttt{WeakMap} instead of a field pays the boundary cost reported in Section~\ref{sec:physical}.
 
 \paragraph{One machine, one engine.} All numbers come from one laptop, on Windows, with V8 alone. We have no hardware counters. WebAssembly \cite{haas2017} is another in-language path for dense layouts and was not measured. Published comparisons place it at 1.45 to 1.55 times native on average on a different workload \cite{jangda2019}; the comparison is only to give scale.
 
@@ -405,7 +453,7 @@ Interoperability through a common graph and auto-tracking & Not tested. \\
 \label{tab:rationale}
 \end{table}
 
-Three consequences follow within these limits. First, a specification that fixes observable semantics leaves implementers free to choose among layouts, and our results give a reason to preserve that freedom, because the two families favour different ones. Second, the polyfill and the proposal differ in sink order after removal, in repeated sources, in the handling of a throwing \texttt{notify}, and in \texttt{frozen} around hooks; conformance claims should name which of the two they mean. Third, a case for standardization on these results has to rest on interoperability, sharing or tooling, which we did not study, and not on an expected requirement for a runtime-owned graph layout.
+Three consequences follow within these limits. First, a specification that fixes observable semantics leaves implementers free to choose among layouts, and our results give a reason to preserve that freedom, because the two families favour different ones. Second, the polyfill and the proposal differ in sink order after removal, in repeated sources, in the handling of a throwing \texttt{notify}, and in \texttt{frozen} around hooks; conformance claims should name which of the two they mean. Third, a case for standardization on these results has to rest on interoperability, sharing or tooling, which we did not study, and not on an expected requirement for a runtime-owned graph layout. The one physical candidate that remained is narrower than a graph: relation storage that is dense and also visible to the collector.
 
 Community specifications of asynchronous behaviour have fixed observable protocols, as Promises/A+ \cite{promisesaplus} did in JavaScript and Reactive Streams \cite{reactivestreams} on the JVM, and the proposal explicitly contrasts its aim with the former. Our evidence is compatible with either path and does not decide between them. We do not propose a replacement signal API.
 
@@ -424,9 +472,9 @@ Community specifications of asynchronous behaviour have fixed observable protoco
 
 \section{Conclusion}
 
-We asked whether reactive graph topology requires runtime-level primitives. Behaviourally, five systems did not need one: every tested observable behaviour was reproduced with client-owned state, which identifies required capabilities and leaves their substrate open. Physically, the systems fall into trace-shaped and graph-shaped families that favour different layouts, and the dense layout's advantage on graph-shaped work was available in plain JavaScript. Standard weak-reference APIs supported the tested lifecycle properties. Within the tested single-threaded incremental workloads, no evidence remains that representation must be owned by the VM.
+We asked whether reactive graph topology requires runtime-level primitives. Behaviourally, five systems did not need one: every tested observable behaviour was reproduced with client-owned state, which identifies required capabilities and leaves their substrate open. Physically, the systems fall into trace-shaped and graph-shaped families that favour different layouts, and the dense layout's advantage on graph-shaped replay was available in plain JavaScript. Inside a complete runtime that layout preserved behaviour and reduced memory work, but gave no general gain in time and lost collection of unwatched linked graphs. Standard weak-reference APIs supported the tested lifecycle properties for object relations. Within the tested single-threaded incremental workloads, we found no layout advantage requiring VM ownership; the capability that plain JavaScript did not provide is dense storage whose relations the collector can see.
 
-The study leaves open what its method cannot reach: interoperability, shared graphs across libraries, concurrent access, other engines, and the constant factor a native implementation might recover. The candidate contract remains as the hypothesis we started from, unchanged. What survived it is the logical relation, ordered per-node dependency state, rather than one structure to hold it.
+The study leaves open what its method cannot reach: interoperability, shared graphs across libraries, concurrent access, other engines, and the constant factor a native implementation might recover. The candidate contract remains as the hypothesis we started from, unchanged. What survived across systems was the logical relation, ordered per-node dependency state, and not a uniquely privileged physical graph representation.
 
 \section*{Data availability}
 

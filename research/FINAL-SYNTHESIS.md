@@ -16,8 +16,9 @@ libraries, not evidence for VM ownership.
 Trace-shaped workloads prefer materially different representations, which makes a universal
 relation layout actively unattractive.
 
-Within the tested single-threaded incremental workloads, no evidence remains that
-representation must be owned by the VM. [CONTRACT.md](../CONTRACT.md) stays as the original
+Within the tested single-threaded incremental workloads, no layout advantage requiring VM
+ownership was found. M6 narrows this: dense storage in plain JavaScript hides relations from the
+collector, see [M6-ALIEN-DENSE-RESULTS.md](M6-ALIEN-DENSE-RESULTS.md). [CONTRACT.md](../CONTRACT.md) stays as the original
 hypothesis, unchanged.
 
 ## Method

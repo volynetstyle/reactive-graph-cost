@@ -5153,23 +5153,23 @@
      "trials": 10,
      "cleared": 0,
      "medianTurnWhenCleared": null,
-     "medianMajorsSeen": 13,
+     "medianMajorsSeen": 14,
      "maxMajorsWithoutClearing": 14
     },
     "every 2": {
      "pollEvery": 2,
      "trials": 10,
-     "cleared": 2,
-     "medianTurnWhenCleared": 254,
+     "cleared": 4,
+     "medianTurnWhenCleared": 1384,
      "medianMajorsSeen": 13,
-     "maxMajorsWithoutClearing": 15
+     "maxMajorsWithoutClearing": 14
     },
     "every 10": {
      "pollEvery": 10,
      "trials": 10,
-     "cleared": 5,
-     "medianTurnWhenCleared": 1780,
-     "medianMajorsSeen": 13,
+     "cleared": 9,
+     "medianTurnWhenCleared": 560,
+     "medianMajorsSeen": 3,
      "maxMajorsWithoutClearing": 13
     },
     "every 100": {
@@ -5193,7 +5193,7 @@
      "trials": 10,
      "cleared": 10,
      "medianTurnWhenCleared": 4000,
-     "medianMajorsSeen": 13,
+     "medianMajorsSeen": 14,
      "maxMajorsWithoutClearing": 0
     }
    }
@@ -5251,6 +5251,436 @@
      "medianMajorsSeen": 14,
      "maxMajorsWithoutClearing": 0
     }
+   }
+  }
+ },
+ "m6": {
+  "check": {
+   "corpus": {
+    "passed": 198,
+    "total": 198
+   },
+   "search": {
+    "programs": 4000,
+    "divergent": 0,
+    "retiredNext": 0,
+    "retiredNextDivergentFromFrozen": 0
+   }
+  },
+  "workloads": {
+   "system": {
+    "runs": 10,
+    "frozen": {
+     "ms": {
+      "median": 637.3142,
+      "min": 586.082,
+      "max": 795.4777,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 1009805816,
+      "min": 1009270600,
+      "max": 1011315784,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 3493836,
+      "min": 3492608,
+      "max": 3495008,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 15.769580005606016,
+      "min": 14.083166686693827,
+      "max": 18.316013350089392,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 185994,
+      "min": 184368,
+      "max": 187088,
+      "n": 10
+     }
+    },
+    "dense": {
+     "ms": {
+      "median": 518.4594,
+      "min": 444.5116,
+      "max": 556.0464,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 609510820,
+      "min": 609399856,
+      "max": 610349232,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1994912,
+      "min": 1992648,
+      "max": 1994992,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 15.810980008045831,
+      "min": 14.786059985558191,
+      "max": 19.29468001127243,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 123954,
+      "min": 123540,
+      "max": 124828,
+      "n": 10
+     }
+    },
+    "denseOverFrozenMs": {
+     "median": 0.7842200154896029,
+     "min": 0.584591321076513,
+     "max": 0.8867300126045488,
+     "n": 10
+    },
+    "resolves": 15337440
+   },
+   "propagate": {
+    "runs": 10,
+    "frozen": {
+     "ms": {
+      "median": 583.1933,
+      "min": 496.5638,
+      "max": 731.9718,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 639763548,
+      "min": 639731320,
+      "max": 639784272,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1116608,
+      "min": 1107672,
+      "max": 1118920,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 17.544233321150145,
+      "min": 11.010066578785578,
+      "max": 26.591546684503555,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 57666,
+      "min": 57332,
+      "max": 58036,
+      "n": 10
+     }
+    },
+    "dense": {
+     "ms": {
+      "median": 725.80655,
+      "min": 624.2408,
+      "max": 870.1423,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 639758536,
+      "min": 639719488,
+      "max": 639779984,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1023936,
+      "min": 1023936,
+      "max": 1032544,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 16.974276626110075,
+      "min": 13.215559955437978,
+      "max": 23.36969337662061,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 53744,
+      "min": 53620,
+      "max": 54208,
+      "n": 10
+     }
+    },
+    "denseOverFrozenMs": {
+     "median": 1.2299864262841174,
+     "min": 0.9968893840285505,
+     "max": 1.440441304373297,
+     "n": 10
+    },
+    "resolves": 54010800
+   },
+   "dynamic": {
+    "runs": 10,
+    "frozen": {
+     "ms": {
+      "median": 861.6461999999999,
+      "min": 740.2397,
+      "max": 1034.8467,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 1152377408,
+      "min": 1152312952,
+      "max": 1152450384,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 3053444,
+      "min": 3053432,
+      "max": 3057704,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 149.1655433277289,
+      "min": 134.51313328941663,
+      "max": 173.18752670089404,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 283344,
+      "min": 282688,
+      "max": 291736,
+      "n": 10
+     }
+    },
+    "dense": {
+     "ms": {
+      "median": 862.6889000000001,
+      "min": 745.4874,
+      "max": 1005.8251,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 460916016,
+      "min": 460862696,
+      "max": 460916016,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 2203844,
+      "min": 2198208,
+      "max": 2206400,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 20.60849665304025,
+      "min": 17.789713311195374,
+      "max": 22.300526638825733,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 92348,
+      "min": 92128,
+      "max": 92520,
+      "n": 10
+     }
+    },
+    "denseOverFrozenMs": {
+     "median": 0.9955208475932541,
+     "min": 0.8172425952360443,
+     "max": 1.1780445690001342,
+     "n": 10
+    },
+    "resolves": 24001600
+   },
+   "create": {
+    "runs": 10,
+    "frozen": {
+     "ms": {
+      "median": 756.95625,
+      "min": 661.4991,
+      "max": 873.266,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 5402959612,
+      "min": 5402927912,
+      "max": 5402992008,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1128288,
+      "min": 1126504,
+      "max": 1130560,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 24.094496662418045,
+      "min": 17.992153330643973,
+      "max": 25.942346690098443,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 182498,
+      "min": 182224,
+      "max": 182812,
+      "n": 10
+     }
+    },
+    "dense": {
+     "ms": {
+      "median": 1982.07905,
+      "min": 1602.1875,
+      "max": 2255.7211,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 5236288512,
+      "min": 5235517000,
+      "max": 5236492648,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1102672,
+      "min": 1102672,
+      "max": 1104464,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 52.17981332739194,
+      "min": 44.51556000312169,
+      "max": 57.49362004995346,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 183326,
+      "min": 183008,
+      "max": 183576,
+      "n": 10
+     }
+    },
+    "denseOverFrozenMs": {
+     "median": 2.5282320945936565,
+     "min": 2.331356081652097,
+     "max": 2.8421892928356765,
+     "n": 10
+    },
+    "resolves": 22500000
+   },
+   "app": {
+    "runs": 10,
+    "frozen": {
+     "ms": {
+      "median": 799.3555,
+      "min": 675.9283,
+      "max": 915.6961,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 427417104,
+      "min": 427248528,
+      "max": 427878936,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 2147392,
+      "min": 2147392,
+      "max": 2149704,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 11.011900006731352,
+      "min": 9.744166654348373,
+      "max": 12.378066649039587,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 141620,
+      "min": 140240,
+      "max": 142156,
+      "n": 10
+     }
+    },
+    "dense": {
+     "ms": {
+      "median": 865.9504999999999,
+      "min": 708.0827,
+      "max": 1005.0555,
+      "n": 10
+     },
+     "allocatedBytes": {
+      "median": 419827732,
+      "min": 419421152,
+      "max": 420087064,
+      "n": 10
+     },
+     "liveBytes": {
+      "median": 1776032,
+      "min": 1775960,
+      "max": 1778352,
+      "n": 10
+     },
+     "gcMs": {
+      "median": 10.569613338510194,
+      "min": 9.591306678454082,
+      "max": 12.164860016107559,
+      "n": 10
+     },
+     "maxRssKb": {
+      "median": 108274,
+      "min": 107856,
+      "max": 108480,
+      "n": 10
+     }
+    },
+    "denseOverFrozenMs": {
+     "median": 1.0775230990363887,
+     "min": 0.9606833351084001,
+     "max": 1.1631093331740896,
+     "n": 10
+    },
+    "resolves": 26167383
+   }
+  },
+  "probes": {
+   "runs": 10,
+   "rounds": 20,
+   "frozen": {
+    "dropped": {
+     "median": 20,
+     "min": 20,
+     "max": 20,
+     "n": 10
+    },
+    "disposed": {
+     "median": 20,
+     "min": 20,
+     "max": 20,
+     "n": 10
+    }
+   },
+   "dense": {
+    "dropped": {
+     "median": 0,
+     "min": 0,
+     "max": 0,
+     "n": 10
+    },
+    "disposed": {
+     "median": 20,
+     "min": 20,
+     "max": 20,
+     "n": 10
+    }
+   },
+   "slotNs": {
+    "median": 8.178799999999999,
+    "min": 6.660325,
+    "max": 11.830475,
+    "n": 20
+   },
+   "fieldNs": {
+    "median": 8.59931875,
+    "min": 7.6231375,
+    "max": 12.8284125,
+    "n": 20
    }
   }
  }

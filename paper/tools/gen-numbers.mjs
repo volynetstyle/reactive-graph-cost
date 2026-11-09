@@ -51,6 +51,7 @@ def("clauseCount", [...contract.matchAll(/^\| (\d+) \|/gm)].length);
 const witnesses = readFileSync(path.join(root, "research/WITNESSES.md"), "utf8");
 const ablationTable = witnesses.split("## Bounded exhaustive checks")[0];
 def("ablationCount", [...ablationTable.matchAll(/^\| [a-z][a-z-]* \| /gm)].length);
+table("ablations", "l p{4.2cm} l p{2.4cm} p{6.2cm}", ["Ablation", "Removes", "Kind", "Clauses broken", "Shortest witness"], [...ablationTable.matchAll(/^\| ([a-z][a-z-]*) \| (.*?) \| (\w+) \| \d+ \| (.*?) \| `(.*)` \|$/gm)].map((m) => [tt(m[1]), m[2], m[3], m[4], tt(m[5].replaceAll(";", "; ").replace(/\s+/g, " "))]));
 const stateCounts = [...witnesses.matchAll(/^\| reference machine \| .*? \| none \| (\d+) \| true \|/gm)].map((m) => Number(m[1]));
 if (stateCounts.length !== 2) throw new Error("expected two exhaustive runs of the reference machine");
 def("exhaustiveStatesA", int(stateCounts[0]));
@@ -293,6 +294,34 @@ def("observerEarlierEveryTen", earlier["every 10"].cleared);
 def("observerEverySlowCleared", ob.results["every 500"].cleared);
 table("observer", "l r r r r", ["\\texttt{deref} polling", "Trials", "Cleared", "Median turn of clearing", "Median major GCs seen"], Object.entries(ob.results).map(([k, v]) => [k === "end only" ? "only at the end" : `every ${v.pollEvery} turn${v.pollEvery === 1 ? "" : "s"}`, v.trials, v.cleared, v.medianTurnWhenCleared === null ? "--" : int(v.medianTurnWhenCleared), v.medianMajorsSeen]));
 
+// ---- M6: Alien on dense slots --------------------------------------------------------------------
+const M = d.m6;
+const mb = (x) => fix(x / 1e6, x >= 1e8 ? 0 : x >= 1e7 ? 1 : 2);
+const verdict = (r) => (r.dense.ms.max < r.frozen.ms.min ? "dense faster" : r.dense.ms.min > r.frozen.ms.max ? "dense slower" : "about equal");
+const W6 = [["system", "\\texttt{system}"], ["propagate", "\\texttt{propagate}"], ["dynamic", "\\texttt{dynamic}"], ["create", "\\texttt{create}"], ["app", "\\texttt{app}"]];
+table("endtoend", "l r r r l", ["Workload", "Frozen, ms", "Dense, ms", "Dense/frozen", "Outcome"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, range(r.frozen.ms), range(r.dense.ms), range(r.denseOverFrozenMs, ratio), verdict(r)]; }));
+table("endtoend-memory", "l r r r r r r r r", ["Workload", "Alloc F", "Alloc D", "Live F", "Live D", "GC F", "GC D", "RSS F", "RSS D"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, mb(r.frozen.allocatedBytes.median), mb(r.dense.allocatedBytes.median), mb(r.frozen.liveBytes.median), mb(r.dense.liveBytes.median), fix(r.frozen.gcMs.median, 1), fix(r.dense.gcMs.median, 1), fix(r.frozen.maxRssKb.median / 1e3, 0), fix(r.dense.maxRssKb.median / 1e3, 0)]; }));
+const boundaryShare = (r) => (r.resolves * M.probes.slotNs.median) / 1e6;
+table("endtoend-boundary", "l r r r", ["Workload", "Resolutions per replay", "Estimated cost, ms", "Share of dense time"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, int(r.resolves), fix(boundaryShare(r), 0), `${fix((100 * boundaryShare(r)) / r.dense.ms.median, 0)}\\%`]; }));
+def("mSixCorpus", `${M.check.corpus.passed} of ${M.check.corpus.total}`);
+def("mSixPrograms", int(M.check.search.programs));
+def("mSixDiffer", M.check.search.divergent);
+def("mSixSystemRatio", ratio(M.workloads.system.denseOverFrozenMs.median));
+def("mSixCreateRatio", ratio(M.workloads.create.denseOverFrozenMs.median));
+def("mSixAppRatio", ratio(M.workloads.app.denseOverFrozenMs.median));
+def("mSixPropagateRatio", ratio(M.workloads.propagate.denseOverFrozenMs.median));
+def("mSixDynamicAllocF", mb(M.workloads.dynamic.frozen.allocatedBytes.median));
+def("mSixDynamicAllocD", mb(M.workloads.dynamic.dense.allocatedBytes.median));
+def("mSixDynamicGcF", fix(M.workloads.dynamic.frozen.gcMs.median, 0));
+def("mSixDynamicGcD", fix(M.workloads.dynamic.dense.gcMs.median, 0));
+def("mSixRuns", M.workloads.app.runs);
+def("mSixProbeRounds", M.probes.rounds);
+def("mSixFrozenDropped", M.probes.frozen.dropped.median);
+def("mSixDenseDropped", M.probes.dense.dropped.median);
+def("mSixDenseDisposed", M.probes.dense.disposed.median);
+def("mSixSlotNs", ns(M.probes.slotNs.median));
+def("mSixFieldNs", ns(M.probes.fieldNs.median));
+
 // ---- every qualitative sentence in the manuscript has its premise checked here --------------------
 const claim = (text, holds) => { if (!holds) throw new Error(`claim no longer holds: ${text}`); };
 const graphTapes = G.map(([k]) => p.rust[k]);
@@ -311,6 +340,12 @@ claim("the best graph layout differs by tape", new Set(G.map(([k]) => (p.rust[k]
 claim("JS objects/SoA ratio exceeds the Rust one on all three tapes", RK.every(([k]) => R[k].jsObjectsOverSoa.median > R[k].rustRecordsOverSoa.median));
 claim("records are not always less dense: StoreAoS is larger on calm", p.rust["synthetic-calm"].StoreAoS.bytesPerRelation.median > p.rust["synthetic-calm"].ClientIntrusive.bytesPerRelation.median);
 claim("a WeakMap lookup costs more than one SoA replay operation on the large tapes", RK.every(([k]) => p.boundary.weakMap.median > R[k].jsNs.soa.median));
+const vs = Object.fromEntries(W6.map(([k]) => [k, verdict(M.workloads[k])]));
+claim("M6 outcomes per workload as stated in the text", vs.system === "dense faster" && vs.create === "dense slower" && vs.propagate === "about equal" && vs.dynamic === "about equal" && vs.app === "about equal");
+claim("M6 correctness gates passed", M.check.corpus.passed === M.check.corpus.total && M.check.search.divergent === 0);
+claim("dense retains a dropped graph and releases a disposed one; frozen releases both", M.probes.dense.dropped.max === 0 && M.probes.dense.disposed.min === M.probes.rounds && M.probes.frozen.dropped.min === M.probes.rounds && M.probes.frozen.disposed.min === M.probes.rounds);
+claim("dense has less live memory on every workload", W6.every(([k]) => M.workloads[k].dense.liveBytes.median <= M.workloads[k].frozen.liveBytes.median));
+claim("a slot resolution is not costlier than a field chase", M.probes.slotNs.median <= M.probes.fieldNs.median * 1.1);
 claim("both languages have the same number of processes", p.rustRuns === p.jsRuns);
 const hookOnly = (s) => s.E.order === 0 && s.E.behaviour === 0 && s.E.notifyThrow === 0 && s.P.order === 0 && s.P.behaviour === 0 && s.P.notifyThrow === 0;
 claim("port differences are confined to throwing hooks", hookOnly(search("port", "frozen")));

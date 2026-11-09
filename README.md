@@ -10,8 +10,9 @@ The study does not propose a signal API.
 Signals, the TC39 signal polyfill, WPF weak events, Salsa) was reproduced with client-owned state.
 The systems divide into trace-shaped and graph-shaped workloads that favour different layouts, and
 the dense-layout advantage on graph-shaped work reproduces in plain JavaScript over typed arrays.
-Within the tested single-threaded incremental workloads, no evidence remains that representation
-must be owned by the VM. All measurements come from one machine and one JavaScript engine, no store
+Rebuilt on dense slots, Alien Signals preserved its behaviour, but gave no general end-to-end gain in
+time, and its relations became invisible to the collector. Within the tested single-threaded
+incremental workloads, no layout advantage requiring VM ownership was found. All measurements come from one machine and one JavaScript engine, no store
 was built inside a VM, and interoperability between libraries was not studied.
 
 ## Layout
