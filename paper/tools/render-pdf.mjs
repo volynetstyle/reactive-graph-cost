@@ -32,23 +32,25 @@ const body = full.slice(full.indexOf("\\begin{document}") + "\\begin{document}".
 
 // ---- numbering ----------------------------------------------------------------------------------
 function numberer() {
-  let sec = 0, sub = 0, table = 0, appendix = false;
+  let sec = 0, sub = 0, table = 0, figure = 0, appendix = false;
   return {
     section() { sec++; sub = 0; return appendix ? String.fromCharCode(64 + sec) : String(sec); },
     subsection() { sub++; return `${appendix ? String.fromCharCode(64 + sec) : sec}.${sub}`; },
     appendix() { appendix = true; sec = 0; sub = 0; },
     table() { return ++table; },
+    figure() { return ++figure; },
   };
 }
 const labels = new Map();
 {
   const n = numberer();
-  let current = "";
-  for (const m of body.matchAll(/\\(section\*|section|subsection|appendix|caption|label)(?![A-Za-z])/g)) {
+  let current = "", inFigure = false;
+  for (const m of body.matchAll(/\\(section\*|section|subsection|appendix|caption|label)(?![A-Za-z])|\\begin\{figure\}/g)) {
+    if (m[0] === "\\begin{figure}") { inFigure = true; continue; }
     if (m[1] === "section") current = n.section();
     else if (m[1] === "subsection") current = n.subsection();
     else if (m[1] === "appendix") n.appendix();
-    else if (m[1] === "caption") current = n.table();
+    else if (m[1] === "caption") { if (inFigure) { current = n.figure(); inFigure = false; } else current = n.table(); }
     else if (m[1] === "label") labels.set(group(body, m.index + m[0].length)[0], current);
   }
 }
@@ -216,6 +218,10 @@ function blocks(s) {
         const capAt = inner.indexOf("\\caption");
         const [caption] = group(inner, capAt + "\\caption".length);
         html += `<figure class="float ${size}${t.rows > 40 ? " long" : ""}">${t.html}<figcaption><strong>Table ${n.table()}:</strong> ${inline(caption)}</figcaption></figure>\n`;
+      } else if (env === "figure") {
+        const levels = [...inner.matchAll(/\\figlevel\{\d\}/g)].map((m) => { const [q, e] = group(inner, m.index + m[0].length); const [a] = group(inner, e); return `<div class="lv"><div class="q">${inline(q)}</div><div class="a">${inline(a)}</div></div>`; });
+        const [caption] = group(inner, inner.indexOf("\\caption") + "\\caption".length);
+        html += `<figure class="float levels">${levels.join('<div class="arrow">\u2193</div>')}<figcaption><strong>Figure ${n.figure()}:</strong> ${inline(caption)}</figcaption></figure>\n`;
       } else if (env === "thebibliography") {
         const parts = inner.replace(/^\{\d+\}/, "").split(/\\bibitem\{[^}]+\}/).slice(1);
         html += `<h2>References</h2>\n${parts.map((p, i) => `<div class="ref" id="ref-${i + 1}"><span class="n">[${i + 1}]</span><span>${inline(p.trim())}</span></div>`).join("\n")}\n`;
@@ -253,6 +259,10 @@ a { color: inherit; text-decoration: none; }
 a.u { font-family: Consolas, "Courier New", monospace; font-size: 0.86em; overflow-wrap: anywhere; }
 .float { margin: 12pt 0 13pt; break-inside: avoid; }
 .float.long { break-inside: auto; }
+.lv { display: flex; gap: 10pt; font-size: 9.4pt; align-items: stretch; }
+.lv .q { width: 112pt; border: 0.7pt solid #000; padding: 5pt; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+.lv .a { flex: 1; padding: 3pt 0; text-align: left; align-self: center; }
+.arrow { width: 124pt; text-align: center; line-height: 1; }
 .float.foot table { font-size: 9pt; }
 .float.script table { font-size: 7.9pt; }
 table.t { border-collapse: collapse; margin: 0 auto; border-top: 1.1pt solid #000; border-bottom: 1.1pt solid #000; line-height: 1.2; }

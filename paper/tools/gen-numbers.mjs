@@ -297,9 +297,11 @@ table("observer", "l r r r r", ["\\texttt{deref} polling", "Trials", "Cleared", 
 // ---- M6: Alien on dense slots --------------------------------------------------------------------
 const M = d.m6;
 const mb = (x) => fix(x / 1e6, x >= 1e8 ? 0 : x >= 1e7 ? 1 : 2);
-const verdict = (r) => (r.dense.ms.max < r.frozen.ms.min ? "dense faster" : r.dense.ms.min > r.frozen.ms.max ? "dense slower" : "about equal");
+const verdict = (r) => (r.dense.ms.max < r.frozen.ms.min ? "dense faster" : r.dense.ms.min > r.frozen.ms.max ? "dense slower" : "ranges overlap");
 const W6 = [["system", "\\texttt{system}"], ["propagate", "\\texttt{propagate}"], ["dynamic", "\\texttt{dynamic}"], ["create", "\\texttt{create}"], ["app", "\\texttt{app}"]];
-table("endtoend", "l r r r l", ["Workload", "Frozen, ms", "Dense, ms", "Dense/frozen", "Outcome"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, range(r.frozen.ms), range(r.dense.ms), range(r.denseOverFrozenMs, ratio), verdict(r)]; }));
+table("endtoend", "l r r r r l", ["Workload", "Frozen, ms", "Dense, ms", "Paired dense/frozen", "Dense faster", "Process ranges"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, range(r.frozen.ms), range(r.dense.ms), `${ratio(r.paired.median)} [${ratio(r.paired.low)}, ${ratio(r.paired.high)}]`, `${r.paired.denseFaster}/${r.paired.n}`, verdict(r)]; }));
+def("mSixCoverage", fix(100 * M.workloads.app.paired.coverage, 1));
+for (const [k, N] of [["propagate", "Propagate"], ["app", "App"], ["dynamic", "Dynamic"]]) { const p = M.workloads[k].paired; def(`mSix${N}Low`, ratio(p.low)); def(`mSix${N}High`, ratio(p.high)); def(`mSix${N}Faster`, p.denseFaster); }
 table("endtoend-memory", "l r r r r r r r r", ["Workload", "Alloc F", "Alloc D", "Live F", "Live D", "GC F", "GC D", "RSS F", "RSS D"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, mb(r.frozen.allocatedBytes.median), mb(r.dense.allocatedBytes.median), mb(r.frozen.liveBytes.median), mb(r.dense.liveBytes.median), fix(r.frozen.gcMs.median, 1), fix(r.dense.gcMs.median, 1), fix(r.frozen.maxRssKb.median / 1e3, 0), fix(r.dense.maxRssKb.median / 1e3, 0)]; }));
 const boundaryShare = (r) => (r.resolves * M.probes.slotNs.median) / 1e6;
 table("endtoend-boundary", "l r r r", ["Workload", "Resolutions per replay", "Estimated cost, ms", "Share of dense time"], W6.map(([k, n]) => { const r = M.workloads[k]; return [n, int(r.resolves), fix(boundaryShare(r), 0), `${fix((100 * boundaryShare(r)) / r.dense.ms.median, 0)}\\%`]; }));
@@ -341,7 +343,8 @@ claim("JS objects/SoA ratio exceeds the Rust one on all three tapes", RK.every((
 claim("records are not always less dense: StoreAoS is larger on calm", p.rust["synthetic-calm"].StoreAoS.bytesPerRelation.median > p.rust["synthetic-calm"].ClientIntrusive.bytesPerRelation.median);
 claim("a WeakMap lookup costs more than one SoA replay operation on the large tapes", RK.every(([k]) => p.boundary.weakMap.median > R[k].jsNs.soa.median));
 const vs = Object.fromEntries(W6.map(([k]) => [k, verdict(M.workloads[k])]));
-claim("M6 outcomes per workload as stated in the text", vs.system === "dense faster" && vs.create === "dense slower" && vs.propagate === "about equal" && vs.dynamic === "about equal" && vs.app === "about equal");
+claim("M6 outcomes per workload as stated in the text", vs.system === "dense faster" && vs.create === "dense slower" && vs.propagate === "ranges overlap" && vs.dynamic === "ranges overlap" && vs.app === "ranges overlap");
+claim("paired: dense slower on propagate, indistinguishable on app and dynamic", M.workloads.propagate.paired.low > 1 && M.workloads.app.paired.low < 1 && M.workloads.app.paired.high > 1 && M.workloads.dynamic.paired.low < 1 && M.workloads.dynamic.paired.high > 1);
 claim("M6 correctness gates passed", M.check.corpus.passed === M.check.corpus.total && M.check.search.divergent === 0);
 claim("dense retains a dropped graph and releases a disposed one; frozen releases both", M.probes.dense.dropped.max === 0 && M.probes.dense.disposed.min === M.probes.rounds && M.probes.frozen.dropped.min === M.probes.rounds && M.probes.frozen.disposed.min === M.probes.rounds);
 claim("dense has less live memory on every workload", W6.every(([k]) => M.workloads[k].dense.liveBytes.median <= M.workloads[k].frozen.liveBytes.median));

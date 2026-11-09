@@ -72,8 +72,12 @@ for (const k of usedKeys) if (!items.has(k)) problems.push(`citation without bib
 for (const k of items) if (!usedKeys.has(k)) problems.push(`bibitem never cited: ${k}`);
 
 const defined = new Set([...prose.matchAll(/\\(?:newcommand|providecommand|renewcommand)\{?\\([A-Za-z]+)\}?/g)].map((m) => m[1]));
-const known = new Set("documentclass usepackage title author date begin end maketitle section subsection subsubsection paragraph label ref cite textbf emph texttt textit small footnotesize normalsize large caption centering toprule midrule bottomrule item input url doi hline newcommand href bibliography setlength parskip parindent tableofcontents noindent footnote hspace vspace quad qquad times ldots dots cdot approx leq geq neq rightarrow to mathrm mathit bibitem appendix sloppy hbox raggedright arraybackslash tabularnewline textsc textsuperscript clearpage newpage pagestyle thispagestyle sffamily ttfamily rmfamily bfseries itshape vfill hfill today hypersetup urlstyle DeclareUnicodeCharacter textasciitilde allowbreak nolinkurl linebreak pagebreak smallskip medskip bigskip footnotetext footnotemark ne le ge scriptsize tiny cap in mid addlinespace i".split(" "));
+const known = new Set("documentclass usepackage title author date begin end maketitle section subsection subsubsection paragraph label ref cite textbf emph texttt textit small footnotesize normalsize large caption centering toprule midrule bottomrule item input url doi hline newcommand href bibliography setlength parskip parindent tableofcontents noindent footnote hspace vspace quad qquad times ldots dots cdot approx leq geq neq rightarrow to mathrm mathit bibitem appendix sloppy hbox raggedright arraybackslash tabularnewline textsc textsuperscript clearpage newpage pagestyle thispagestyle sffamily ttfamily rmfamily bfseries itshape vfill hfill today hypersetup urlstyle DeclareUnicodeCharacter textasciitilde allowbreak nolinkurl linebreak pagebreak smallskip medskip bigskip footnotetext footnotemark ne le ge scriptsize tiny cap in mid addlinespace i node draw tikzset".split(" "));
 for (const m of prose.matchAll(/\\([A-Za-z]+)/g)) if (!known.has(m[1]) && !defined.has(m[1])) problems.push(`unknown macro \\${m[1]}`);
+
+// A shell or script that eats a backslash leaves these behind, and they are valid TeX.
+if (prose.includes("\t")) problems.push("tab character in the source");
+for (const m of prose.matchAll(/(^|[^\\a-zA-Z])(exttt|extbf|extit|mph|cite|ref)\{/g)) problems.push(`command without backslash: ${m[2]}`);
 
 const nonAscii = [...new Set(prose.match(/[^\x00-\x7f]/g) ?? [])];
 if (nonAscii.length > 0) problems.push(`non-ASCII characters: ${nonAscii.join(" ")}`);

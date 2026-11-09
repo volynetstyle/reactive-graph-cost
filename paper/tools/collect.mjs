@@ -209,6 +209,13 @@ const earlierResults = cache("m5/results-unpinned.json");
 if (existsSync(earlierResults)) out.gc.observerEarlier = json(earlierResults).gc.observer;
 
 // ---- M6: Alien on dense slots, end to end ---------------------------------------------------------
+// Ratios within one run, whose two processes were adjacent in time. With n = 10 the 2nd and 9th
+// order statistics bound the median with coverage 1 - 2 P(Bin(10, 1/2) <= 1) = 97.9%.
+function paired(a, b) {
+  const r = sorted(a.map((x, i) => x / b[i]));
+  if (r.length !== 10) throw new Error("the interval below is for ten pairs");
+  return { median: median(r), low: r[1], high: r[8], coverage: 1 - 2 * (11 / 1024), denseFaster: a.filter((x, i) => x < b[i]).length, n: r.length };
+}
 const m6Runs = cache("m6/runs");
 const m6Files = readdirSync(m6Runs);
 const m6Run = (v, w) => m6Files.filter((f) => new RegExp(`^${v}-${w}-\\d+\\.json$`).test(f)).sort().map((f) => json(path.join(m6Runs, f)));
@@ -216,7 +223,7 @@ out.m6 = { check: json(cache("m6/check.json")), workloads: {} };
 for (const w of ["system", "propagate", "dynamic", "create", "app"]) {
   const f = m6Run("frozen", w), d = m6Run("dense", w);
   const side = (xs) => ({ ms: spread(xs.map((x) => x.ms)), allocatedBytes: spread(xs.map((x) => x.allocatedBytes)), liveBytes: spread(xs.map((x) => x.liveBytes)), gcMs: spread(xs.map((x) => x.gcMsPerReplay)), maxRssKb: spread(xs.map((x) => x.maxRssKb)) });
-  out.m6.workloads[w] = { runs: f.length, frozen: side(f), dense: side(d), denseOverFrozenMs: ratio(d.map((x) => x.ms), f.map((x) => x.ms)), resolves: m6Run("dense-counted", w)[0].resolves };
+  out.m6.workloads[w] = { runs: f.length, frozen: side(f), dense: side(d), denseOverFrozenMs: ratio(d.map((x) => x.ms), f.map((x) => x.ms)), paired: paired(d.map((x) => x.ms), f.map((x) => x.ms)), resolves: m6Run("dense-counted", w)[0].resolves };
 }
 const probes = (v) => m6Files.filter((f) => new RegExp(`^probe-${v}-\\d+\\.json$`).test(f)).map((f) => json(path.join(m6Runs, f)));
 const pd = probes("dense"), pf = probes("frozen");

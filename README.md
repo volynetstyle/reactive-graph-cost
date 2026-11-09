@@ -6,8 +6,9 @@ layouts are built and measured across JavaScript and Rust.
 
 The study does not propose a signal API.
 
-**Result, within its limits.** Every tested observable behaviour of five systems (Quant, Alien
-Signals, the TC39 signal polyfill, WPF weak events, Salsa) was reproduced with client-owned state.
+**Result, within its limits.** No tested behaviour of five systems (Quant, Alien Signals, the TC39 signal polyfill, WPF weak
+events, Salsa) required a runtime-provided store. Alien, WPF and Salsa were run with all relational
+state in the client.
 The systems divide into trace-shaped and graph-shaped workloads that favour different layouts, and
 the dense-layout advantage on graph-shaped work reproduces in plain JavaScript over typed arrays.
 Rebuilt on dense slots, Alien Signals preserved its behaviour, but gave no general end-to-end gain in

@@ -11,13 +11,16 @@ work under churn. Relations invisible to the collector.
 | Alien's corpus | 198 of 198 |
 | differential search against frozen | 0 of 4,000 differ |
 
-| Workload | Dense / frozen, median | Outcome by the protocol's rule |
-| --- | ---: | --- |
-| `system` | 0.78 | dense faster |
-| `propagate` | 1.23 | about equal: ranges overlap |
-| `dynamic` | 1.00 | about equal; allocation 1,152 to 461 MB, GC 149 to 21 ms per replay |
-| `create` | 2.53 | dense slower |
-| `app` | 1.08 | about equal |
+| Workload | Paired dense / frozen, median [97.9% interval] | Dense faster | Protocol's rule, unpaired |
+| --- | ---: | ---: | --- |
+| `system` | 0.78 [0.61, 0.86] | 10/10 | dense faster |
+| `propagate` | 1.23 [1.01, 1.42] | 1/10 | ranges overlap |
+| `dynamic` | 1.00 [0.86, 1.17] | 6/10 | ranges overlap; allocation 1,152 to 461 MB, GC 149 to 21 ms per replay |
+| `create` | 2.53 [2.36, 2.73] | 0/10 | dense slower |
+| `app` | 1.08 [0.97, 1.15] | 2/10 | ranges overlap |
+
+The paired analysis was added after the campaign, on the same runs. The protocol's rule compares
+ranges without pairing and calls `propagate` about equal; paired, the dense build is slower there.
 
 By the protocol: integration costs consumed the layout gain on these workloads, and
 representation alone does not predict runtime performance.
@@ -38,6 +41,6 @@ differentiates": if anything, the primitive is narrower than a graph. It is not 
 | correctness: the `depsTail` fix of M2.5 `wide-fix` applied | a node could name a removed link after reuse; 13 of 4,000 differed |
 | correctness: the frozen `TypeError` on a missing subscriber list reproduced | 2 of 4,000 differed; frozen itself crashes there |
 | replay counts raised after a first trial printed both variants | the trial replays took milliseconds. Counts were scaled to baseline time only, and the backend was not changed |
-| `propagate` is reported about equal despite a median of 1.23 | the rule was fixed in advance |
+| paired interval added to the rule fixed in advance | the unpaired rule hid a consistent slowdown on `propagate` |
 
 The backend's layout was not tuned after any timing. SoA was not tried.

@@ -4,6 +4,8 @@
 \usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
 \usepackage{microtype}
+\usepackage{float}
+\usepackage{tikz}
 \usepackage[section]{placeins}
 \usepackage{amsmath}
 \usepackage{array}
@@ -13,6 +15,8 @@
 
 \newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
 \input{numbers}
+\newcommand{\figlevel}[3]{\node[draw,text width=3.5cm,minimum height=1.3cm,align=center,font=\footnotesize\bfseries] at (0,-#1*1.75) {#2}; \node[text width=10.4cm,anchor=west,font=\footnotesize] at (2.3,-#1*1.75) {#3};}
+\newcommand{\figarrow}[1]{\draw[->] (0,-#1*1.75-0.68) -- (0,-#1*1.75-1.07);}
 
 \title{The Cost of Reactive Graph Abstractions:\\ An Experimental Study of Semantics, Topology, and Memory Layout}
 \author{Andrii Volynets}
@@ -22,7 +26,7 @@
 \maketitle
 
 \begin{abstract}
-Reactive libraries, build systems and query engines all maintain dependency relations between computations, and an effort to standardize signals in JavaScript proposes to specify that graph at the language level. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust. We state a candidate primitive, a store of ordered bidirectional relations with stable identity and walk-safe retirement, as an executable contract of \clauseCount{} clauses, and test which clauses five systems need: Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa. WPF and Salsa are judged by their own executables. Every tested observable behaviour was reproduced with client-owned state. Physically, the systems divide into trace-shaped and graph-shaped workloads that favour different layouts. On the three large graph tapes, dense integer-indexed slots beat pointer-joined records by median factors of \rustRatioMin{} to \rustRatioMax{} in Rust and \jsRatioMin{} to \jsRatioMax{} in plain JavaScript over typed arrays, which stayed \jsOverRustMin{} to \jsOverRustMax{} times slower than Rust. Standard weak-reference APIs sufficed in all \gcScenarios{} collector scenarios on V8. Rebuilt on dense slots, Alien Signals preserved behaviour on \mSixPrograms{} differential programs, but end to end its time was about equal to the original on an application-shaped workload and worse on graph creation, and its integer-named relations were invisible to the collector. The logical relation survived abstraction; no universal physical graph emerged. We found no layout advantage requiring VM ownership in these single-threaded workloads; collector-visible dense relations are the one capability plain JavaScript did not provide. We built no native implementation. We do not propose a replacement signal API.
+Reactive libraries, build systems and query engines all maintain dependency relations between computations, and an effort to standardize signals in JavaScript proposes to specify that graph at the language level. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust. We state a candidate primitive, a store of ordered bidirectional relations with stable identity and walk-safe retirement, as an executable contract of \clauseCount{} clauses, and test which clauses five systems need: Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa. No tested behaviour required a runtime-provided store, and Alien, WPF and Salsa ran with all relational state in the client. Physically, the systems divide into trace-shaped and graph-shaped workloads that favour different layouts. On the three large graph tapes, dense integer-indexed slots beat pointer-joined records by median factors of \rustRatioMin{} to \rustRatioMax{} in Rust and \jsRatioMin{} to \jsRatioMax{} in plain JavaScript over typed arrays, which stayed \jsOverRustMin{} to \jsOverRustMax{} times slower than Rust. Standard weak-reference APIs sufficed in all \gcScenarios{} collector scenarios on V8. Rebuilt on dense slots, Alien Signals preserved behaviour on \mSixPrograms{} differential programs, but end to end its time was indistinguishable from the original on an application-shaped workload and worse on propagation and graph creation, and its integer-named relations were invisible to the collector. The logical relation survived abstraction; no universal physical graph emerged. We found no layout advantage requiring VM ownership in these single-threaded workloads; collector-visible dense relations are the one capability plain JavaScript did not provide. We built no native implementation. We do not propose a replacement signal API.
 \end{abstract}
 
 \section{Introduction}
@@ -54,9 +58,26 @@ We pose four research questions.
 \end{itemize}
 
 \paragraph{Summary of findings.}
-Every tested observable behaviour was reproduced with client-owned state, so behaviour identifies required capabilities and not their substrate. Observable semantics constrains capabilities and cannot establish who owns the substrate: the candidate did not show semantic necessity, which does not reject it as a primitive, since almost any primitive can be emulated. Physically, the systems fall into two families that favour different layouts. The advantage of dense layouts on graph-shaped work reproduces in plain JavaScript over typed arrays. On the studied workloads and implementations we found no layout advantage that required ownership by the virtual machine. Inside a complete runtime the same layout reduced memory and collector work but gave no general gain in time, and it cost something replay cannot show: relations named by integers are invisible to the collector.
+No tested behaviour required a runtime-provided store, so behaviour identifies required capabilities and not their substrate. Alien, WPF and Salsa were also run with all their relational state in the client (Table~\ref{tab:capabilities}). Figure~\ref{fig:levels} shows the levels of the argument. Observable semantics constrains capabilities and cannot establish who owns the substrate: the candidate did not show semantic necessity, which does not reject it as a primitive, since almost any primitive can be emulated. Physically, the systems fall into two families that favour different layouts. The advantage of dense layouts on graph-shaped work reproduces in plain JavaScript over typed arrays. On the studied workloads and implementations we found no layout advantage that required ownership by the virtual machine. Inside a complete runtime the same layout reduced memory and collector work but gave no general gain in time, and it cost something replay cannot show: relations named by integers are invisible to the collector.
 
 These findings are bounded. We measured single-threaded workloads on one machine and one JavaScript engine, we did not build a store inside a VM, and we did not study interoperability between libraries. Section~\ref{sec:threats} states the limits and Section~\ref{sec:implications} separates what the results bear on from what they do not. We do not propose a replacement signal API.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\figlevel{0}{Observable semantics}{Constrains capabilities and not who owns them. No tested behaviour required a runtime-provided store (RQ2).}
+\figarrow{0}
+\figlevel{1}{Required capabilities}{Ordered per-node state is the one capability found in all five systems. Incidence, identity and repositioning vary (RQ1, Table~\ref{tab:capabilities}).}
+\figarrow{1}
+\figlevel{2}{Substrate ownership}{Not decided by behaviour. No layout advantage required VM ownership on the studied workloads.}
+\figarrow{2}
+\figlevel{3}{Physical layout}{Trace-shaped and graph-shaped work favour different layouts. Dense slots win in replay, by \jsRatioMin{} to \jsRatioMax{} in JavaScript, with no general gain in time inside a complete runtime (RQ3).}
+\figarrow{3}
+\figlevel{4}{Collector interaction}{Object relations held every tested lifecycle property. Dense slots hide relations from the collector (RQ4).}
+\end{tikzpicture}
+\caption{The levels of the argument and what the study found at each. An answer at one level does not follow from the level before it.}
+\label{fig:levels}
+\end{figure}
 
 \section{Background}
 \label{sec:background}
@@ -338,7 +359,7 @@ Typed arrays cannot hold references, so a client must get from its own objects t
 \subsection{End to end: Alien Signals on dense slots}
 \label{sec:endtoend}
 
-Replay excludes the client. To test whether the layout effect survives integration, we rebuilt Alien Signals, which the author did not write, with its link objects replaced by seven-word slots in one \texttt{Int32Array}. Nodes stay objects and hold their own slot in a field, and links name nodes through a table from slot to node. The protocol, 	exttt{M6-ALIEN-DENSE-PROTOCOL}, was written before the backend: one layout, no tuning after measurement, and the outcome rule below.
+Replay excludes the client. To test whether the layout effect survives integration, we rebuilt Alien Signals, which the author did not write, with its link objects replaced by seven-word slots in one \texttt{Int32Array}. Nodes stay objects and hold their own slot in a field, and links name nodes through a table from slot to node. The protocol, \texttt{M6-ALIEN-DENSE-PROTOCOL}, was written before the backend: one layout, no tuning after measurement, and the outcome rule below.
 
 The dense build passes \mSixCorpus{} corpus tests and differs on \mSixDiffer{} of \mSixPrograms{} programs from the frozen source. Reaching that took three corrections. Slots are reclaimed only at quiescent points, because Alien's walks read removed links, and one link can be removed twice. A node could keep naming a removed link, so we applied the tail-cursor fix that had already matched the frozen source. And on two programs the frozen source throws a \texttt{TypeError} by reading a missing subscriber list, which the dense build had to reproduce explicitly. Objects tolerate all of this silently, and reuse of a slot does not: that is a cost of the layout in engineering effort.
 
@@ -346,11 +367,11 @@ The dense build passes \mSixCorpus{} corpus tests and differs on \mSixDiffer{} o
 \centering
 \footnotesize
 \input{tables/endtoend}
-\caption{Wall time per replay over \mSixRuns{} fresh pinned processes, median [min, max]. The ratio is paired by run. By the rule fixed in advance, overlapping process ranges count as about equal.}
+\caption{Wall time per replay over \mSixRuns{} fresh pinned processes, median [min, max]. The paired column gives the median of the ten within-run ratios and a distribution-free \mSixCoverage{}\% interval from their second and ninth order statistics. The last column applies the rule fixed in advance, which compares process ranges without pairing.}
 \label{tab:endtoend}
 \end{table}
 
-Table~\ref{tab:endtoend} gives the time. The backend's own operations, with no public API or user code, ran at \mSixSystemRatio{} of the original. That gain did not carry through. On the application-shaped workload the ratio is \mSixAppRatio{} and the ranges overlap, and on static propagation the median ratio of \mSixPropagateRatio{} also falls within overlapping ranges. Creating and disposing graphs was \mSixCreateRatio{} times slower. Under the rule stated in advance, integration costs consumed the layout gain on these workloads: representation alone did not predict runtime performance.
+Table~\ref{tab:endtoend} gives the time. The backend's own operations, with no public API or user code, ran at \mSixSystemRatio{} of the original. That gain did not carry through. On the application-shaped workload the paired ratio is \mSixAppRatio{} with an interval of \mSixAppLow{} to \mSixAppHigh{}, so we cannot distinguish the two builds there, and under dependency churn the interval is \mSixDynamicLow{} to \mSixDynamicHigh{}. Static propagation overlaps under the rule fixed in advance, which ignores pairing, but the paired analysis is sharper: the ratio is \mSixPropagateRatio{} with an interval of \mSixPropagateLow{} to \mSixPropagateHigh{}, and the dense build was faster in \mSixPropagateFaster{} of \mSixRuns{} runs, so it is slower there. Creating and disposing graphs was \mSixCreateRatio{} times slower. Integration costs consumed the layout gain on these workloads: representation alone did not predict runtime performance.
 
 Memory tells a different story (Table~\ref{tab:endmem}). Live bytes were no higher on any workload, and under dependency churn allocation fell from \mSixDynamicAllocF{} to \mSixDynamicAllocD{} MB per replay and collection time from \mSixDynamicGcF{} to \mSixDynamicGcD{} ms.
 
@@ -472,7 +493,7 @@ Community specifications of asynchronous behaviour have fixed observable protoco
 
 \section{Conclusion}
 
-We asked whether reactive graph topology requires runtime-level primitives. Behaviourally, five systems did not need one: every tested observable behaviour was reproduced with client-owned state, which identifies required capabilities and leaves their substrate open. Physically, the systems fall into trace-shaped and graph-shaped families that favour different layouts, and the dense layout's advantage on graph-shaped replay was available in plain JavaScript. Inside a complete runtime that layout preserved behaviour and reduced memory work, but gave no general gain in time and lost collection of unwatched linked graphs. Standard weak-reference APIs supported the tested lifecycle properties for object relations. Within the tested single-threaded incremental workloads, we found no layout advantage requiring VM ownership; the capability that plain JavaScript did not provide is dense storage whose relations the collector can see.
+We asked whether reactive graph topology requires runtime-level primitives. Behaviourally, five systems did not need one: no tested behaviour required a runtime-provided store, which identifies required capabilities and leaves their substrate open. Physically, the systems fall into trace-shaped and graph-shaped families that favour different layouts, and the dense layout's advantage on graph-shaped replay was available in plain JavaScript. Inside a complete runtime that layout preserved behaviour and reduced memory work, but gave no general gain in time and lost collection of unwatched linked graphs. Standard weak-reference APIs supported the tested lifecycle properties for object relations. Within the tested single-threaded incremental workloads, we found no layout advantage requiring VM ownership; the capability that plain JavaScript did not provide is dense storage whose relations the collector can see.
 
 The study leaves open what its method cannot reach: interoperability, shared graphs across libraries, concurrent access, other engines, and the constant factor a native implementation might recover. The candidate contract remains as the hypothesis we started from, unchanged. What survived across systems was the logical relation, ordered per-node dependency state, and not a uniquely privileged physical graph representation.
 
@@ -490,7 +511,7 @@ All code, ports, harnesses, seeded corpus generators, generated results, and the
 \section{Full grid of rebuild against reuse}
 \label{app:grid}
 
-\begin{table}[p]
+\begin{table}[H]
 \centering
 \scriptsize
 \input{tables/crossover-full}

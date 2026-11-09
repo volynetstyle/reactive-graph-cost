@@ -5154,23 +5154,23 @@
      "cleared": 0,
      "medianTurnWhenCleared": null,
      "medianMajorsSeen": 14,
-     "maxMajorsWithoutClearing": 14
+     "maxMajorsWithoutClearing": 15
     },
     "every 2": {
      "pollEvery": 2,
      "trials": 10,
-     "cleared": 4,
-     "medianTurnWhenCleared": 1384,
-     "medianMajorsSeen": 13,
+     "cleared": 1,
+     "medianTurnWhenCleared": 34,
+     "medianMajorsSeen": 14,
      "maxMajorsWithoutClearing": 14
     },
     "every 10": {
      "pollEvery": 10,
      "trials": 10,
-     "cleared": 9,
-     "medianTurnWhenCleared": 560,
-     "medianMajorsSeen": 3,
-     "maxMajorsWithoutClearing": 13
+     "cleared": 10,
+     "medianTurnWhenCleared": 1600,
+     "medianMajorsSeen": 6,
+     "maxMajorsWithoutClearing": 0
     },
     "every 100": {
      "pollEvery": 100,
@@ -5340,6 +5340,14 @@
      "max": 0.8867300126045488,
      "n": 10
     },
+    "paired": {
+     "median": 0.7842200154896029,
+     "low": 0.6123927098095593,
+     "high": 0.8608313060083167,
+     "coverage": 0.978515625,
+     "denseFaster": 10,
+     "n": 10
+    },
     "resolves": 15337440
    },
    "propagate": {
@@ -5412,6 +5420,14 @@
      "median": 1.2299864262841174,
      "min": 0.9968893840285505,
      "max": 1.440441304373297,
+     "n": 10
+    },
+    "paired": {
+     "median": 1.2299864262841174,
+     "low": 1.0148146417662538,
+     "high": 1.4226796252130194,
+     "coverage": 0.978515625,
+     "denseFaster": 1,
      "n": 10
     },
     "resolves": 54010800
@@ -5488,6 +5504,14 @@
      "max": 1.1780445690001342,
      "n": 10
     },
+    "paired": {
+     "median": 0.9955208475932541,
+     "low": 0.8557762227004251,
+     "high": 1.1736506941904108,
+     "coverage": 0.978515625,
+     "denseFaster": 6,
+     "n": 10
+    },
     "resolves": 24001600
    },
    "create": {
@@ -5562,6 +5586,14 @@
      "max": 2.8421892928356765,
      "n": 10
     },
+    "paired": {
+     "median": 2.5282320945936565,
+     "low": 2.3594651562358946,
+     "high": 2.733916795956336,
+     "coverage": 0.978515625,
+     "denseFaster": 0,
+     "n": 10
+    },
     "resolves": 22500000
    },
    "app": {
@@ -5634,6 +5666,14 @@
      "median": 1.0775230990363887,
      "min": 0.9606833351084001,
      "max": 1.1631093331740896,
+     "n": 10
+    },
+    "paired": {
+     "median": 1.0775230990363887,
+     "low": 0.9696517217884841,
+     "high": 1.1456474015131057,
+     "coverage": 0.978515625,
+     "denseFaster": 2,
      "n": 10
     },
     "resolves": 26167383
