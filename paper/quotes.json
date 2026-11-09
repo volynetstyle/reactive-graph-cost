@@ -1,0 +1,15 @@
+[
+  { "source": "proposal", "text": "the precise core semantics of the underlying signal graph" },
+  { "source": "proposal", "text": "providing interoperability through common signal graph and auto-tracking mechanism" },
+  { "source": "proposal", "text": "It turns out that existing Signal libraries are not all that different from each other, at their core." },
+  { "source": "proposal", "text": "built-ins offer a stronger sharing guarantee" },
+  { "source": "proposal", "text": "We suspect that native C++ implementations of Signal-related data structures and algorithms can be slightly more efficient than what is achievable in JS, by a constant factor." },
+  { "source": "proposal", "text": "no algorithmic changes are anticipated" },
+  { "source": "proposal", "text": "provide real benefits over framework-provided signals" },
+  { "source": "salsa", "text": "It's important here that we are iterating the inputs in the order that they executed." },
+  { "source": "wpf", "text": "Each event is delivered to all the listeners present at the time P receives the event, even if a listener modifies the list" },
+  { "source": "ecma", "text": "may interrupt synchronous ECMAScript execution" },
+  { "source": "issue259", "text": "single, internal, Signals graph" },
+  { "source": "vue10397", "text": "a doubly-linked list data structure inspired by" },
+  { "source": "mokhov", "text": "actual build steps are performed as a consequence of checking" }
+]

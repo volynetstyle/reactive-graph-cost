@@ -1,0 +1,50 @@
+{
+  "name": "relation-store",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Research: the smallest VM-level relation primitive for incremental computation.",
+  "type": "module",
+  "engines": {
+    "node": ">=23.6"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "witnesses": "node research/witnesses.ts",
+    "check": "npm run typecheck && npm test",
+    "quant:sync": "node adapters/quant/sync-corpus.mjs",
+    "quant:typecheck": "tsc -p adapters/quant/tsconfig.json",
+    "quant:baseline": "vitest run --config adapters/quant/vitest.config.ts",
+    "quant:port": "node adapters/quant/run-port.mjs",
+    "quant:accounting": "node adapters/quant/report-accounting.mjs",
+    "quant:ablate": "node adapters/quant/ablate.mjs",
+    "alien:derive": "node adapters/alien/derive.mjs",
+    "alien:sync": "node adapters/alien/sync-corpus.mjs",
+    "alien:typecheck": "tsc -p adapters/alien/tsconfig.json",
+    "alien:baseline": "vitest run --config adapters/alien/vitest.config.ts",
+    "alien:port": "node adapters/alien/run-port.mjs",
+    "alien:accounting": "node adapters/alien/report-accounting.mjs",
+    "alien:ablate": "node adapters/alien/ablate.mjs",
+    "polyfill:derive": "node adapters/polyfill/derive.mjs",
+    "polyfill:sync": "node adapters/polyfill/sync-corpus.mjs",
+    "polyfill:typecheck": "tsc -p adapters/polyfill/tsconfig.json",
+    "polyfill:baseline": "vitest run --config adapters/polyfill/vitest.config.ts",
+    "polyfill:accounting": "node adapters/polyfill/report-accounting.mjs",
+    "polyfill:ablate": "node adapters/polyfill/ablate.mjs",
+    "wpf:bootstrap": "bash adapters/wpf/bootstrap.sh",
+    "wpf:build": "powershell -ExecutionPolicy ByPass -NoProfile -File adapters/wpf/build-windowsbase.ps1",
+    "wpf:oracle": "powershell -ExecutionPolicy ByPass -NoProfile -File adapters/wpf/run-oracle.ps1",
+    "wpf:typecheck": "tsc -p adapters/wpf/tsconfig.json",
+    "wpf:generate": "node adapters/wpf/generate.mjs",
+    "wpf:compare": "node adapters/wpf/compare.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "alien-signals": "^3.2.1",
+    "fast-check": "^4.10.2",
+    "reactive-framework-test-suite": "0.0.2",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.5"
+  }
+}

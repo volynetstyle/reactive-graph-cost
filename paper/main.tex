@@ -1,0 +1,455 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage[section]{placeins}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{doi:#1}}}
+\input{numbers}
+
+\title{The Cost of Reactive Graph Abstractions:\\ An Experimental Study of Semantics, Topology, and Memory Layout}
+\author{Andrii Volynets}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Reactive libraries, build systems and query engines all maintain dependency relations between computations, and an effort to standardize signals in JavaScript proposes to specify that graph at the language level. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust. We state a candidate primitive, a store of ordered bidirectional relations with stable identity and walk-safe retirement, as an executable contract of \clauseCount{} clauses, and test which clauses five systems need: Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa. WPF and Salsa are judged by their own executables. Every tested observable behaviour was reproduced with client-owned state. Physically, the systems divide into trace-shaped and graph-shaped workloads that favour different layouts. Contiguous traces were \salsaDensityRatio{} times denser than the leanest linked store on Salsa, and copy-on-write arrays \wpfCowRatio{} times faster on WPF. On the three large graph tapes, dense integer-indexed slots beat pointer-joined records by median factors of \rustRatioMin{} to \rustRatioMax{} in Rust and \jsRatioMin{} to \jsRatioMax{} in plain JavaScript over typed arrays, which stayed \jsOverRustMin{} to \jsOverRustMax{} times slower than Rust. Standard weak-reference APIs sufficed in all \gcScenarios{} collector scenarios on V8. Within the tested single-threaded incremental workloads, no evidence remains that representation must be owned by the VM. This does not exclude a constant-factor gain from a native implementation, which we did not build. We do not propose a replacement signal API.
+\end{abstract}
+
+\section{Introduction}
+
+Every incremental system keeps a record of what depended on what. Attribute evaluators \cite{demers1981,hudson1991}, function caches \cite{pugh1989}, self-adjusting programs \cite{acar2006}, build systems \cite{erdweg2015,mokhov2020}, reactive user interfaces \cite{elliott1997,cooper2006,czaplicki2013,bainomugisha2013} and compiler query engines \cite{salsa} differ in almost everything else, yet each maintains relational state between computations and updates it as those computations run again.
+
+In JavaScript these structures have started to look alike. Vue moved its reactivity core to ``a doubly-linked list data structure inspired by'' Preact Signals \cite{vue10397,preactsignals}, and Alien Signals \cite{aliensignals} is built from the same kind of link records. The TC39 Signals proposal, at Stage~1, targets ``the precise core semantics of the underlying signal graph'' and reports: ``It turns out that existing Signal libraries are not all that different from each other, at their core.'' \cite{tc39signals}. One reading of this convergence is that a single structure is being reinvented, and that a language runtime is a natural home for it.
+
+This paper tests that reading experimentally. We investigate whether reactive graph topology requires runtime-level primitives by constructing semantically equivalent implementations with alternative memory layouts and measuring their behavior across JavaScript and Rust.
+
+Discussions of the topic tend to merge three questions, and we keep them apart. Which relational capabilities does a system observably need? Where must those capabilities be held for its behaviour to be preserved? Which physical layout implements them well? A positive answer to the first says nothing about the second, and an answer to the second says little about the third.
+
+We pose four research questions.
+
+\begin{description}
+\item[RQ1.] Which relational capabilities do real incremental systems observably need?
+\item[RQ2.] Must any of those capabilities live in a runtime-provided store for behaviour to be preserved?
+\item[RQ3.] Which memory layouts do these workloads favour, and does the best layout's advantage require leaving the host language?
+\item[RQ4.] Does a production collector with standard weak-reference APIs leave any tested lifecycle property unattainable?
+\end{description}
+
+\paragraph{Contributions.}
+\begin{itemize}
+\item An executable contract for a candidate relation primitive (\clauseCount{} clauses) together with \ablationCount{} single-mechanism ablations, each with a shortest witness history. The candidate is treated as guilty until required: a mechanism stays only if some client needs it.
+\item A client-minimality study of five systems, Quant, Alien Signals, the TC39 signal polyfill, WPF weak events and Salsa, using ports, one-at-a-time ablations and differential testing. WPF and Salsa are judged by their own executables, not by our translations of them.
+\item A physical study over operation tapes recorded from those clients. It compares contiguous, pointer-joined and dense indexed layouts in Rust and in plain JavaScript, and it includes a grid comparing ten rebuild and reuse strategies.
+\item A feasibility study of lifecycle properties under a production collector, including a measured observer effect of \texttt{WeakRef} polling.
+\end{itemize}
+
+\paragraph{Summary of findings.}
+Every tested observable behaviour was reproduced with client-owned state, so behaviour identifies required capabilities and not their substrate. The candidate did not show semantic necessity; that does not reject it as a primitive, since almost any primitive can be emulated. Physically, the systems fall into two families that favour different layouts. The advantage of dense layouts on graph-shaped work reproduces in plain JavaScript over typed arrays. On the studied workloads and implementations we did not find a sufficient advantage for a representation owned by the virtual machine.
+
+These findings are bounded. We measured single-threaded workloads on one machine and one JavaScript engine, we did not build a store inside a VM, and we did not study interoperability between libraries. Section~\ref{sec:threats} states the limits and Section~\ref{sec:implications} separates what the results bear on from what they do not. We do not propose a replacement signal API.
+
+\section{Background}
+\label{sec:background}
+
+\subsection{Dependency state in incremental systems}
+
+We call the computation that depends the \emph{consumer} and what it depends on the \emph{producer}. A relation connects the two. Reading a relation from consumer to producer serves validation, the question of whether anything a computation used has changed. Reading it from producer to consumer serves propagation, the question of who must be told about a change.
+
+Systems store these relations in different forms. Self-adjusting computation represents an execution as a dynamic dependence graph with timestamps \cite{acar2006,acar2009}, using order maintenance \cite{dietz1987}. Adapton keeps demanded computations and their edges in a demanded computation graph \cite{hammer2014}, and later work uses first-class names to identify computations to be reused across differing runs \cite{hammer2015}. Mokhov et al.\ describe build systems through their traces, where a verifying trace records each key's dependencies, and observe of one scheme that ``actual build steps are performed as a consequence of checking'' whether a key needs rebuilding \cite{mokhov2020}. Signal libraries combine an eager notification pass with lazy pulling of values, a combination also studied as push-pull reactive programming \cite{elliott2009}.
+
+\subsection{The TC39 Signals proposal}
+
+The proposal \cite{tc39signals} and its polyfill \cite{signalpolyfill} define state signals, computed signals and watchers. We use the text at commit \texttt{9124ed9} and the polyfill at \texttt{fba09f8}, and we keep them as separate evidence layers, because they differ. The proposal says it is ``providing interoperability through common signal graph and auto-tracking mechanism''. On performance it is modest: ``We suspect that native C++ implementations of Signal-related data structures and algorithms can be slightly more efficient than what is achievable in JS, by a constant factor.'', and ``no algorithmic changes are anticipated''. It also states a condition for its own advance, that signals ``provide real benefits over framework-provided signals''. In the proposal's issue tracker, one participant triaging a request preferred that applications end up with ``a single, internal, Signals graph'' \cite{tc39issue259}, and another request asks for the graph protocol to be exposed \cite{tc39issue258}.
+
+\subsection{Memory layout}
+
+Pointer-joined records are the conventional form of a dynamic graph in a managed language. The alternatives have a long history outside this domain: structure splitting and field reordering \cite{chilimbi1999b}, cache-conscious placement \cite{chilimbi1999}, segregation of data structures into pools \cite{lattner2005}, vertical partitioning inside a storage page \cite{ailamaki2001}, and adjacency representations for static and streaming graphs \cite{shun2013,dhulipala2019,grinten2022}. In a dense layout, a relation is an integer index, and its fields sit in one array of structures (AoS) or several parallel arrays (SoA). JavaScript offers this through typed arrays, at the price that an array holds numbers and cannot hold references to objects.
+
+\subsection{Weak references in ECMAScript}
+
+ECMAScript provides \texttt{WeakRef}, \texttt{FinalizationRegistry} and \texttt{WeakMap} \cite{ecma262}. It promises no collection. A \texttt{WeakRef} target that was created or dereferenced during a job is kept to the end of that job, and neither the clearing of that list nor finalization ``may interrupt synchronous ECMAScript execution''. A \texttt{WeakMap} behaves as an ephemeron table \cite{hayes1997}. Formal treatments of weak references \cite{donnelly2006} and the difficulties of finalization \cite{boehm2003} predate these APIs.
+
+\section{Study design}
+\label{sec:design}
+
+\subsection{Three kinds of minimality}
+
+We distinguish three questions about a candidate primitive and settle them with different evidence.
+
+\begin{description}
+\item[Contract minimality.] Given the clauses, which mechanisms do they need? Settled by ablating the abstract machine.
+\item[Client minimality.] Which clauses do real clients need? Settled by ports, ablations and differential testing.
+\item[Physical minimality.] Which representation implements what survives, at what cost? Settled by measurement.
+\end{description}
+
+The inclusion rule is strict: a mechanism enters the candidate only if a clause breaks without it, or if a port cannot keep its observable semantics without it. That other runtimes have a mechanism, or that it is convenient, does not count.
+
+\subsection{The candidate}
+
+The candidate, called L0 below, is an abstract machine rather than an API. A relation $e=(u,v)$ sits in exactly two ordered lists, $L(u)$ and $R(v)$. Nodes and relations are named by handles of slot and generation, and a handle's status only moves forward, from live to retired to stale. Each direction declares its retention at creation, and liveness is the least fixed point of reachability from explicit roots along retaining directions. Operations are \texttt{relate}, \texttt{unlink}, \texttt{moveAfter}, \texttt{first}, \texttt{next}, immutable endpoint and retention readers, one 32-bit metadata word, epoch \texttt{enter} and \texttt{exit}, and an explicit \texttt{collect}.
+
+The \clauseCount{} clauses cover stable identity, dual incidence, order, permutation, reachability, GC transparency, deferred reuse, walk continuation, metadata, multiplicity, failure atomicity, lifecycle, semantic opacity, the absence of callbacks, and local complexity. Each of \ablationCount{} ablations removes one mechanism and yields a shortest history on which a clause breaks, within a bound of 12 operations. The reference machine and two controls are checked exhaustively within small bounds (\exhaustiveStatesA{} and \exhaustiveStatesB{} states). The reference machine is array-backed on purpose, so it cannot test the local-complexity clause; the physical study addresses layouts but does not verify that clause as a bound.
+
+\subsection{Subjects}
+
+Table~\ref{tab:subjects} lists the subjects. Three are signal runtimes, chosen because they are the immediate domain of the question. WPF and Salsa were chosen because they come from outside it and have their own executables. WPF's weak events are a membership list that must not retain its listeners, and Salsa is a demand-driven query system with validation traces.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\begin{tabular}{l l l l p{5.4cm}}
+\toprule
+System & Kind & Commit & Shape & Checked against \\
+\midrule
+Quant \cite{quant} & signal runtime & \texttt{241a3b7} & graph & its corpus and three probes, through a port \\
+Alien Signals \cite{aliensignals} & signal runtime & \texttt{8734d38} & graph & its corpus and a search against the frozen source \\
+signal-polyfill \cite{signalpolyfill} & signal runtime & \texttt{fba09f8} & trace and push & its corpus and a search against the frozen source \\
+WPF weak events \cite{wpf} & UI membership & \texttt{49ae5cd} & membership & \texttt{WindowsBase} built from the pin, on the CLR \\
+Salsa 0.28.5 \cite{salsa} & query engine & \texttt{6d59529} & trace & the pinned crate, through its public API \\
+\bottomrule
+\end{tabular}
+\caption{Subjects. Each is frozen at a revision. The TC39 proposal text at \texttt{9124ed9} is used as a semantic reference and is not executable.}
+\label{tab:subjects}
+\end{table}
+
+\subsection{Ports, ablations, and the evidence vocabulary}
+
+For each client we first inventoried its relational state by reading, then ported or modelled it, ran its corpus, and removed one mechanism at a time. Findings use a fixed vocabulary: a capability is \emph{used} when the port relies on it and removal was not run, \emph{observable} when removal changes behaviour through the public API, \emph{normative} when the proposal text requires it, \emph{replaceable} when a removal was run and an alternative kept behaviour, \emph{not exercised} when the client never reaches it, \emph{unresolved} when the evidence points neither way, and \emph{representation-specific} when it holds for one design of a client and not for the client.
+
+\subsection{Independent oracles}
+
+A port checked only against our reading of a source inherits our misreadings. For WPF and Salsa we therefore used differential testing \cite{mckeeman1998,claessen2000,yang2011} against the real executable. Programs are JSON with no expected results; the expected log is what the pinned executable produces. For WPF that is \texttt{WindowsBase} built from the pin and driven through its public API on the CLR. For Salsa it is the pinned crate, with its \texttt{WillExecute} and \texttt{DidValidateMemoizedValue} events logged. Oracle logs were identical across repeated runs on every corpus where a repeat was made.
+
+Corpora have directed and generated programs. This mattered. The first WPF generated corpus differed from our model in 27 of 3{,}000 programs, which led us to model the lifetime of handlers. The first Salsa model differed on 150 and 160 programs of the first two corpora, from one cause: a query with no inputs has the highest durability and a read of it is not recorded. Both defects were ours. WPF's held-out corpus and Salsa's fresh corpus were generated after the fixes, so that a passing result does not merely reflect the corpus that exposed them.
+
+For the signal runtimes the reference is the client's own test corpus and a random search over the public API against the frozen source. The polyfill's search has two lanes, one with no throwing hooks and one where hooks may throw.
+
+\subsection{Physical method}
+
+\paragraph{Tapes.} For the signal runtimes, a recording subclass of the reference machine writes each structural operation of a client's corpus to a tape, without modifying the port. Salsa and WPF models emit their tapes while running the oracle corpora. Replaying a tape exercises only the relational structure, so the time of user computation and of the client's own algorithm is not included. Two synthetic graphs give large workloads with low and high churn (Table~\ref{tab:tapes}).
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/tapes}
+\caption{Operation tapes.}
+\label{tab:tapes}
+\end{table}
+
+\paragraph{Layouts.} All layouts implement the same capability for the tape they replay. \texttt{TracePacked} holds an exactly sized array of dependency ids per query, rebuilt at each execution. \texttt{TracePersistent} keeps an array and a hash map per query and reuses them. \texttt{WpfCow} is a set of copy-on-write arrays per source. \texttt{ClientIntrusive} allocates one record per relation and joins records by pointers. \texttt{StoreAoS} uses one 32-byte slot per relation with six links, metadata and generation. \texttt{StoreSoA} holds the same fields in eight arrays. \texttt{StoreSplit} has left incidence only. Store layouts pay for their whole structure on every workload. In JavaScript the three layouts are objects joined by references, one \texttt{Int32Array} of 8-word slots, and eight \texttt{Int32Array}s, each with its own compiled replay loop so that inline caches are not shared between layouts.
+
+\paragraph{Protocol.} We follow the practice of repeated process-level measurement \cite{georges2007,kalibera2013}. Each language has \rustRuns{} fresh processes, and each process replays a tape between 5 and 15 times and reports the median. We report the median across processes with the minimum and maximum, since \rustRuns{} processes do not justify a normality assumption. The order of representations rotates with the process, so that no layout always runs first on a fresh heap \cite{mytkowicz2009}. Rust peak memory is measured by a counting allocator as requested bytes, without allocator headers, per peak live relation. JavaScript runs have one warm-up replay; we do not claim that V8 reaches a steady state \cite{barrett2017}.
+
+The machine is a single laptop on mains power: \cpuName{}, \memoryGb{} GB of memory, \osName{}, \texttt{rustc} \rustcVersion{}, Node \nodeVersion{} (V8 \veeEightVersion{}). The processor has two performance cores and eight efficiency cores, and Windows 10 does not support Intel Thread Director. An earlier campaign without core pinning, of \noiseUnpinnedRuns{} processes, had a median ratio of slowest to fastest process of \noiseUnpinnedMedian{} across its measured series, and up to \noiseUnpinnedMax{}. We therefore held every process on the performance cores, which gave a median of \noisePinnedMedian{} and a maximum of \noisePinnedMax{}. All results below come from the pinned campaign.
+
+\paragraph{Gates fixed in advance.} Before the physical work, the repository recorded what each outcome would mean and that integration into an engine would run only if some finalist showed a VM-specific advantage. No finalist did, so we did not build one. This decision is itself a limit of the study (Section~\ref{sec:threats}).
+
+\section{Behavioural results}
+\label{sec:behaviour}
+
+\subsection{Agreement with oracles and corpora}
+
+Tables~\ref{tab:oracle} and~\ref{tab:corpus} give the results. On the two external oracles, every client-owned and store-backed representation that we expected to be correct matched, across \salsaTotalPrograms{} Salsa programs and \wpfDirectedTotal{} directed plus \wpfRandom{} random WPF programs. The two failures are informative and intended. WPF's S2 with only a saved successor fails one directed program that every random program missed. Salsa with validation reversed differs in \salsaReverseGenerated{}, \salsaReverseHoldout{} and \salsaReverseFresh{} of 3{,}000 programs.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/agreement-oracle}
+\caption{Agreement with external executables. Each cell is the number of programs whose logs match the oracle, of those run. WPF's directed programs include 10 on handler lifetime, and Salsa's include 9 trace shapes. For Salsa, the first two random corpora were used to find a defect, so the fresh corpus is the independent check.}
+\label{tab:oracle}
+\end{table}
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/agreement-corpus}
+\caption{Signal runtimes. ``Corpus'' is the client's own tests. ``Differ'' is the number of random public-API programs that differ from the named reference, in the single search for Alien, and for the polyfill in the lanes without (1) and with (2) throwing hooks. In lane (2), the differences of the port and of the two permanent-relation variants occur only in programs where a hook threw. The stable-erase variant differs in sink order from the frozen polyfill by construction.}
+\label{tab:corpus}
+\end{table}
+
+Alien's literal port differed from the frozen source on \alienPortDiffer{} of \alienPrograms{} programs while passing all \alienCorpus{} corpus tests, so a passing corpus was not sufficient evidence. Extending epochs to every public entry and fixing one tail-cursor case removed all the differences.
+
+\subsection{Capabilities}
+
+Table~\ref{tab:capabilities} summarises the capability evidence. Only one row holds for all five systems: each keeps ordered per-node relational state somewhere. Nothing in the table requires that state to be in a common structure.
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\begin{tabular}{p{3.1cm} p{2.1cm} p{2.1cm} p{2.3cm} p{2.1cm} p{2.1cm}}
+\toprule
+Capability & Quant & Alien & polyfill & WPF & Salsa \\
+\midrule
+Ordered per-node state, anywhere & used & used & used & used & used \\
+Left incidence read & used & used & client arrays & not read & used, one direction \\
+Right incidence read & used & used & observable & not needed & not read \\
+Relation identity while live & used & used & representation-specific & unused & optional optimisation \\
+Reposition of an existing relation & used & variant only & one design & no & reorder only, optional \\
+Mutable word on a relation & one suffices & count suffices, domain unresolved & one bit in one design & unused & not needed \\
+Parallel relations for a pair & unused & mostly replaceable & position repeats & observable, client array suffices & not needed \\
+Retention following activation & not exercised & not exercised & normative, one design & not needed & not exercised \\
+Push without retention & not exercised & not exercised & not when live & observable & not exercised \\
+Information after a removal & extension only & observable & not reached & observable & no pressure \\
+Retirement inside the store & no evidence & replaceable & unused & replaceable & no pressure \\
+All relational state in the client, run & no & yes & partly & yes & yes \\
+\bottomrule
+\end{tabular}
+\caption{Capability evidence per client, in the vocabulary of Section~\ref{sec:design}. The Alien entry in the last row is the flat-array control. Quant's evidence comes from a port and from reading, and it was not run with its state outside the store.}
+\label{tab:capabilities}
+\end{table}
+
+\subsection{Two families of workload}
+
+The clients divide by the shape of their relational work. \emph{Trace-shaped} clients map an owner to an ordered sequence that is replaced or copied as a whole: Salsa's dependency list, WPF's listener list, and the polyfill's dependency trace. \emph{Graph-shaped} clients maintain persistent bidirectional incidence with structural mutation: Alien, Quant by reading, and the polyfill's push side. These are families of workload and not two primitives. A logical relation is not a relation object, and much of what looked like one mechanism turned out to be several.
+
+\subsection{Findings beyond the matrix}
+
+\paragraph{Order.} Reversing Salsa's validation order changes which queries execute in about \salsaReversePercent{}\% of random programs, and changes no value in any corpus. Salsa's source records the reason for the order: ``It's important here that we are iterating the inputs in the order that they executed.'' The order is therefore operationally observable and performance-relevant under Salsa's diagnostic event surface. We did not establish that it is required for the correctness of values, since queries that panic or become invalid once a guard changes were outside our programs. In Alien, reversing validation changes behaviour in \alienReverseValidate{} of \alienPrograms{} programs. In the polyfill, a swap-remove reorders sinks after a removal, and two directed programs show this reaching \texttt{notify}, while the proposal calls \texttt{sinks} an ordered set.
+
+\paragraph{Existence and activation are separate.} What happens to a dependency when its consumer is no longer watched differs per design. Alien discards it. The polyfill as written keeps the fact in client arrays and removes the live relation. A variant with permanent relations keeps both and instead changes retention in place. Each matches its own reference, and the variant ends the polyfill's corpus with \polyfillRetainInactive{} inactive relations of \polyfillRetainPhysical{}.
+
+\paragraph{Continuity without a retired store.} WPF's manager promises: ``Each event is delivered to all the listeners present at the time P receives the event, even if a listener modifies the list''. It achieves this with copy-on-write, and our S0 variant, which snapshots on every delivery, copies \wpfSnapshotFactorA{} and \wpfSnapshotFactorB{} times as many entries as WPF on the two corpora. Continuity of a traversal across removal is observable in WPF and Alien, and it was replaceable in both: by a journal in WPF and by a client log in Alien, with no retired relations in a store. Under explicit collection these verdicts leave open what a real collector does, which Section~\ref{sec:gc} takes up.
+
+\paragraph{Linked structure is not needed for behaviour.} Alien on flat per-node arrays passes \alienFlatPassed{} of \alienCorpus{} corpus tests and differs on \alienFlatFrozen{} of \alienPrograms{} programs. It still needs both ordered lists, as its validation walks dependencies and its propagation walks subscribers. The arrays use a linear search for removal, so this control speaks to behaviour alone.
+
+\paragraph{Reuse ratio is not enough.} Table~\ref{tab:shapes} counts store mutations in Salsa's trace shapes, for rebuilding the left axis against reusing relations with unread ones deleted first. Reuse ratio $R = |\mathit{old} \cap \mathit{new}| / |\mathit{new}|$ does not determine the benefit: the reorder shape has the same $R$ as the stable one and costs \reorderOverStable{} times as many mutations. These counts are mutations of a store, so they compare two store strategies and do not rank a store against a client array.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/shapes}
+\caption{Store mutations (relates, unlinks and moves) per Salsa trace shape. Each program has 21 executions.}
+\label{tab:shapes}
+\end{table}
+
+\subsection{What behaviour cannot decide}
+
+A store and a client structure with the same capabilities are indistinguishable through a public API by construction, and for Quant, Alien and the polyfill this was true before any experiment, because each holds its own structure in its frozen source. RQ1 therefore has an answer in the table above. RQ2 has the answer that no tested capability had to live in a runtime-provided store. The candidate did not show semantic necessity. That leaves whether any capability deserves native support as a physical question.
+
+\section{Physical results}
+\label{sec:physical}
+
+Times are nanoseconds per tape operation unless stated. Each is the median across \rustRuns{} fresh processes, with the minimum and maximum across those processes in brackets. They are properties of this machine and of replay, so ratios within a table are more meaningful than absolute values.
+
+\subsection{Trace-shaped work}
+
+Table~\ref{tab:trace} replays Salsa's tape. The packed form is the densest, at \salsaPackedBytes{} bytes per entry against \salsaSplitBytes{} for the leanest linked store, which holds left incidence only: a factor of \salsaDensityRatio{}. This figure includes the recording buffer that a tracker keeps. Its time advantage is small. At \salsaPackedNs{} ns against \salsaAosNs{} ns for \texttt{StoreAoS} rebuild it is \salsaCowlessGain{} times faster, and the process ranges overlap slightly. Short programs dominate this tape, so per-program allocations weigh heavily, which also accounts for the poor \texttt{StoreSoA} figure, as it pays for eight small arrays per program.
+
+Reuse did not pay here. Reusing relations through a hash map, and through a cursor over the previous list, were both slower than rebuilding the same store (\salsaHashNs{} and \salsaAosCursorNs{} ns against \salsaAosNs{}), and the hash map also kept more memory. Salsa's entries carry no per-edge state that reuse could keep.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/trace}
+\caption{Salsa's tape. Bytes are peak requested bytes per peak live entry.}
+\label{tab:trace}
+\end{table}
+
+Table~\ref{tab:cow} replays WPF's membership tape. Copy-on-write arrays are \wpfCowRatio{} times faster than the nearest linked form, and its range is separate from theirs. Bytes on this tape are dominated by a fixed table of 32 sources per program and are not reported.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/cow}
+\caption{WPF's membership tape. Linked forms freeze a snapshot during delivery.}
+\label{tab:cow}
+\end{table}
+
+\subsection{Rebuild against reuse}
+
+The grid isolates the choice between rebuilding a dependency sequence and reusing its previous form. It varies length $N$ from 8 to 65{,}536, the survival fraction $S$ of entries from the old sequence, and the order of the survivors (none, local swaps, chaotic). Reads arrive one at a time, as a tracker receives them, so a copy cannot collapse into a single block move of a sequence that is already contiguous. Each cell is a median of three measurements in each process, of about two million entries.
+
+Ten strategies are compared. \emph{Pack} records into a scratch buffer and allocates an exactly sized array per execution. \emph{Inpl} compares each read at its position in the old array and writes only on a difference, which requires the tracker to own the old trace. \emph{Map} keeps an array and a persistent hash map. \emph{I-reb} rebuilds an intrusive list. \emph{I-hash} and \emph{A-hash} reuse relations through a persistent hash map, on intrusive records and on AoS slots. \emph{I-cur} and \emph{A-cur} walk the old list against the new sequence and use a hash only for what remains after the first mismatch. \emph{I-tail} and \emph{A-tail} keep the matching prefix and rebuild the rest with no hash at all.
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\input{tables/crossover}
+\caption{Nanoseconds per trace entry for a selection of cells. The full grid of \crossCells{} cells is in Appendix~\ref{app:grid}.}
+\label{tab:cross}
+\end{table}
+
+Table~\ref{tab:cross} shows a selection and Appendix~\ref{app:grid} the whole grid. Three results stand out.
+
+First, a contiguous form was cheapest in all \crossCells{} cells, but only if it may overwrite its buffer. \emph{Inpl} beat the best linked reuse strategy in every cell, by a factor between \crossInplaceRatioMin{} and \crossInplaceRatioMax{} (median \crossInplaceRatioMedian{}).
+
+Second, a fresh allocation changes that picture. \emph{Pack} lost to linked reuse in \crossPackedLosses{} cells, all on short traces with an unchanged prefix (\crossPackedLossCells{}), by a factor of up to \crossMaxLinkedAdvantage{}. At $N=8$ and full survival, a cursor costs \stableEightCursor{} ns and a fresh array \stableEightPacked{} ns. Elsewhere \emph{Pack} wins, and across all cells the best linked strategy cost a median of \crossPackedRatioMedian{} times as much. A universal statement that rebuilding beats reuse is therefore false, as is its converse.
+
+Third, reuse is sensitive to order and not only to overlap. At $N=512$ and full survival, the best cursor costs \noneFiveTwelveCursor{} ns in unchanged order and \chaoticFiveTwelveCursor{} ns after a shuffle. Keeping a prefix and rebuilding the tail was cheaper than a hash on the remainder in \crossTailBeatsCursor{} of \crossCells{} cells.
+
+Two limits apply. The linked columns maintain both axes while the packed ones have no back-edges, so the grid measures the price of carrying a capability that a trace-shaped client does not read, and it says nothing about a client that needs that capability. And it assumes that an entry's state is not worth keeping; if a relation held per-edge state expensive to recompute, reuse could win where it loses here.
+
+\subsection{Graph-shaped work}
+
+Table~\ref{tab:graph} replays the graph tapes. \texttt{StoreAoS} was faster than individually allocated records on all five tapes and \texttt{StoreSoA} on four. The exception is the polyfill's small tape, where eight arrays per program dominate. No layout wins everywhere: \texttt{StoreSoA} is fastest on the synthetic graphs and \texttt{StoreAoS} on the client corpora. Density is not monotone either. \texttt{StoreAoS} is larger than records on the calm synthetic graph, because capacity doubling keeps slack that records do not have. Byte figures for Alien and the polyfill reflect many tiny programs whose node tables outweigh their few relations, and they do not compare to the rest.
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\input{tables/graph}
+\caption{Graph-shaped tapes in Rust. The first three columns are ns/op, median [min, max]; the columns headed B are peak bytes per peak live relation for the same three layouts in order.}
+\label{tab:graph}
+\end{table}
+
+\subsection{Dense slots in plain JavaScript}
+
+The decisive control asks whether the advantage above is available without leaving the language. The criterion is the ratio between layouts inside each language, because a direct comparison of JavaScript with Rust conflates layout with language.
+
+Table~\ref{tab:ratios} gives those ratios and Table~\ref{tab:js} the absolute values. The dense layout's advantage over objects reproduces in plain JavaScript, and on all three large tapes the ratio of objects to SoA is larger than the corresponding ratio in Rust. The typed-array replay is still between \jsOverRustMin{} and \jsOverRustMax{} times slower than Rust on the same layout. We did not attribute that gap to bounds checks, tiering or anything else.
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\input{tables/ratios}
+\caption{Ratios of nanoseconds per operation, median [min, max] across processes.}
+\label{tab:ratios}
+\end{table}
+
+\begin{table}[tbp]
+\centering
+\scriptsize
+\input{tables/js}
+\caption{Plain JavaScript on V8. Columns as in Table~\ref{tab:graph}. Typed-array bytes count old and new arrays during doubling; object bytes are a heap delta after a collection and are measured on the synthetic tapes only, so bytes do not compare across layouts. Alien's tape has few operations and is dominated by warm-up, as its range shows; we draw no conclusion from that row.}
+\label{tab:js}
+\end{table}
+
+\subsection{The boundary between objects and slots}
+
+Typed arrays cannot hold references, so a client must get from its own objects to an integer. From a field on its own object this costs \boundaryFieldNs{} ns, and through a \texttt{WeakMap} \boundaryWeakNs{} ns, about \boundaryRatio{} times more, loop included. One \texttt{WeakMap} lookup costs more than a whole operation of the SoA replay on any of the three large tapes. The tapes assume the field. A library that owns its node objects can use one, and a design that has to associate slots with objects it does not own may lose the layout's gain at that boundary.
+
+\subsection{Answer to RQ3}
+
+The workloads favour different layouts: contiguous traces where a sequence is replaced as a whole, and dense indexed slots where bidirectional incidence is mutated. Neither shape's best layout is the other's, which makes one universal layout unattractive. The best layout's advantage did not require leaving JavaScript on these tapes. On the studied workloads and implementations, we did not find a sufficient advantage for a VM-owned representation. The remaining gap to Rust is the kind of constant factor that the proposal itself anticipates, and it is not refuted here.
+
+\section{Garbage collection}
+\label{sec:gc}
+
+The behavioural verdicts about epochs and journals were reached under explicit collection, where there is a moment before each collection. A real collector removes that moment. This is the one place where we expected a VM might know something a client cannot, so we tested it with JavaScript alone: \texttt{global.gc} appears only in the harness, and clients have no hook.
+
+Table~\ref{tab:gc} lists \gcScenarios{} scenarios of \gcRounds{} rounds each, on V8 \veeEightVersion{}. All held. A client record in an ordinary array carries continuity across a collection, with no journal and no point before the collection: a dead target is simply a failed \texttt{deref} at the moment of the visit. A cycle through client records does not retain itself, and retention can follow activation without changing the record. These are feasibility results. ECMAScript promises no collection, and we ran no concurrent mutation.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/gc}
+\caption{Lifecycle properties under V8's collector, using \texttt{WeakRef}, \texttt{WeakMap} and \texttt{FinalizationRegistry}.}
+\label{tab:gc}
+\end{table}
+
+\paragraph{An observer effect.} Measuring liveness can change it. Table~\ref{tab:observer} shows one target per trial, under allocation pressure and with no forced collection, across \observerTurns{} event-loop turns. When \texttt{deref} ran at every turn the target was cleared in \observerEveryOneCleared{} of \observerTrials{} trials, despite a median of \observerEveryOneMajors{} major collections. When polling was rare the target was cleared in every trial. Polling every two or ten turns is intermediate and unstable: an earlier execution of the same experiment cleared \observerEarlierEveryTwo{} and \observerEarlierEveryTen{} of \observerTrials{} where this one cleared \observerEveryTwoCleared{} and \observerEveryTenCleared{}. ECMAScript keeps a dereferenced target only to the end of the job, and our poll is the last action of its job, so the language's rule alone does not explain retention across turns. We did not instrument V8 and claim no mechanism. The practical point is narrower: a benchmark, or a client, that keeps asking an object whether it has died can delay the death it is waiting for.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\input{tables/observer}
+\caption{Effect of \texttt{deref} polling on the clearing of a single weakly held target.}
+\label{tab:observer}
+\end{table}
+
+For RQ4, no tested lifecycle property was unattainable with the standard APIs. Whether collection costs differ between layouts is a separate question: integer slots are not traced by the collector and object records are, and we did not isolate this effect. Self-adjusting computation is known to contradict generational assumptions through old-to-new pointers and long-lived trace data \cite{acar2009,hammer2008}, and a recent report on Vue describes removed links keeping younger effects alive across scavenges \cite{vue16176}, so this is a plausible direction for further work on layouts.
+
+\section{Threats to validity}
+\label{sec:threats}
+
+\paragraph{No VM implementation.} We did not build a relation store inside a JavaScript engine. In-language dense slots bound what a library can reach. The Rust columns give one estimate of a native layout, and an engine could differ from both in either direction, for example through tighter integration with its collector or through the cost of crossing into the runtime. Our result is that the layout-related advantage did not require a VM on these workloads. It does not establish that a native implementation could not be faster.
+
+\paragraph{Tapes are not applications.} Replays include only structural operations. Corpora are behaviour suites, in which tiny programs and fixed per-program costs weigh heavily, and they are not application benchmarks in the sense of DaCapo \cite{blackburn2006}. Quant and the two synthetics are the only large graph tapes, and the synthetics are ours. No client was rewritten over typed arrays. A client that must reach a relation's integer through a \texttt{WeakMap} instead of a field pays the boundary cost reported in Section~\ref{sec:physical}.
+
+\paragraph{One machine, one engine.} All numbers come from one laptop, on Windows, with V8 alone. We have no hardware counters. WebAssembly \cite{haas2017} is another in-language path for dense layouts and was not measured. Published comparisons place it at 1.45 to 1.55 times native on average on a different workload \cite{jangda2019}; the comparison is only to give scale.
+
+\paragraph{Scope of concurrency.} All workloads are single-threaded. Concurrent collection, parallel access and graphs shared between libraries were not examined. The in-place packed strategy applies only to a client that owns its old trace; a design that reads old traces concurrently, as Salsa may, could not use it.
+
+\paragraph{Ports and generators.} Only WPF and Salsa have external oracles. Ports for Quant, Alien and the polyfill are hand-written and judged by corpora and by search against the frozen source. Generators have weak coverage in places: the polyfill's order result and WPF's traversal-continuity result rest on directed programs, and random programs missed both. We modelled only part of each system: for Salsa, inputs and tracked functions, without cycles, tracked structs, durability levels or parallelism.
+
+\paragraph{Sample of clients.} Five systems, three of them signal runtimes that can share a blind spot.
+
+\paragraph{Conflict of interest in the sample.} The author wrote Quant, and Quant shares ancestry with the candidate. It is the strongest case for persistent bidirectional representation in this study and the least independent, and we give it the least weight. No conclusion here depends on Quant alone.
+
+\paragraph{Measurement details.} Rust bytes exclude allocator headers. JavaScript typed-array peaks count both old and new arrays during doubling, and object sizes are heap deltas after a collection, so the JavaScript byte columns are not directly comparable across layouts. Clause~15 of the contract, local complexity, is not verified as a bound. For WPF, three frozen defect candidates are reproduced because the oracle is the executable; they are not requirements.
+
+\section{Implications for standardization}
+\label{sec:implications}
+
+The proposal is a practical context for this study and not its target. Table~\ref{tab:rationale} sets its stated rationale against what we tested.
+
+\begin{table}[tbp]
+\centering
+\footnotesize
+\begin{tabular}{p{6.4cm} p{8.6cm}}
+\toprule
+Stated rationale (proposal text) & Bearing of this study \\
+\midrule
+``the precise core semantics of the underlying signal graph'' & Semantics and representation were separable in every tested system. The semantic core can be specified without implying a graph data structure. \\
+\addlinespace
+Similarity of existing libraries ``at their core'' & Partly supported among signal runtimes: both shapes of relation recur. They disagree on the history of a relation and on what an unwatched dependency keeps. Outside signals, shapes differ more. \\
+\addlinespace
+``by a constant factor'', ``no algorithmic changes are anticipated'' & Consistent, and not refuted. We measured what a library reaches and did not build a native store. \\
+\addlinespace
+``built-ins offer a stronger sharing guarantee'' & Not tested. \\
+\addlinespace
+Interoperability through a common graph and auto-tracking & Not tested. \\
+\addlinespace
+``provide real benefits over framework-provided signals'' & Not tested as a whole. We tested one candidate benefit, a shared substrate. \\
+\bottomrule
+\end{tabular}
+\caption{The proposal's rationale against the evidence of this study.}
+\label{tab:rationale}
+\end{table}
+
+Three consequences follow within these limits. First, a specification that fixes observable semantics leaves implementers free to choose among layouts, and our results give a reason to preserve that freedom, because the two families favour different ones. Second, the polyfill and the proposal differ in sink order after removal, in repeated sources, in the handling of a throwing \texttt{notify}, and in \texttt{frozen} around hooks; conformance claims should name which of the two they mean. Third, a case for standardization on these results has to rest on interoperability, sharing or tooling, which we did not study, and not on an expected requirement for a runtime-owned graph layout.
+
+Community specifications of asynchronous behaviour have fixed observable protocols, as Promises/A+ \cite{promisesaplus} did in JavaScript and Reactive Streams \cite{reactivestreams} on the JVM, and the proposal explicitly contrasts its aim with the former. Our evidence is compatible with either path and does not decide between them. We do not propose a replacement signal API.
+
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Incremental computation.} Bibliographies and early systems \cite{ramalingam1993,demers1981,hudson1991,pugh1989} established change propagation over recorded dependencies. Self-adjusting computation developed traces, timestamps and memoization \cite{acar2006,acar2009}, including reuse of trace chunks out of order \cite{leywild2012} and tracing at the granularity of data-type operations \cite{acar2010}. Experimental reports there compare a self-adjusting program with its ordinary version, with overhead of about a factor of five for one representative application including collection \cite{acar2009}. Our concern is different: for a fixed client behaviour, what does the choice of relational representation cost? Differential dataflow computes over partially ordered versions \cite{mcsherry2013d}, and Naiad is a timely dataflow system \cite{murray2013}; there the unit of change is a difference in a collection and not a per-read relation. Build-system work classifies traces and rebuilders \cite{mokhov2020}, and Salsa's trace plays the role of a verifying trace for queries.
+
+\paragraph{Reactive programming.} Functional reactive programming \cite{elliott1997,elliott2009} and its embeddings \cite{cooper2006,czaplicki2013,salvaneschi2014,maier2013} focus on semantics and on glitch avoidance. Bainomugisha et al.\ give a taxonomy along six axes \cite{bainomugisha2013}, and studies of distributed reactivity analyse consistency and its costs \cite{drechsler2014,margara2018}. We found no peer-reviewed experimental comparison of dependency-structure layouts across signal implementations, though no search of this kind can be exhaustive. Performance claims in this area appear in project changelogs and pull requests \cite{vue10397}.
+
+\paragraph{Relations as language constructs.} First-class relationships in object-oriented languages \cite{rumbaugh1987,bierman2005,balzer2007} make relations visible to the programmer, typically for modelling and reasoning. Our candidate targets a runtime structure rather than a modelling construct. Our results suggest that the logical relation is the part that recurs.
+
+\paragraph{Layout and dynamic graphs.} Cache-conscious design \cite{chilimbi1999,chilimbi1999b}, pool allocation \cite{lattner2005} and hybrid storage \cite{ailamaki2001} show that layout can dominate constant factors. Dynamic graph systems \cite{dhulipala2019,shun2013} address scale that signal graphs do not reach, and DHB notes that a delete preserving adjacency order costs time linear in the degree, where a swap gives constant time \cite{grinten2022}, the same trade-off as the polyfill's swap-remove. Our dense layouts avoid that cost with links inside the slot, at the price of the bytes those links take.
+
+\paragraph{Measurement.} We use repeated process-level measurement \cite{georges2007,kalibera2013}, are aware of measurement bias \cite{mytkowicz2009}, and make no steady-state claim for the JIT \cite{barrett2017}.
+
+\section{Conclusion}
+
+We asked whether reactive graph topology requires runtime-level primitives. Behaviourally, five systems did not need one: every tested observable behaviour was reproduced with client-owned state, which identifies required capabilities and leaves their substrate open. Physically, the systems fall into trace-shaped and graph-shaped families that favour different layouts, and the dense layout's advantage on graph-shaped work was available in plain JavaScript. Standard weak-reference APIs supported the tested lifecycle properties. Within the tested single-threaded incremental workloads, no evidence remains that representation must be owned by the VM.
+
+The study leaves open what its method cannot reach: interoperability, shared graphs across libraries, concurrent access, other engines, and the constant factor a native implementation might recover. The candidate contract remains as the hypothesis we started from, unchanged. What survived it is the logical relation, ordered per-node dependency state, rather than one structure to hold it.
+
+\section*{Data availability}
+
+All code, ports, harnesses, seeded corpus generators, generated results, and the scripts that produce every number and table are at \url{https://github.com/volynetstyle/reactive-graph-cost}, tag \texttt{preprint-v1}. Client revisions are pinned by commit. The file \texttt{paper/data/results.json} holds every measurement used here, and \texttt{adapters/m5/repeat.sh} reproduces the physical campaign.
+
+\section*{Disclosures}
+
+\paragraph{Competing interest.} The author is the author of Quant, one of the five subject systems, and its source shares ancestry with the candidate contract.
+
+\paragraph{Use of generative AI.} Claude (Anthropic) was used as a programming and writing assistant, for harnesses, ports, analysis scripts, the literature search and drafting. It is not an author. The author is responsible for the content. Every number and table in this paper is generated by a script from the measurement files, every quotation is checked mechanically against a pinned copy of its source, and every DOI is resolved against a registry.
+
+\appendix
+\section{Full grid of rebuild against reuse}
+\label{app:grid}
+
+\begin{table}[p]
+\centering
+\scriptsize
+\input{tables/crossover-full}
+\caption{Nanoseconds per trace entry, median across processes, for each cell of the grid. Column names as in Table~\ref{tab:cross}.}
+\label{tab:crossfull}
+\end{table}
+
+\input{bibliography}
+
+\end{document}

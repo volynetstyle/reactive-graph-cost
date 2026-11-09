@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- M4A.2: runs public-API programs against WindowsBase built from the pinned WPF commit.
+       It targets plain Microsoft.NETCore.App on purpose: UseWPF would bind the WindowsDesktop
+       runtime bundled with the SDK, which is a different build of WindowsBase. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net12.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseAppHost>false</UseAppHost>
+    <Optimize>true</Optimize>
+    <!-- Fully optimized code from the first call, so stack slots do not keep objects alive. -->
+    <TieredCompilation>false</TieredCompilation>
+    <TieredPGO>false</TieredPGO>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <ServerGarbageCollector>false</ServerGarbageCollector>
+    <WpfArtifacts>$(MSBuildThisFileDirectory)..\..\..\.cache\wpf-49ae5cd-repo\artifacts\bin</WpfArtifacts>
+    <!-- The runtime and reference pack WPF was built against, not the older ones in the SDK. -->
+    <WpfRuntimeVersion>12.0.0-alpha.1.26551.101</WpfRuntimeVersion>
+    <RuntimeFrameworkVersion>$(WpfRuntimeVersion)</RuntimeFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <KnownFrameworkReference Update="Microsoft.NETCore.App">
+      <TargetingPackVersion Condition="'%(TargetFramework)' == 'net12.0'">$(WpfRuntimeVersion)</TargetingPackVersion>
+      <LatestRuntimeFrameworkVersion Condition="'%(TargetFramework)' == 'net12.0'">$(WpfRuntimeVersion)</LatestRuntimeFrameworkVersion>
+      <DefaultRuntimeFrameworkVersion Condition="'%(TargetFramework)' == 'net12.0'">$(WpfRuntimeVersion)</DefaultRuntimeFrameworkVersion>
+    </KnownFrameworkReference>
+  </ItemGroup>
+  <!-- A closed-source native shim for the dispatcher's window, shipped separately from this
+       repository. It takes no part in weak-event logic, so the copy bundled with the SDK is used. -->
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\..\..\.cache\wpf-49ae5cd-repo\.dotnet\shared\Microsoft.WindowsDesktop.App\12.0.0-alpha.1.26480.102\PresentationNative_cor3.dll" Link="PresentationNative_cor3.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <!-- The packages WindowsBase was built against, at the versions the frozen build restored. -->
+  <PropertyGroup>
+    <WpfPackages>$(MSBuildThisFileDirectory)..\..\..\.cache\wpf-49ae5cd-repo\.packages</WpfPackages>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration.ConfigurationManager" HintPath="$(WpfPackages)\system.configuration.configurationmanager\$(WpfRuntimeVersion)\lib\net12.0\System.Configuration.ConfigurationManager.dll" Private="true" />
+    <Reference Include="System.Diagnostics.EventLog" HintPath="$(WpfPackages)\system.diagnostics.eventlog\$(WpfRuntimeVersion)\lib\net12.0\System.Diagnostics.EventLog.dll" Private="true" />
+    <Reference Include="System.Windows.Extensions" HintPath="$(WpfPackages)\system.windows.extensions\$(WpfRuntimeVersion)\lib\net12.0\System.Windows.Extensions.dll" Private="true" />
+    <Reference Include="System.Security.Cryptography.Xml" HintPath="$(WpfPackages)\system.security.cryptography.xml\$(WpfRuntimeVersion)\lib\net12.0\System.Security.Cryptography.Xml.dll" Private="true" />
+    <Reference Include="System.IO.Packaging" HintPath="$(WpfPackages)\system.io.packaging\$(WpfRuntimeVersion)\lib\net12.0\System.IO.Packaging.dll" Private="true" />
+    <Reference Include="System.Security.Permissions" HintPath="$(WpfPackages)\system.security.permissions\$(WpfRuntimeVersion)\lib\net12.0\System.Security.Permissions.dll" Private="true" />
+    <Reference Include="System.Security.Cryptography.ProtectedData" HintPath="$(WpfPackages)\system.security.cryptography.protecteddata\$(WpfRuntimeVersion)\lib\net12.0\System.Security.Cryptography.ProtectedData.dll" Private="true" />
+    <Reference Include="System.Private.Windows.Core" HintPath="$(WpfPackages)\microsoft.private.winforms\$(WpfRuntimeVersion)\lib\net12.0\System.Private.Windows.Core.dll" Private="true" />
+    <Reference Include="Accessibility" HintPath="$(WpfPackages)\microsoft.private.winforms\$(WpfRuntimeVersion)\lib\net12.0\Accessibility.dll" Private="true" />
+  </ItemGroup>
+  <!-- Microsoft.NETCore.App carries a WindowsBase facade. Compile against the frozen build only. -->
+  <Target Name="DropWindowsBaseFacade" AfterTargets="ResolveTargetingPackAssets">
+    <ItemGroup>
+      <_WindowsBaseFacade Include="@(Reference)" Condition="'%(Filename)' == 'WindowsBase' And '%(Reference.FrameworkReferenceName)' != ''" />
+      <Reference Remove="@(_WindowsBaseFacade)" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <Reference Include="WindowsBase">
+      <HintPath>$(WpfArtifacts)\WindowsBase\x64\Release\net12.0\WindowsBase.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <HintPath>$(WpfArtifacts)\System.Xaml\x64\Release\net12.0\System.Xaml.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="System.Windows.Primitives">
+      <HintPath>$(WpfArtifacts)\System.Windows.Primitives\x64\Release\net12.0\System.Windows.Primitives.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

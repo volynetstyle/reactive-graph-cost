@@ -1,0 +1,61 @@
+[
+  { "name": "harness control: a held listener survives collection", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "harness control: a dropped listener with no subscription dies", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "dropListener", "l": 0 }, { "kind": "collect" }, { "kind": "probe" } ] },
+
+  { "name": "weak: an unreachable listener is not delivered", "sources": 1, "listeners": 2, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "raise", "s": 0 },
+    { "kind": "dropListener", "l": 0 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "weak: a target dies during delivery", "sources": 1, "listeners": 3,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "dropListener", "l": 1 }, { "kind": "collect" }, { "kind": "probe" } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "add", "s": 0, "l": 2 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "source: the manager does not retain a source", "sources": 2, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 1, "l": 0 }, { "kind": "dropSource", "s": 0 }, { "kind": "collect" }, { "kind": "probe" },
+    { "kind": "raise", "s": 1 } ] },
+
+  { "name": "multiplicity: one handler added twice", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "add", "s": 0, "l": 0, "h": 1 }, { "kind": "raise", "s": 0 },
+    { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "raise", "s": 0 },
+    { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "raise", "s": 0 },
+    { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "raise", "s": 0 } ] },
+  { "name": "multiplicity: removal takes the last match", "sources": 1, "listeners": 2, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "add", "s": 0, "l": 0 }, { "kind": "raise", "s": 0 },
+    { "kind": "remove", "s": 0, "l": 0 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "snapshot: A removes B and adds C", "sources": 1, "listeners": 3,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": 0, "l": 1 }, { "kind": "add", "s": 0, "l": 2 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "raise", "s": 0 }, { "kind": "raise", "s": 0 } ] },
+  { "name": "snapshot: a listener removes itself", "sources": 1, "listeners": 2,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": 0, "l": 0 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "raise", "s": 0 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "nested: a delivery after a change sees the new membership", "sources": 1, "listeners": 3,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": 0, "l": 1 }, { "kind": "add", "s": 0, "l": 2 }, { "kind": "raise", "s": 0 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "activation: subscribe on first, unsubscribe on last, again on re-add", "sources": 1, "listeners": 2, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "add", "s": 0, "l": 1 }, { "kind": "remove", "s": 0, "l": 0 }, { "kind": "remove", "s": 0, "l": 1 }, { "kind": "add", "s": 0, "l": 0 } ] },
+  { "name": "activation: last removal during delivery", "sources": 1, "listeners": 1,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": 0, "l": 0 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "raise", "s": 0 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "stale: a dead entry keeps the source subscribed until a purge", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "pump" }, { "kind": "dropListener", "l": 0 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "pump" },
+    { "kind": "raise", "s": 0 }, { "kind": "pump" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "stale: forced purge with no delivery", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0 }, { "kind": "pump" }, { "kind": "dropListener", "l": 0 }, { "kind": "collect" }, { "kind": "forcePurge" }, { "kind": "forcePurge" } ] },
+
+  { "name": "static hypothesis: an add during delivery", "sources": 0, "listeners": 2,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "add", "s": -1, "l": 1 } ] } ],
+    "ops": [ { "kind": "add", "s": -1, "l": 0 }, { "kind": "raise", "s": -1 }, { "kind": "raise", "s": -1 } ] },
+  { "name": "static control: a remove during delivery", "sources": 0, "listeners": 2,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": -1, "l": 1 } ] } ],
+    "ops": [ { "kind": "add", "s": -1, "l": 0 }, { "kind": "add", "s": -1, "l": 1 }, { "kind": "raise", "s": -1 }, { "kind": "raise", "s": -1 } ] },
+  { "name": "static control: an add outside delivery", "sources": 0, "listeners": 2, "ops": [
+    { "kind": "add", "s": -1, "l": 0 }, { "kind": "add", "s": -1, "l": 1 }, { "kind": "raise", "s": -1 } ] },
+  { "name": "instance control: an add during delivery", "sources": 1, "listeners": 2,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "add", "s": 0, "l": 1 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0 }, { "kind": "raise", "s": 0 }, { "kind": "raise", "s": 0 } ] }
+]

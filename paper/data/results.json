@@ -1,0 +1,5257 @@
+{
+ "wpf": {
+  "s0": {
+   "directed": {
+    "programs": 18,
+    "same": 18,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 42,
+     "writesDuringDelivery": 6,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 3,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 35,
+     "unlinks": 10,
+     "rightWalkSteps": 79,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 0,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 0,
+     "maxSimultaneousVersions": 0,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 14,
+     "sumPeakClientVersions": 18,
+     "sumPeakStoreMembership": 32,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 102
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 11,
+     "writesDuringDelivery": 2,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 15,
+     "unlinks": 6,
+     "rightWalkSteps": 41,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 0,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 0,
+     "maxSimultaneousVersions": 0,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 4,
+     "sumPeakClientVersions": 10,
+     "sumPeakStoreMembership": 14,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 43
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 4490,
+     "writesDuringDelivery": 220,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 85,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 7214,
+     "unlinks": 499,
+     "rightWalkSteps": 16879,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 0,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 0,
+     "maxSimultaneousVersions": 0,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 811,
+     "sumPeakClientVersions": 3518,
+     "sumPeakStoreMembership": 6860,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17968
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 4452,
+     "writesDuringDelivery": 163,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 83,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 7269,
+     "unlinks": 389,
+     "rightWalkSteps": 16916,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 0,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 0,
+     "maxSimultaneousVersions": 0,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 564,
+     "sumPeakClientVersions": 3422,
+     "sumPeakStoreMembership": 6979,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17717
+    }
+   }
+  },
+  "s1": {
+   "directed": {
+    "programs": 18,
+    "same": 18,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 8,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 3,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 35,
+     "unlinks": 10,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 26,
+     "entriesCopied": 10,
+     "orphanEntriesCopied": 1,
+     "writesCausingClone": 6,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 1,
+     "nestedDeliveries": 1,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 40,
+     "sumPeakClientVersions": 24,
+     "sumPeakStoreMembership": 32,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 135
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 2,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 15,
+     "unlinks": 6,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 12,
+     "entriesCopied": 4,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 2,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 1,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 1,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 17,
+     "sumPeakClientVersions": 12,
+     "sumPeakStoreMembership": 14,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 58
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 380,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 85,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 7214,
+     "unlinks": 499,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 3842,
+     "entriesCopied": 511,
+     "orphanEntriesCopied": 3,
+     "writesCausingClone": 220,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 3,
+     "nestedDeliveries": 131,
+     "deadEntriesDroppedDuringClone": 8,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 7288,
+     "sumPeakClientVersions": 3719,
+     "sumPeakStoreMembership": 6860,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 24757
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 264,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 83,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 7269,
+     "unlinks": 389,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 3670,
+     "entriesCopied": 363,
+     "orphanEntriesCopied": 2,
+     "writesCausingClone": 163,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 2,
+     "nestedDeliveries": 86,
+     "deadEntriesDroppedDuringClone": 10,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 7291,
+     "sumPeakClientVersions": 3558,
+     "sumPeakStoreMembership": 6979,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 24700
+    }
+   }
+  },
+  "s1-nosub": {
+   "directed": {
+    "programs": 18,
+    "same": 18,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 8,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 3,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 0,
+     "unlinks": 0,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 26,
+     "entriesCopied": 10,
+     "orphanEntriesCopied": 1,
+     "writesCausingClone": 6,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 1,
+     "nestedDeliveries": 1,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 40,
+     "sumPeakClientVersions": 24,
+     "sumPeakStoreMembership": 0,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 105
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 2,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 0,
+     "unlinks": 0,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 12,
+     "entriesCopied": 4,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 2,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 1,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 1,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 17,
+     "sumPeakClientVersions": 12,
+     "sumPeakStoreMembership": 0,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 45
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 380,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 85,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 0,
+     "unlinks": 0,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 3842,
+     "entriesCopied": 511,
+     "orphanEntriesCopied": 3,
+     "writesCausingClone": 220,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 3,
+     "nestedDeliveries": 131,
+     "deadEntriesDroppedDuringClone": 8,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 7288,
+     "sumPeakClientVersions": 3719,
+     "sumPeakStoreMembership": 0,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17988
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 264,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 83,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 0,
+     "unlinks": 0,
+     "rightWalkSteps": 0,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 3670,
+     "entriesCopied": 363,
+     "orphanEntriesCopied": 2,
+     "writesCausingClone": 163,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 2,
+     "nestedDeliveries": 86,
+     "deadEntriesDroppedDuringClone": 10,
+     "frozenRecords": 0,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 7291,
+     "sumPeakClientVersions": 3558,
+     "sumPeakStoreMembership": 0,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17790
+    }
+   }
+  },
+  "s2": {
+   "directed": {
+    "programs": 18,
+    "same": 18,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 3,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 35,
+     "unlinks": 10,
+     "rightWalkSteps": 116,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 26,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 6,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 10,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 10,
+     "sumPeakClientVersions": 24,
+     "sumPeakStoreMembership": 32,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 12,
+     "sumPeakTotal": 114
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 15,
+     "unlinks": 6,
+     "rightWalkSteps": 50,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 12,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 2,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 4,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 4,
+     "sumPeakClientVersions": 12,
+     "sumPeakStoreMembership": 14,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 3,
+     "sumPeakTotal": 48
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 85,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 7214,
+     "unlinks": 499,
+     "rightWalkSteps": 21241,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 3842,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 220,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 503,
+     "retiredReads": 23,
+     "programsWithRetiredRead": 11,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 486,
+     "sumPeakClientVersions": 3719,
+     "sumPeakStoreMembership": 6860,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 176,
+     "sumPeakTotal": 17990
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 83,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 7269,
+     "unlinks": 389,
+     "rightWalkSteps": 21320,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 3670,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 163,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 357,
+     "retiredReads": 8,
+     "programsWithRetiredRead": 4,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 344,
+     "sumPeakClientVersions": 3558,
+     "sumPeakStoreMembership": 6979,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 106,
+     "sumPeakTotal": 17762
+    }
+   }
+  },
+  "s2-log": {
+   "directed": {
+    "programs": 18,
+    "same": 18,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 3,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 35,
+     "unlinks": 10,
+     "rightWalkSteps": 75,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 26,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 6,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 10,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 2,
+     "sumPeakClientEntries": 12,
+     "sumPeakClientVersions": 24,
+     "sumPeakStoreMembership": 32,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 104
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 15,
+     "unlinks": 6,
+     "rightWalkSteps": 40,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 12,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 2,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 4,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 4,
+     "sumPeakClientVersions": 12,
+     "sumPeakStoreMembership": 14,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 45
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 85,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 7214,
+     "unlinks": 499,
+     "rightWalkSteps": 16709,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 3842,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 220,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 503,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 44,
+     "sumPeakClientEntries": 528,
+     "sumPeakClientVersions": 3719,
+     "sumPeakStoreMembership": 6860,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17942
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 83,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 7269,
+     "unlinks": 389,
+     "rightWalkSteps": 16822,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 3670,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 163,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 357,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 26,
+     "sumPeakClientEntries": 369,
+     "sumPeakClientVersions": 3558,
+     "sumPeakStoreMembership": 6979,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17736
+    }
+   }
+  },
+  "s2-next": {
+   "directed": {
+    "programs": 18,
+    "same": 17,
+    "differ": 1,
+    "accounting": {
+     "deliveries": 26,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 10,
+     "staleAccrued": 4,
+     "deliveriesFindingStale": 2,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 2,
+     "peakStale": 1,
+     "relates": 35,
+     "unlinks": 10,
+     "rightWalkSteps": 73,
+     "lostStaticAdds": 1,
+     "handlerNodes": 36,
+     "retentionRelations": 47,
+     "handlersLostToFastPath": 0,
+     "zombieSkips": 0,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 20,
+     "versionsCreated": 26,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 6,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 10,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 1,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 10,
+     "sumPeakClientVersions": 24,
+     "sumPeakStoreMembership": 32,
+     "sumPeakStoreRetention": 41,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 104
+    }
+   },
+   "handler": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 8,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 4,
+     "staleAccrued": 1,
+     "deliveriesFindingStale": 0,
+     "staleDroppedByClone": 0,
+     "staleRemovedByPurge": 1,
+     "peakStale": 1,
+     "relates": 15,
+     "unlinks": 6,
+     "rightWalkSteps": 40,
+     "lostStaticAdds": 0,
+     "handlerNodes": 15,
+     "retentionRelations": 18,
+     "handlersLostToFastPath": 5,
+     "zombieSkips": 4,
+     "zombiesDroppedByClone": 1,
+     "retentionRelationsRemoved": 13,
+     "versionsCreated": 12,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 2,
+     "maxSimultaneousVersions": 2,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 4,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 0,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 4,
+     "sumPeakClientVersions": 12,
+     "sumPeakStoreMembership": 14,
+     "sumPeakStoreRetention": 16,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 45
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2612,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 511,
+     "staleAccrued": 967,
+     "deliveriesFindingStale": 79,
+     "staleDroppedByClone": 8,
+     "staleRemovedByPurge": 72,
+     "peakStale": 7,
+     "relates": 7214,
+     "unlinks": 499,
+     "rightWalkSteps": 16687,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7216,
+     "retentionRelations": 7722,
+     "handlersLostToFastPath": 347,
+     "zombieSkips": 41,
+     "zombiesDroppedByClone": 0,
+     "retentionRelationsRemoved": 1351,
+     "versionsCreated": 3842,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 220,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 503,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 6,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 486,
+     "sumPeakClientVersions": 3719,
+     "sumPeakStoreMembership": 6860,
+     "sumPeakStoreRetention": 7033,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17917
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "accounting": {
+     "deliveries": 2455,
+     "snapshotEntriesCopied": 0,
+     "writesDuringDelivery": 0,
+     "wpfCloneEntries": 363,
+     "staleAccrued": 952,
+     "deliveriesFindingStale": 81,
+     "staleDroppedByClone": 6,
+     "staleRemovedByPurge": 77,
+     "peakStale": 7,
+     "relates": 7269,
+     "unlinks": 389,
+     "rightWalkSteps": 16818,
+     "lostStaticAdds": 2,
+     "handlerNodes": 7271,
+     "retentionRelations": 7626,
+     "handlersLostToFastPath": 437,
+     "zombieSkips": 56,
+     "zombiesDroppedByClone": 4,
+     "retentionRelationsRemoved": 1178,
+     "versionsCreated": 3670,
+     "entriesCopied": 0,
+     "orphanEntriesCopied": 0,
+     "writesCausingClone": 163,
+     "maxSimultaneousVersions": 4,
+     "maxUsersPerVersion": 0,
+     "nestedDeliveries": 0,
+     "deadEntriesDroppedDuringClone": 0,
+     "frozenRecords": 357,
+     "retiredReads": 0,
+     "programsWithRetiredRead": 0,
+     "continuationLost": 2,
+     "collectLogRecords": 0,
+     "sumPeakClientEntries": 344,
+     "sumPeakClientVersions": 3558,
+     "sumPeakStoreMembership": 6979,
+     "sumPeakStoreRetention": 6980,
+     "sumPeakStoreRetired": 0,
+     "sumPeakTotal": 17723
+    }
+   }
+  }
+ },
+ "salsa": {
+  "b1": {
+   "directed": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 28,
+     "traceEntries": 35,
+     "validationSteps": 15,
+     "duplicateReads": 10,
+     "readsRecorded": 46,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 17,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14581,
+     "traceEntries": 26166,
+     "validationSteps": 9720,
+     "duplicateReads": 10835,
+     "readsRecorded": 38361,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 9401,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14909,
+     "traceEntries": 26866,
+     "validationSteps": 9827,
+     "duplicateReads": 10836,
+     "readsRecorded": 39096,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15689,
+     "sumPeakTraceContainers": 9602,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14586,
+     "traceEntries": 26269,
+     "validationSteps": 9555,
+     "duplicateReads": 10758,
+     "readsRecorded": 38441,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15383,
+     "sumPeakTraceContainers": 9435,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 200,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 9,
+     "sumPeakStoreNodes": 0
+    }
+   }
+  },
+  "b2": {
+   "directed": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 28,
+     "traceEntries": 35,
+     "validationSteps": 15,
+     "duplicateReads": 10,
+     "readsRecorded": 46,
+     "relates": 35,
+     "unlinks": 17,
+     "leftWalkSteps": 15,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 35
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14581,
+     "traceEntries": 26166,
+     "validationSteps": 9720,
+     "duplicateReads": 10835,
+     "readsRecorded": 38361,
+     "relates": 26166,
+     "unlinks": 11121,
+     "leftWalkSteps": 9720,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21001
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14909,
+     "traceEntries": 26866,
+     "validationSteps": 9827,
+     "duplicateReads": 10836,
+     "readsRecorded": 39096,
+     "relates": 26866,
+     "unlinks": 11432,
+     "leftWalkSteps": 9827,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15689,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14586,
+     "traceEntries": 26269,
+     "validationSteps": 9555,
+     "duplicateReads": 10758,
+     "readsRecorded": 38441,
+     "relates": 26269,
+     "unlinks": 11108,
+     "leftWalkSteps": 9555,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15383,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 200,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 3093,
+     "unlinks": 2940,
+     "leftWalkSteps": 200,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 234
+    }
+   }
+  },
+  "b3c": {
+   "directed": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 28,
+     "traceEntries": 35,
+     "validationSteps": 15,
+     "duplicateReads": 10,
+     "readsRecorded": 46,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 21,
+     "deaths": 3,
+     "reuses": 14,
+     "lookups": 35,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 21,
+     "sumPeakReuseMapEntries": 21,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 17,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14581,
+     "traceEntries": 26166,
+     "validationSteps": 9720,
+     "duplicateReads": 10835,
+     "readsRecorded": 38361,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 15423,
+     "deaths": 378,
+     "reuses": 10743,
+     "lookups": 26166,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 15806,
+     "sumPeakReuseMapEntries": 15274,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 9401,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14909,
+     "traceEntries": 26866,
+     "validationSteps": 9827,
+     "duplicateReads": 10836,
+     "readsRecorded": 39096,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 15845,
+     "deaths": 411,
+     "reuses": 11021,
+     "lookups": 26866,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 16238,
+     "sumPeakReuseMapEntries": 15692,
+     "sumPeakLiveEntries": 15689,
+     "sumPeakTraceContainers": 9602,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14586,
+     "traceEntries": 26269,
+     "validationSteps": 9555,
+     "duplicateReads": 10758,
+     "readsRecorded": 38441,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 15538,
+     "deaths": 377,
+     "reuses": 10731,
+     "lookups": 26269,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 15965,
+     "sumPeakReuseMapEntries": 15387,
+     "sumPeakLiveEntries": 15383,
+     "sumPeakTraceContainers": 9435,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 200,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 913,
+     "deaths": 760,
+     "reuses": 2180,
+     "lookups": 3093,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 1393,
+     "sumPeakReuseMapEntries": 153,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 9,
+     "sumPeakStoreNodes": 0
+    }
+   }
+  },
+  "b3l": {
+   "directed": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 28,
+     "traceEntries": 35,
+     "validationSteps": 15,
+     "duplicateReads": 10,
+     "readsRecorded": 46,
+     "relates": 21,
+     "unlinks": 3,
+     "leftWalkSteps": 50,
+     "births": 21,
+     "deaths": 3,
+     "reuses": 14,
+     "lookups": 35,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 21,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 35
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14581,
+     "traceEntries": 26166,
+     "validationSteps": 9720,
+     "duplicateReads": 10835,
+     "readsRecorded": 38361,
+     "relates": 15423,
+     "unlinks": 378,
+     "leftWalkSteps": 35886,
+     "births": 15423,
+     "deaths": 378,
+     "reuses": 10743,
+     "lookups": 26166,
+     "moveAfterCalls": 312,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15274,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21001
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14909,
+     "traceEntries": 26866,
+     "validationSteps": 9827,
+     "duplicateReads": 10836,
+     "readsRecorded": 39096,
+     "relates": 15845,
+     "unlinks": 411,
+     "leftWalkSteps": 36693,
+     "births": 15845,
+     "deaths": 411,
+     "reuses": 11021,
+     "lookups": 26866,
+     "moveAfterCalls": 342,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15692,
+     "sumPeakLiveEntries": 15689,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14586,
+     "traceEntries": 26269,
+     "validationSteps": 9555,
+     "duplicateReads": 10758,
+     "readsRecorded": 38441,
+     "relates": 15538,
+     "unlinks": 377,
+     "leftWalkSteps": 35824,
+     "births": 15538,
+     "deaths": 377,
+     "reuses": 10731,
+     "lookups": 26269,
+     "moveAfterCalls": 345,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15387,
+     "sumPeakLiveEntries": 15383,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 200,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 913,
+     "unlinks": 760,
+     "leftWalkSteps": 3293,
+     "births": 913,
+     "deaths": 760,
+     "reuses": 2180,
+     "lookups": 3093,
+     "moveAfterCalls": 1240,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 153,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 234
+    }
+   }
+  },
+  "b3d": {
+   "directed": {
+    "programs": 10,
+    "same": 10,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 28,
+     "traceEntries": 35,
+     "validationSteps": 15,
+     "duplicateReads": 10,
+     "readsRecorded": 46,
+     "relates": 21,
+     "unlinks": 3,
+     "leftWalkSteps": 50,
+     "births": 21,
+     "deaths": 3,
+     "reuses": 14,
+     "lookups": 35,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 21,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 35
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14581,
+     "traceEntries": 26166,
+     "validationSteps": 9720,
+     "duplicateReads": 10835,
+     "readsRecorded": 38361,
+     "relates": 15423,
+     "unlinks": 378,
+     "leftWalkSteps": 35886,
+     "births": 15423,
+     "deaths": 378,
+     "reuses": 10743,
+     "lookups": 26166,
+     "moveAfterCalls": 168,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15274,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21001
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14909,
+     "traceEntries": 26866,
+     "validationSteps": 9827,
+     "duplicateReads": 10836,
+     "readsRecorded": 39096,
+     "relates": 15845,
+     "unlinks": 411,
+     "leftWalkSteps": 36693,
+     "births": 15845,
+     "deaths": 411,
+     "reuses": 11021,
+     "lookups": 26866,
+     "moveAfterCalls": 172,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15692,
+     "sumPeakLiveEntries": 15689,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 3000,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14586,
+     "traceEntries": 26269,
+     "validationSteps": 9555,
+     "duplicateReads": 10758,
+     "readsRecorded": 38441,
+     "relates": 15538,
+     "unlinks": 377,
+     "leftWalkSteps": 35824,
+     "births": 15538,
+     "deaths": 377,
+     "reuses": 10731,
+     "lookups": 26269,
+     "moveAfterCalls": 192,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 15387,
+     "sumPeakLiveEntries": 15383,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 21084
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 200,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 913,
+     "unlinks": 760,
+     "leftWalkSteps": 3293,
+     "births": 913,
+     "deaths": 760,
+     "reuses": 2180,
+     "lookups": 3093,
+     "moveAfterCalls": 420,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 153,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 0,
+     "sumPeakStoreNodes": 234
+    }
+   }
+  },
+  "b4": {
+   "directed": {
+    "programs": 10,
+    "same": 7,
+    "differ": 3,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 29,
+     "traceEntries": 36,
+     "validationSteps": 19,
+     "duplicateReads": 10,
+     "readsRecorded": 47,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 21,
+     "sumPeakTraceContainers": 17,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "generated": {
+    "programs": 3000,
+    "same": 2343,
+    "differ": 657,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14649,
+     "traceEntries": 26312,
+     "validationSteps": 10039,
+     "duplicateReads": 10918,
+     "readsRecorded": 38594,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15272,
+     "sumPeakTraceContainers": 9401,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "holdout": {
+    "programs": 3000,
+    "same": 2333,
+    "differ": 667,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14971,
+     "traceEntries": 26989,
+     "validationSteps": 10025,
+     "duplicateReads": 10888,
+     "readsRecorded": 39282,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15696,
+     "sumPeakTraceContainers": 9604,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "fresh": {
+    "programs": 3000,
+    "same": 2328,
+    "differ": 672,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 14636,
+     "traceEntries": 26364,
+     "validationSteps": 9701,
+     "duplicateReads": 10812,
+     "readsRecorded": 38594,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 15384,
+     "sumPeakTraceContainers": 9435,
+     "sumPeakStoreNodes": 0
+    }
+   },
+   "shapes": {
+    "programs": 9,
+    "same": 9,
+    "differ": 0,
+    "valuesDiffer": 0,
+    "accounting": {
+     "executions": 189,
+     "traceEntries": 3093,
+     "validationSteps": 2920,
+     "duplicateReads": 2835,
+     "readsRecorded": 5928,
+     "relates": 0,
+     "unlinks": 0,
+     "leftWalkSteps": 0,
+     "births": 0,
+     "deaths": 0,
+     "reuses": 0,
+     "lookups": 0,
+     "moveAfterCalls": 0,
+     "clientPositionWrites": 0,
+     "sumPeakReuseMapEntries": 0,
+     "sumPeakLiveEntries": 153,
+     "sumPeakTraceContainers": 9,
+     "sumPeakStoreNodes": 0
+    }
+   }
+  }
+ },
+ "salsaShapes": {
+  "stable [A,B,C] to the same": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 40,
+    "duplicateReads": 0,
+    "readsRecorded": 525,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 40,
+    "duplicateReads": 0,
+    "readsRecorded": 525,
+    "relates": 525,
+    "unlinks": 500,
+    "leftWalkSteps": 40,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 40,
+    "duplicateReads": 0,
+    "readsRecorded": 525,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 25,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 40,
+    "duplicateReads": 0,
+    "readsRecorded": 525,
+    "relates": 25,
+    "unlinks": 0,
+    "leftWalkSteps": 565,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 40,
+    "duplicateReads": 0,
+    "readsRecorded": 525,
+    "relates": 25,
+    "unlinks": 0,
+    "leftWalkSteps": 565,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "suffix drop and add": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 405,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 657,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 405,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 657,
+    "relates": 405,
+    "unlinks": 380,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 405,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 657,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 145,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 405,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 145,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 405,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 657,
+    "relates": 145,
+    "unlinks": 120,
+    "leftWalkSteps": 425,
+    "births": 145,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 405,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 405,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 657,
+    "relates": 145,
+    "unlinks": 120,
+    "leftWalkSteps": 425,
+    "births": 145,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 405,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "branch switch": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 462,
+    "readsRecorded": 735,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 462,
+    "readsRecorded": 735,
+    "relates": 273,
+    "unlinks": 260,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 462,
+    "readsRecorded": 735,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 233,
+    "deaths": 220,
+    "reuses": 40,
+    "lookups": 273,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 233,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 462,
+    "readsRecorded": 735,
+    "relates": 233,
+    "unlinks": 220,
+    "leftWalkSteps": 293,
+    "births": 233,
+    "deaths": 220,
+    "reuses": 40,
+    "lookups": 273,
+    "moveAfterCalls": 220,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 462,
+    "readsRecorded": 735,
+    "relates": 233,
+    "unlinks": 220,
+    "leftWalkSteps": 293,
+    "births": 233,
+    "deaths": 220,
+    "reuses": 40,
+    "lookups": 273,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "reorder": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 20,
+    "duplicateReads": 1008,
+    "readsRecorded": 1533,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 20,
+    "duplicateReads": 1008,
+    "readsRecorded": 1533,
+    "relates": 525,
+    "unlinks": 500,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 20,
+    "duplicateReads": 1008,
+    "readsRecorded": 1533,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 505,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 20,
+    "duplicateReads": 1008,
+    "readsRecorded": 1533,
+    "relates": 25,
+    "unlinks": 0,
+    "leftWalkSteps": 545,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 400,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 525,
+    "validationSteps": 20,
+    "duplicateReads": 1008,
+    "readsRecorded": 1533,
+    "relates": 25,
+    "unlinks": 0,
+    "leftWalkSteps": 545,
+    "births": 25,
+    "deaths": 0,
+    "reuses": 500,
+    "lookups": 525,
+    "moveAfterCalls": 400,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 25,
+    "sumPeakLiveEntries": 25,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "replace half": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 399,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 651,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 19,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 399,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 651,
+    "relates": 399,
+    "unlinks": 380,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 19,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 399,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 651,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 139,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 399,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 139,
+    "sumPeakReuseMapEntries": 19,
+    "sumPeakLiveEntries": 19,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 399,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 651,
+    "relates": 139,
+    "unlinks": 120,
+    "leftWalkSteps": 419,
+    "births": 139,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 399,
+    "moveAfterCalls": 120,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 19,
+    "sumPeakLiveEntries": 19,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 399,
+    "validationSteps": 20,
+    "duplicateReads": 252,
+    "readsRecorded": 651,
+    "relates": 139,
+    "unlinks": 120,
+    "leftWalkSteps": 419,
+    "births": 139,
+    "deaths": 120,
+    "reuses": 260,
+    "lookups": 399,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 19,
+    "sumPeakLiveEntries": 19,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "alternating short branches": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 63,
+    "validationSteps": 20,
+    "duplicateReads": 84,
+    "readsRecorded": 147,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 3,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 63,
+    "validationSteps": 20,
+    "duplicateReads": 84,
+    "readsRecorded": 147,
+    "relates": 63,
+    "unlinks": 60,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 3,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 63,
+    "validationSteps": 20,
+    "duplicateReads": 84,
+    "readsRecorded": 147,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 43,
+    "deaths": 40,
+    "reuses": 20,
+    "lookups": 63,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 43,
+    "sumPeakReuseMapEntries": 3,
+    "sumPeakLiveEntries": 3,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 63,
+    "validationSteps": 20,
+    "duplicateReads": 84,
+    "readsRecorded": 147,
+    "relates": 43,
+    "unlinks": 40,
+    "leftWalkSteps": 83,
+    "births": 43,
+    "deaths": 40,
+    "reuses": 20,
+    "lookups": 63,
+    "moveAfterCalls": 40,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 3,
+    "sumPeakLiveEntries": 3,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 63,
+    "validationSteps": 20,
+    "duplicateReads": 84,
+    "readsRecorded": 147,
+    "relates": 43,
+    "unlinks": 40,
+    "leftWalkSteps": 83,
+    "births": 43,
+    "deaths": 40,
+    "reuses": 20,
+    "lookups": 63,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 3,
+    "sumPeakLiveEntries": 3,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "repeated reads": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 126,
+    "validationSteps": 20,
+    "duplicateReads": 231,
+    "readsRecorded": 357,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 6,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 126,
+    "validationSteps": 20,
+    "duplicateReads": 231,
+    "readsRecorded": 357,
+    "relates": 126,
+    "unlinks": 120,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 6,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 126,
+    "validationSteps": 20,
+    "duplicateReads": 231,
+    "readsRecorded": 357,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 6,
+    "deaths": 0,
+    "reuses": 120,
+    "lookups": 126,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 6,
+    "sumPeakReuseMapEntries": 6,
+    "sumPeakLiveEntries": 6,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 126,
+    "validationSteps": 20,
+    "duplicateReads": 231,
+    "readsRecorded": 357,
+    "relates": 6,
+    "unlinks": 0,
+    "leftWalkSteps": 146,
+    "births": 6,
+    "deaths": 0,
+    "reuses": 120,
+    "lookups": 126,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 6,
+    "sumPeakLiveEntries": 6,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 126,
+    "validationSteps": 20,
+    "duplicateReads": 231,
+    "readsRecorded": 357,
+    "relates": 6,
+    "unlinks": 0,
+    "leftWalkSteps": 146,
+    "births": 6,
+    "deaths": 0,
+    "reuses": 120,
+    "lookups": 126,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 6,
+    "sumPeakLiveEntries": 6,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "long trace, tiny edit": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 504,
+    "validationSteps": 20,
+    "duplicateReads": 42,
+    "readsRecorded": 546,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 24,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 504,
+    "validationSteps": 20,
+    "duplicateReads": 42,
+    "readsRecorded": 546,
+    "relates": 504,
+    "unlinks": 480,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 24,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 504,
+    "validationSteps": 20,
+    "duplicateReads": 42,
+    "readsRecorded": 546,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 44,
+    "deaths": 20,
+    "reuses": 460,
+    "lookups": 504,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 44,
+    "sumPeakReuseMapEntries": 24,
+    "sumPeakLiveEntries": 24,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 504,
+    "validationSteps": 20,
+    "duplicateReads": 42,
+    "readsRecorded": 546,
+    "relates": 44,
+    "unlinks": 20,
+    "leftWalkSteps": 524,
+    "births": 44,
+    "deaths": 20,
+    "reuses": 460,
+    "lookups": 504,
+    "moveAfterCalls": 220,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 24,
+    "sumPeakLiveEntries": 24,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 504,
+    "validationSteps": 20,
+    "duplicateReads": 42,
+    "readsRecorded": 546,
+    "relates": 44,
+    "unlinks": 20,
+    "leftWalkSteps": 524,
+    "births": 44,
+    "deaths": 20,
+    "reuses": 460,
+    "lookups": 504,
+    "moveAfterCalls": 20,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 24,
+    "sumPeakLiveEntries": 24,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  },
+  "long trace, complete replacement": {
+   "b1": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 504,
+    "readsRecorded": 777,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b2": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 504,
+    "readsRecorded": 777,
+    "relates": 273,
+    "unlinks": 260,
+    "leftWalkSteps": 20,
+    "births": 0,
+    "deaths": 0,
+    "reuses": 0,
+    "lookups": 0,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 0,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3c": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 504,
+    "readsRecorded": 777,
+    "relates": 0,
+    "unlinks": 0,
+    "leftWalkSteps": 0,
+    "births": 253,
+    "deaths": 240,
+    "reuses": 20,
+    "lookups": 273,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 253,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 1,
+    "sumPeakStoreNodes": 0
+   },
+   "b3l": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 504,
+    "readsRecorded": 777,
+    "relates": 253,
+    "unlinks": 240,
+    "leftWalkSteps": 293,
+    "births": 253,
+    "deaths": 240,
+    "reuses": 20,
+    "lookups": 273,
+    "moveAfterCalls": 240,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   },
+   "b3d": {
+    "status": "same",
+    "executions": 21,
+    "traceEntries": 273,
+    "validationSteps": 20,
+    "duplicateReads": 504,
+    "readsRecorded": 777,
+    "relates": 253,
+    "unlinks": 240,
+    "leftWalkSteps": 293,
+    "births": 253,
+    "deaths": 240,
+    "reuses": 20,
+    "lookups": 273,
+    "moveAfterCalls": 0,
+    "clientPositionWrites": 0,
+    "sumPeakReuseMapEntries": 13,
+    "sumPeakLiveEntries": 13,
+    "sumPeakTraceContainers": 0,
+    "sumPeakStoreNodes": 26
+   }
+  }
+ },
+ "salsaJournal": "git HEAD: 6d59529e8c299f18614d59e03f6ffb54e8c8dda6\nrustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-pc-windows-gnullvm\nrelease: 1.99.1\nLLVM version: 23.1.1\ncargo 1.99.1 (5f94df478 2026-08-27)\n1.99-x86_64-pc-windows-gnullvm (overridden by environment variable RUSTUP_TOOLCHAIN)\nCargo.lock sha256: 7a3a4cfd24e67578564edd80ce198c15da395f28414bc8d098ff6330e3ec1db7\nsalsa rlib sha256: 203be1b0f3b382feed6ab1bd54100e0de64e1bac073d1dfaeb0d118721444cfe 71fc19ec4e753573fb1b6f4868c4561270ad711478307eca43707d209953eb15 \noracle sha256: 4b2e2d14a3aa6c659bb62aae8714befe4a7ec5985b29e1fd7ae542efa328e86b\n",
+ "alien": {
+  "port": {
+   "passed": 198,
+   "total": 198,
+   "divergent": 49,
+   "programs": 4000,
+   "reference": "frozen"
+  },
+  "R0": {
+   "passed": 194,
+   "total": 198
+  },
+  "R1": {
+   "passed": 195,
+   "total": 198
+  },
+  "R1-epoch": {
+   "passed": 198,
+   "total": 198
+  },
+  "R2": {
+   "passed": 197,
+   "total": 198
+  },
+  "R3": {
+   "passed": 196,
+   "total": 198
+  },
+  "R4a": {
+   "passed": 198,
+   "total": 198,
+   "divergent": 8,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "R4b": {
+   "passed": 197,
+   "total": 198,
+   "divergent": 5,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "prev-none": {
+   "passed": 193,
+   "total": 198
+  },
+  "prev-forward": {
+   "passed": 198,
+   "total": 198
+  },
+  "prevsub-forward": {
+   "passed": 198,
+   "total": 198
+  },
+  "multi-forbid": {
+   "passed": 198,
+   "total": 198
+  },
+  "multi-reuse": {
+   "passed": 198,
+   "total": 198
+  },
+  "right-reverse-propagate": {
+   "passed": 195,
+   "total": 198
+  },
+  "right-reverse-all": {
+   "passed": 195,
+   "total": 198
+  },
+  "version-1bit": {
+   "passed": 198,
+   "total": 198
+  },
+  "version-2bit": {
+   "passed": 198,
+   "total": 198
+  },
+  "wide-epoch-chase": {
+   "divergent": 39,
+   "programs": 4000,
+   "reference": "frozen"
+  },
+  "wide-epoch-raw": {},
+  "multi-reuse-biaxial": {
+   "passed": 198,
+   "total": 198
+  },
+  "left-reverse-validate": {
+   "passed": 198,
+   "total": 198
+  },
+  "multi-reuse-unread": {
+   "passed": 198,
+   "total": 198
+  },
+  "multi-reuse-unread-w": {
+   "divergent": 7,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "multi-reuse-biaxial-w": {
+   "divergent": 478,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "left-reverse-validate-w": {
+   "divergent": 1589,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "R5": {
+   "passed": 198,
+   "total": 198,
+   "divergent": 0,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "wide-fix": {
+   "divergent": 0,
+   "programs": 4000,
+   "reference": "frozen"
+  },
+  "wide-fix-raw": {
+   "divergent": 0,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "version-1bit-w": {
+   "divergent": 76,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "version-2bit-w": {
+   "divergent": 32,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "multi-forbid-w": {
+   "divergent": 231,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "multi-reuse-w": {
+   "divergent": 63,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "prev-forward-w": {
+   "divergent": 0,
+   "programs": 4000,
+   "reference": "wide-fix"
+  },
+  "prevsub-forward-w": {
+   "divergent": 0,
+   "programs": 4000,
+   "reference": "wide-fix"
+  }
+ },
+ "alienFlat": {
+  "passed": 198,
+  "total": 198,
+  "frozen": {
+   "programs": 4000,
+   "divergent": 0,
+   "retiredNext": 0,
+   "retiredNextDivergentFromFrozen": 0
+  },
+  "wideFix": {
+   "programs": 4000,
+   "divergent": 0,
+   "retiredNext": 0,
+   "retiredNextDivergentFromFrozen": 0
+  }
+ },
+ "polyfill": {
+  "corpus": {
+   "port": {
+    "passed": 39,
+    "total": 39,
+    "work": {
+     "ablationWork": 0,
+     "inactiveBirths": 0,
+     "activationFlips": 0,
+     "deactivationFlips": 0,
+     "retentionFlips": 0,
+     "birthsFromActivation": 6,
+     "deathsFromDeactivation": 7,
+     "physicalRelationsAtEnd": 0,
+     "inactiveRelationsAtEnd": 0
+    }
+   },
+   "stable-erase": {
+    "passed": 39,
+    "total": 39,
+    "work": {
+     "ablationWork": 0,
+     "inactiveBirths": 0,
+     "activationFlips": 0,
+     "deactivationFlips": 0,
+     "retentionFlips": 0,
+     "birthsFromActivation": 6,
+     "deathsFromDeactivation": 7,
+     "physicalRelationsAtEnd": 0,
+     "inactiveRelationsAtEnd": 0
+    }
+   },
+   "B-stable": {
+    "passed": 39,
+    "total": 39,
+    "work": {
+     "ablationWork": 59,
+     "inactiveBirths": 46,
+     "activationFlips": 6,
+     "deactivationFlips": 7,
+     "retentionFlips": 0,
+     "birthsFromActivation": 0,
+     "deathsFromDeactivation": 0,
+     "physicalRelationsAtEnd": 59,
+     "inactiveRelationsAtEnd": 39
+    }
+   },
+   "B-tail": {
+    "passed": 39,
+    "total": 39,
+    "work": {
+     "ablationWork": 59,
+     "inactiveBirths": 46,
+     "activationFlips": 6,
+     "deactivationFlips": 7,
+     "retentionFlips": 0,
+     "birthsFromActivation": 0,
+     "deathsFromDeactivation": 0,
+     "physicalRelationsAtEnd": 59,
+     "inactiveRelationsAtEnd": 39
+    }
+   },
+   "B-retain": {
+    "passed": 39,
+    "total": 39,
+    "work": {
+     "ablationWork": 59,
+     "inactiveBirths": 46,
+     "activationFlips": 6,
+     "deactivationFlips": 7,
+     "retentionFlips": 13,
+     "birthsFromActivation": 0,
+     "deathsFromDeactivation": 0,
+     "physicalRelationsAtEnd": 59,
+     "inactiveRelationsAtEnd": 39
+    }
+   }
+  },
+  "searches": [
+   {
+    "variant": "port",
+    "reference": "frozen",
+    "programs": 3000,
+    "P": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 57,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "same"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "stable-erase",
+    "reference": "frozen",
+    "programs": 3000,
+    "P": {
+     "order": 9,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 8,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 57,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "behaviour"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "B-stable",
+    "reference": "frozen",
+    "programs": 3000,
+    "P": {
+     "order": 119,
+     "behaviour": 4,
+     "notifyThrow": 9,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 177,
+     "behaviour": 2,
+     "notifyThrow": 31,
+     "hookThrow": 64,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "order"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "behaviour"
+     }
+    ]
+   },
+   {
+    "variant": "B-tail",
+    "reference": "frozen",
+    "programs": 3000,
+    "P": {
+     "order": 9,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 8,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 64,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "behaviour"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "B-retain",
+    "reference": "frozen",
+    "programs": 3000,
+    "P": {
+     "order": 9,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 8,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 64,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "behaviour"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "B-stable",
+    "reference": "stable-erase",
+    "programs": 3000,
+    "P": {
+     "order": 111,
+     "behaviour": 4,
+     "notifyThrow": 9,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 174,
+     "behaviour": 2,
+     "notifyThrow": 31,
+     "hookThrow": 9,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "behaviour"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "behaviour"
+     }
+    ]
+   },
+   {
+    "variant": "B-tail",
+    "reference": "stable-erase",
+    "programs": 3000,
+    "P": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 9,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "same"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "B-retain",
+    "reference": "stable-erase",
+    "programs": 3000,
+    "P": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 9,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "same"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   },
+   {
+    "variant": "B-retain",
+    "reference": "B-tail",
+    "programs": 3000,
+    "P": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "E": {
+     "order": 0,
+     "behaviour": 0,
+     "notifyThrow": 0,
+     "hookThrow": 0,
+     "inconclusive": 0,
+     "self": 0
+    },
+    "directed": [
+     {
+      "name": "swap changes notify order",
+      "verdict": "same"
+     },
+     {
+      "name": "birth order changes notify order",
+      "verdict": "same"
+     }
+    ]
+   }
+  ],
+  "gc": [
+   {
+    "variant": "B-tail",
+    "rows": [
+     {
+      "name": "read only, never watched",
+      "observed": {
+       "state": "live",
+       "computed": "stale"
+      }
+     },
+     {
+      "name": "read, then watch",
+      "observed": {
+       "computed": "stale",
+       "watcher": "stale"
+      }
+     },
+     {
+      "name": "watch, then read",
+      "observed": {
+       "computed": "stale",
+       "watcher": "stale"
+      }
+     },
+     {
+      "name": "chain of two computeds",
+      "observed": {
+       "inner": "stale",
+       "outer": "stale",
+       "watcher": "stale"
+      }
+     },
+     {
+      "name": "unwatch makes it collectable",
+      "observed": {
+       "state": "live",
+       "computed": "stale",
+       "watcher": "stale"
+      }
+     },
+     {
+      "name": "watch, unwatch, watch keeps one relation",
+      "observed": {
+       "computed": "stale",
+       "watcher": "stale",
+       "sameHandle": true,
+       "relationAfterCollect": "stale"
+      }
+     }
+    ]
+   },
+   {
+    "variant": "B-retain",
+    "rows": [
+     {
+      "name": "read only, never watched",
+      "observed": {
+       "state": "live",
+       "computed": "stale"
+      }
+     },
+     {
+      "name": "read, then watch",
+      "observed": {
+       "computed": "live",
+       "watcher": "live"
+      }
+     },
+     {
+      "name": "watch, then read",
+      "observed": {
+       "computed": "live",
+       "watcher": "live"
+      }
+     },
+     {
+      "name": "chain of two computeds",
+      "observed": {
+       "inner": "live",
+       "outer": "live",
+       "watcher": "live"
+      }
+     },
+     {
+      "name": "unwatch makes it collectable",
+      "observed": {
+       "state": "live",
+       "computed": "stale",
+       "watcher": "stale"
+      }
+     },
+     {
+      "name": "watch, unwatch, watch keeps one relation",
+      "observed": {
+       "computed": "live",
+       "watcher": "live",
+       "sameHandle": true,
+       "relationAfterCollect": "live"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "rootTests": 76,
+ "quantPort": 75,
+ "physical": {
+  "rustRuns": 10,
+  "jsRuns": 10,
+  "environment": "rustc: rustc 1.99.1 (58cf8f9c3 2026-10-13)\nnode: v25.2.0\ncpu: 12th Gen Intel(R) Core(TM) i5-1235U\nmemory_gb: 16\nos: �������� Windows 10 Pro 10.0.19045\naffinity_mask: 0xF\nruns: 10\npower_plan: balanced, AC\n",
+  "tapes": {
+   "alien": 14361,
+   "polyfill": 898,
+   "quant": 17450000,
+   "salsa": 74290,
+   "synthetic-calm": 5850959,
+   "synthetic-churn": 7848139,
+   "wpf": 54270
+  },
+  "rust": {
+   "alien": {
+    "StoreAoS": {
+     "ns": {
+      "median": 3.795,
+      "min": 3.711,
+      "max": 5.417,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 653.5652173913044,
+      "min": 653.5652173913044,
+      "max": 653.5652173913044,
+      "n": 10
+     },
+     "allocsPerOp": 0.0036
+    },
+    "StoreSoA": {
+     "ns": {
+      "median": 4.5435,
+      "min": 4.47,
+      "max": 6.357,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 636.5217391304348,
+      "min": 636.5217391304348,
+      "max": 636.5217391304348,
+      "n": 10
+     },
+     "allocsPerOp": 0.0099
+    },
+    "ClientIntrusive": {
+     "ns": {
+      "median": 5.717,
+      "min": 5.668,
+      "max": 8.802,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 1198.608695652174,
+      "min": 1198.608695652174,
+      "max": 1198.608695652174,
+      "n": 10
+     },
+     "allocsPerOp": 0.0596
+    }
+   },
+   "polyfill": {
+    "StoreAoS": {
+     "ns": {
+      "median": 5.9575,
+      "min": 5.679,
+      "max": 6.125,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 149.02857142857144,
+      "min": 149.02857142857144,
+      "max": 149.02857142857144,
+      "n": 10
+     },
+     "allocsPerOp": 0.0612
+    },
+    "StoreSoA": {
+     "ns": {
+      "median": 11.359,
+      "min": 11.247,
+      "max": 12.027,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 136.22857142857143,
+      "min": 136.22857142857143,
+      "max": 136.22857142857143,
+      "n": 10
+     },
+     "allocsPerOp": 0.1626
+    },
+    "ClientIntrusive": {
+     "ns": {
+      "median": 7.016,
+      "min": 6.682,
+      "max": 7.238,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 192,
+      "min": 192,
+      "max": 192,
+      "n": 10
+     },
+     "allocsPerOp": 0.0902
+    }
+   },
+   "quant": {
+    "StoreAoS": {
+     "ns": {
+      "median": 2.068,
+      "min": 1.939,
+      "max": 2.234,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 113.44566629749457,
+      "min": 113.44566629749457,
+      "max": 113.44566629749457,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "StoreSoA": {
+     "ns": {
+      "median": 2.2165,
+      "min": 2.05,
+      "max": 2.474,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 96.87192053788665,
+      "min": 96.87192053788665,
+      "max": 96.87192053788665,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "ClientIntrusive": {
+     "ns": {
+      "median": 2.681,
+      "min": 2.41,
+      "max": 2.852,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 149.04929755561562,
+      "min": 149.04929755561562,
+      "max": 149.04929755561562,
+      "n": 10
+     },
+     "allocsPerOp": 0.007
+    }
+   },
+   "synthetic-calm": {
+    "StoreAoS": {
+     "ns": {
+      "median": 9.716000000000001,
+      "min": 8.581,
+      "max": 10.837,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 84.3776,
+      "min": 84.3776,
+      "max": 84.3776,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "StoreSoA": {
+     "ns": {
+      "median": 5.465,
+      "min": 4.877,
+      "max": 6.082,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 64.7168,
+      "min": 64.7168,
+      "max": 64.7168,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "ClientIntrusive": {
+     "ns": {
+      "median": 14.540500000000002,
+      "min": 13.096,
+      "max": 16.301,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 66.0224,
+      "min": 66.0224,
+      "max": 66.0224,
+      "n": 10
+     },
+     "allocsPerOp": 0.059
+    }
+   },
+   "synthetic-churn": {
+    "StoreAoS": {
+     "ns": {
+      "median": 11.1945,
+      "min": 9.718,
+      "max": 12.667,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 94.20805,
+      "min": 94.20805,
+      "max": 94.20805,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "StoreSoA": {
+     "ns": {
+      "median": 8.3265,
+      "min": 7.263,
+      "max": 12.186,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 94.20805,
+      "min": 94.20805,
+      "max": 94.20805,
+      "n": 10
+     },
+     "allocsPerOp": 0
+    },
+    "ClientIntrusive": {
+     "ns": {
+      "median": 28.525,
+      "min": 26.666,
+      "max": 37.965,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 131.5584,
+      "min": 131.5584,
+      "max": 131.5584,
+      "n": 10
+     },
+     "allocsPerOp": 0.1713
+    }
+   },
+   "salsa": {
+    "TracePersistent": {
+     "ns": {
+      "median": 105.4925,
+      "min": 97.683,
+      "max": 111.216,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 143.35973852836193,
+      "min": 143.35973852836193,
+      "max": 143.35973852836193,
+      "n": 10
+     },
+     "allocsPerOp": 1.2983
+    },
+    "ClientIntrusive rebuild": {
+     "ns": {
+      "median": 74.07249999999999,
+      "min": 69.378,
+      "max": 76.542,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 91.62654281168021,
+      "min": 91.62654281168021,
+      "max": 91.62654281168021,
+      "n": 10
+     },
+     "allocsPerOp": 1.2304
+    },
+    "ClientIntrusive reuse": {
+     "ns": {
+      "median": 136.37849999999997,
+      "min": 130.692,
+      "max": 149.198,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 208.43873908742958,
+      "min": 208.43873908742958,
+      "max": 208.43873908742958,
+      "n": 10
+     },
+     "allocsPerOp": 1.7433
+    },
+    "ClientIntrusive cursor": {
+     "ns": {
+      "median": 81.0745,
+      "min": 75.409,
+      "max": 85.507,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 99.75762267234336,
+      "min": 99.75762267234336,
+      "max": 99.75762267234336,
+      "n": 10
+     },
+     "allocsPerOp": 1.1155
+    },
+    "StoreAoS rebuild": {
+     "ns": {
+      "median": 53.033,
+      "min": 48.562,
+      "max": 56.047,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 85.19434051520234,
+      "min": 85.19434051520234,
+      "max": 85.19434051520234,
+      "n": 10
+     },
+     "allocsPerOp": 0.5202
+    },
+    "StoreAoS reuse": {
+     "ns": {
+      "median": 131.63799999999998,
+      "min": 119.879,
+      "max": 135.104,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 178.68283662323142,
+      "min": 178.68283662323142,
+      "max": 178.68283662323142,
+      "n": 10
+     },
+     "allocsPerOp": 1.4999
+    },
+    "StoreAoS cursor": {
+     "ns": {
+      "median": 76.65100000000001,
+      "min": 71.28,
+      "max": 78.9,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 91.13224100116113,
+      "min": 91.13224100116113,
+      "max": 91.13224100116113,
+      "n": 10
+     },
+     "allocsPerOp": 0.8721
+    },
+    "StoreSoA rebuild": {
+     "ns": {
+      "median": 181.7425,
+      "min": 169.789,
+      "max": 185.099,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 70.15834515976434,
+      "min": 70.15834515976434,
+      "max": 70.15834515976434,
+      "n": 10
+     },
+     "allocsPerOp": 1.9165
+    },
+    "StoreSplit rebuild": {
+     "ns": {
+      "median": 54.655,
+      "min": 50.069,
+      "max": 66.305,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 61.06119640476498,
+      "min": 61.06119640476498,
+      "max": 61.06119640476498,
+      "n": 10
+     },
+     "allocsPerOp": 0.7197
+    },
+    "TracePacked": {
+     "ns": {
+      "median": 47.971999999999994,
+      "min": 45.003,
+      "max": 49.318,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 28.818130993850257,
+      "min": 28.818130993850257,
+      "max": 28.818130993850257,
+      "n": 10
+     },
+     "allocsPerOp": 0.7551
+    }
+   },
+   "wpf": {
+    "ClientIntrusive freeze": {
+     "ns": {
+      "median": 64.73400000000001,
+      "min": 60.107,
+      "max": 65.069,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 1750.6634299585892,
+      "min": 1750.6634299585892,
+      "max": 1750.6634299585892,
+      "n": 10
+     },
+     "allocsPerOp": 0.6158
+    },
+    "StoreAoS freeze": {
+     "ns": {
+      "median": 65.678,
+      "min": 60.599,
+      "max": 67.076,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 1106.4446665714693,
+      "min": 1106.4446665714693,
+      "max": 1106.4446665714693,
+      "n": 10
+     },
+     "allocsPerOp": 0.5671
+    },
+    "StoreSoA freeze": {
+     "ns": {
+      "median": 122.1645,
+      "min": 114.022,
+      "max": 124.553,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 1100.8516350135656,
+      "min": 1100.8516350135656,
+      "max": 1100.8516350135656,
+      "n": 10
+     },
+     "allocsPerOp": 1.3304
+    },
+    "WpfCow": {
+     "ns": {
+      "median": 36.558,
+      "min": 33.886,
+      "max": 37.501,
+      "n": 10
+     },
+     "bytesPerRelation": {
+      "median": 945.1329430244181,
+      "min": 945.1329430244181,
+      "max": 945.1329430244181,
+      "n": 10
+     },
+     "allocsPerOp": 0.543
+    }
+   }
+  },
+  "graphRatios": {
+   "quant": {
+    "rustRecordsOverSoa": {
+     "median": 1.1856261319393986,
+     "min": 1.1050514081358962,
+     "max": 1.2555190230155002,
+     "n": 10
+    },
+    "rustRecordsOverAos": {
+     "median": 1.2500115561131837,
+     "min": 1.1794986571172783,
+     "max": 1.3797774552491533,
+     "n": 10
+    },
+    "jsObjectsOverSoa": {
+     "median": 1.4213266790040961,
+     "min": 1.2593849987051977,
+     "max": 1.5179939384554122,
+     "n": 10
+    },
+    "jsObjectsOverAos": {
+     "median": 1.4222937596798593,
+     "min": 1.3633725646911772,
+     "max": 1.4945771086493154,
+     "n": 10
+    },
+    "jsSoaOverRustSoa": {
+     "median": 3.338328834771189,
+     "min": 2.894981894755179,
+     "max": 3.9401751556620264,
+     "n": 10
+    },
+    "jsNs": {
+     "objects": {
+      "median": 10.363616045845273,
+      "min": 9.830641833810889,
+      "max": 10.913650429799427,
+      "n": 10
+     },
+     "aos": {
+      "median": 7.21621776504298,
+      "min": 7.001226361031518,
+      "max": 7.7114212034383955,
+      "n": 10
+     },
+     "soa": {
+      "median": 7.393730659025788,
+      "min": 6.4760744985673355,
+      "max": 8.65262464183381,
+      "n": 10
+     }
+    },
+    "jsBytes": {
+     "objects": null,
+     "aos": 111.16603151625084,
+     "soa": 111.16603151625084
+    }
+   },
+   "synthetic-calm": {
+    "rustRecordsOverSoa": {
+     "median": 2.729331635959367,
+     "min": 2.434200743494424,
+     "max": 2.859107879740617,
+     "n": 10
+    },
+    "rustRecordsOverAos": {
+     "median": 1.5341336032959343,
+     "min": 1.3533119768523303,
+     "max": 1.6378353376503239,
+     "n": 10
+    },
+    "jsObjectsOverSoa": {
+     "median": 3.423423930929684,
+     "min": 2.9425906644679265,
+     "max": 3.9647167102907113,
+     "n": 10
+    },
+    "jsObjectsOverAos": {
+     "median": 1.8459752756785108,
+     "min": 1.6521171808021076,
+     "max": 2.0183957127734895,
+     "n": 10
+    },
+    "jsSoaOverRustSoa": {
+     "median": 2.447117834402862,
+     "min": 2.0921567626208164,
+     "max": 2.833928157324868,
+     "n": 10
+    },
+    "jsNs": {
+     "objects": {
+      "median": 45.32873158058363,
+      "min": 41.202442197937124,
+      "max": 50.136157166714035,
+      "n": 10
+     },
+     "aos": {
+      "median": 24.826528437474952,
+      "min": 22.6646777049711,
+      "max": 26.153046022028185,
+      "n": 10
+     },
+     "soa": {
+      "median": 13.135675707178942,
+      "min": 11.854005471581667,
+      "max": 14.807538388151412,
+      "n": 10
+     }
+    },
+    "jsBytes": {
+     "objects": 96.279125,
+     "aos": 81.9224,
+     "soa": 81.9224
+    }
+   },
+   "synthetic-churn": {
+    "rustRecordsOverSoa": {
+     "median": 3.6576946636691723,
+     "min": 2.609469883472838,
+     "max": 4.08006448146158,
+     "n": 10
+    },
+    "rustRecordsOverAos": {
+     "median": 2.6843798381788835,
+     "min": 2.3356250524021127,
+     "max": 2.997157969527118,
+     "n": 10
+    },
+    "jsObjectsOverSoa": {
+     "median": 4.705278286650396,
+     "min": 4.1009290183446785,
+     "max": 5.457382348290902,
+     "n": 10
+    },
+    "jsObjectsOverAos": {
+     "median": 2.570729198362628,
+     "min": 2.372062135353564,
+     "max": 3.0596633249271266,
+     "n": 10
+    },
+    "jsSoaOverRustSoa": {
+     "median": 2.224084530461443,
+     "min": 1.2919357047142344,
+     "max": 2.5121668557673313,
+     "n": 10
+    },
+    "jsNs": {
+     "objects": {
+      "median": 87.08496370923093,
+      "min": 77.45719080663582,
+      "max": 91.97630164297549,
+      "n": 10
+     },
+     "aos": {
+      "median": 33.11993454754051,
+      "min": 25.567844810088097,
+      "max": 37.553297667128476,
+      "n": 10
+     },
+     "soa": {
+      "median": 17.766071676355374,
+      "min": 15.74352849764766,
+      "max": 21.246552845203176,
+      "n": 10
+     }
+    },
+    "jsBytes": {
+     "objects": 96.30175,
+     "aos": 81.9224,
+     "soa": 81.9224
+    }
+   }
+  },
+  "boundary": {
+   "field": {
+    "median": 2.1960812499999998,
+    "min": 1.7939,
+    "max": 2.8390375,
+    "n": 10
+   },
+   "weakMap": {
+    "median": 23.7147375,
+    "min": 20.82595,
+    "max": 28.505475,
+    "n": 10
+   }
+  },
+  "jsAlien": {
+   "objects": {
+    "median": 80.83698906761367,
+    "min": 29.95613118863589,
+    "max": 121.07791936494674,
+    "n": 10
+   },
+   "aos": {
+    "median": 62.074368080217255,
+    "min": 43.08195808091359,
+    "max": 83.8938792563192,
+    "n": 10
+   },
+   "soa": {
+    "median": 56.030220736717496,
+    "min": 47.19727038507068,
+    "max": 104.867349070399,
+    "n": 10
+   }
+  },
+  "crossover": {
+   "cells": [
+    {
+     "n": 8,
+     "survive": 0,
+     "order": "none",
+     "packed": 6.7715,
+     "packed_inplace": 0.5714999999999999,
+     "persistent": 32.4335,
+     "intrusive_rebuild": 53.0115,
+     "intrusive_reuse": 103.2065,
+     "aos_reuse": 66.9255,
+     "intrusive_cursor": 144.414,
+     "aos_cursor": 101.12,
+     "intrusive_tail": 53.5,
+     "aos_tail": 16.3305
+    },
+    {
+     "n": 8,
+     "survive": 0,
+     "order": "local",
+     "packed": 6.78,
+     "packed_inplace": 0.572,
+     "persistent": 33.0225,
+     "intrusive_rebuild": 53.059,
+     "intrusive_reuse": 102.9495,
+     "aos_reuse": 68.033,
+     "intrusive_cursor": 146.2775,
+     "aos_cursor": 101.89,
+     "intrusive_tail": 53.808499999999995,
+     "aos_tail": 16.3335
+    },
+    {
+     "n": 8,
+     "survive": 0,
+     "order": "chaotic",
+     "packed": 6.756,
+     "packed_inplace": 0.5714999999999999,
+     "persistent": 32.528,
+     "intrusive_rebuild": 52.607,
+     "intrusive_reuse": 103.36449999999999,
+     "aos_reuse": 67.05199999999999,
+     "intrusive_cursor": 144.47899999999998,
+     "aos_cursor": 102.043,
+     "intrusive_tail": 53.571,
+     "aos_tail": 15.6765
+    },
+    {
+     "n": 8,
+     "survive": 0.5,
+     "order": "none",
+     "packed": 6.798,
+     "packed_inplace": 0.535,
+     "persistent": 30.2795,
+     "intrusive_rebuild": 53.2505,
+     "intrusive_reuse": 65.6445,
+     "aos_reuse": 48.3345,
+     "intrusive_cursor": 75.11,
+     "aos_cursor": 54.0125,
+     "intrusive_tail": 26.877499999999998,
+     "aos_tail": 7.085
+    },
+    {
+     "n": 8,
+     "survive": 0.5,
+     "order": "local",
+     "packed": 6.814500000000001,
+     "packed_inplace": 0.565,
+     "persistent": 30.3555,
+     "intrusive_rebuild": 52.49,
+     "intrusive_reuse": 65.77600000000001,
+     "aos_reuse": 48.635999999999996,
+     "intrusive_cursor": 109.9995,
+     "aos_cursor": 90.3685,
+     "intrusive_tail": 53.949,
+     "aos_tail": 16.122500000000002
+    },
+    {
+     "n": 8,
+     "survive": 0.5,
+     "order": "chaotic",
+     "packed": 6.932,
+     "packed_inplace": 0.5345,
+     "persistent": 30.258499999999998,
+     "intrusive_rebuild": 53.2285,
+     "intrusive_reuse": 65.974,
+     "aos_reuse": 47.8465,
+     "intrusive_cursor": 75.424,
+     "aos_cursor": 54.323499999999996,
+     "intrusive_tail": 26.954,
+     "aos_tail": 7.093999999999999
+    },
+    {
+     "n": 8,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 6.83,
+     "packed_inplace": 0.503,
+     "persistent": 28.7485,
+     "intrusive_rebuild": 53.298500000000004,
+     "intrusive_reuse": 43.232,
+     "aos_reuse": 37.7185,
+     "intrusive_cursor": 31.1455,
+     "aos_cursor": 26.5225,
+     "intrusive_tail": 7.0855,
+     "aos_tail": 3.125
+    },
+    {
+     "n": 8,
+     "survive": 0.9,
+     "order": "local",
+     "packed": 6.9015,
+     "packed_inplace": 0.543,
+     "persistent": 28.747,
+     "intrusive_rebuild": 53.451,
+     "intrusive_reuse": 43.132,
+     "aos_reuse": 39.042,
+     "intrusive_cursor": 83.8035,
+     "aos_cursor": 78.5415,
+     "intrusive_tail": 54.101,
+     "aos_tail": 16.309
+    },
+    {
+     "n": 8,
+     "survive": 0.9,
+     "order": "chaotic",
+     "packed": 6.895,
+     "packed_inplace": 0.572,
+     "persistent": 28.8725,
+     "intrusive_rebuild": 53.2195,
+     "intrusive_reuse": 43.2565,
+     "aos_reuse": 40.173,
+     "intrusive_cursor": 84.6785,
+     "aos_cursor": 81.3685,
+     "intrusive_tail": 54.0355,
+     "aos_tail": 16.2125
+    },
+    {
+     "n": 8,
+     "survive": 1,
+     "order": "none",
+     "packed": 6.8065,
+     "packed_inplace": 0.482,
+     "persistent": 28.4945,
+     "intrusive_rebuild": 53.4055,
+     "intrusive_reuse": 29.6515,
+     "aos_reuse": 29.665,
+     "intrusive_cursor": 1.006,
+     "aos_cursor": 1.3665,
+     "intrusive_tail": 0.7895000000000001,
+     "aos_tail": 1.3385
+    },
+    {
+     "n": 8,
+     "survive": 1,
+     "order": "local",
+     "packed": 6.899,
+     "packed_inplace": 0.543,
+     "persistent": 28.3745,
+     "intrusive_rebuild": 53.260999999999996,
+     "intrusive_reuse": 29.63,
+     "aos_reuse": 30.393,
+     "intrusive_cursor": 69.232,
+     "aos_cursor": 69.819,
+     "intrusive_tail": 54.0865,
+     "aos_tail": 16.099
+    },
+    {
+     "n": 8,
+     "survive": 1,
+     "order": "chaotic",
+     "packed": 6.872999999999999,
+     "packed_inplace": 0.5705,
+     "persistent": 28.569499999999998,
+     "intrusive_rebuild": 53.242999999999995,
+     "intrusive_reuse": 30.9045,
+     "aos_reuse": 33.5215,
+     "intrusive_cursor": 71.2215,
+     "aos_cursor": 72.735,
+     "intrusive_tail": 54.1165,
+     "aos_tail": 16.067
+    },
+    {
+     "n": 64,
+     "survive": 0,
+     "order": "none",
+     "packed": 1.4585,
+     "packed_inplace": 0.628,
+     "persistent": 25.9145,
+     "intrusive_rebuild": 67.553,
+     "intrusive_reuse": 105.789,
+     "aos_reuse": 54.9945,
+     "intrusive_cursor": 129.9425,
+     "aos_cursor": 72.324,
+     "intrusive_tail": 68.199,
+     "aos_tail": 12.1295
+    },
+    {
+     "n": 64,
+     "survive": 0,
+     "order": "local",
+     "packed": 1.459,
+     "packed_inplace": 0.628,
+     "persistent": 25.9615,
+     "intrusive_rebuild": 67.93950000000001,
+     "intrusive_reuse": 104.9105,
+     "aos_reuse": 55.1195,
+     "intrusive_cursor": 132.2745,
+     "aos_cursor": 72.6075,
+     "intrusive_tail": 68.799,
+     "aos_tail": 12.6115
+    },
+    {
+     "n": 64,
+     "survive": 0,
+     "order": "chaotic",
+     "packed": 1.456,
+     "packed_inplace": 0.629,
+     "persistent": 26.079,
+     "intrusive_rebuild": 67.49199999999999,
+     "intrusive_reuse": 105.1005,
+     "aos_reuse": 54.2205,
+     "intrusive_cursor": 131.677,
+     "aos_cursor": 73.14500000000001,
+     "intrusive_tail": 68.577,
+     "aos_tail": 12.598500000000001
+    },
+    {
+     "n": 64,
+     "survive": 0.5,
+     "order": "none",
+     "packed": 1.4655,
+     "packed_inplace": 0.664,
+     "persistent": 23.804000000000002,
+     "intrusive_rebuild": 68.26,
+     "intrusive_reuse": 57.016999999999996,
+     "aos_reuse": 40.2155,
+     "intrusive_cursor": 59.7215,
+     "aos_cursor": 40.730000000000004,
+     "intrusive_tail": 27.2545,
+     "aos_tail": 7.8454999999999995
+    },
+    {
+     "n": 64,
+     "survive": 0.5,
+     "order": "local",
+     "packed": 1.4889999999999999,
+     "packed_inplace": 0.765,
+     "persistent": 23.78,
+     "intrusive_rebuild": 68.156,
+     "intrusive_reuse": 57.906,
+     "aos_reuse": 40.16,
+     "intrusive_cursor": 92.234,
+     "aos_cursor": 71.1325,
+     "intrusive_tail": 68.2855,
+     "aos_tail": 12.6145
+    },
+    {
+     "n": 64,
+     "survive": 0.5,
+     "order": "chaotic",
+     "packed": 1.4420000000000002,
+     "packed_inplace": 0.62,
+     "persistent": 23.692500000000003,
+     "intrusive_rebuild": 67.7105,
+     "intrusive_reuse": 57.986000000000004,
+     "aos_reuse": 41.6245,
+     "intrusive_cursor": 91.7635,
+     "aos_cursor": 73.3615,
+     "intrusive_tail": 67.676,
+     "aos_tail": 12.601500000000001
+    },
+    {
+     "n": 64,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 1.4420000000000002,
+     "packed_inplace": 0.666,
+     "persistent": 22.4,
+     "intrusive_rebuild": 67.92699999999999,
+     "intrusive_reuse": 29.6005,
+     "aos_reuse": 26.759999999999998,
+     "intrusive_cursor": 14.1125,
+     "aos_cursor": 11.058,
+     "intrusive_tail": 6.1865000000000006,
+     "aos_tail": 3.2305
+    },
+    {
+     "n": 64,
+     "survive": 0.9,
+     "order": "local",
+     "packed": 1.494,
+     "packed_inplace": 0.6775,
+     "persistent": 22.4665,
+     "intrusive_rebuild": 68.176,
+     "intrusive_reuse": 30.754,
+     "aos_reuse": 27.127000000000002,
+     "intrusive_cursor": 60.561,
+     "aos_cursor": 56.1545,
+     "intrusive_tail": 68.551,
+     "aos_tail": 12.6075
+    },
+    {
+     "n": 64,
+     "survive": 0.9,
+     "order": "chaotic",
+     "packed": 1.5045,
+     "packed_inplace": 0.648,
+     "persistent": 22.5015,
+     "intrusive_rebuild": 67.7595,
+     "intrusive_reuse": 31.7815,
+     "aos_reuse": 30.2055,
+     "intrusive_cursor": 60.8955,
+     "aos_cursor": 58.876000000000005,
+     "intrusive_tail": 68.488,
+     "aos_tail": 12.607
+    },
+    {
+     "n": 64,
+     "survive": 1,
+     "order": "none",
+     "packed": 1.4489999999999998,
+     "packed_inplace": 0.579,
+     "persistent": 21.8215,
+     "intrusive_rebuild": 67.7525,
+     "intrusive_reuse": 22.7535,
+     "aos_reuse": 23.1095,
+     "intrusive_cursor": 1.609,
+     "aos_cursor": 2.3705,
+     "intrusive_tail": 1.2795,
+     "aos_tail": 2.0955000000000004
+    },
+    {
+     "n": 64,
+     "survive": 1,
+     "order": "local",
+     "packed": 1.4625,
+     "packed_inplace": 0.651,
+     "persistent": 21.858,
+     "intrusive_rebuild": 68.2255,
+     "intrusive_reuse": 22.974,
+     "aos_reuse": 23.811999999999998,
+     "intrusive_cursor": 52.033500000000004,
+     "aos_cursor": 52.8335,
+     "intrusive_tail": 68.85,
+     "aos_tail": 12.599
+    },
+    {
+     "n": 64,
+     "survive": 1,
+     "order": "chaotic",
+     "packed": 1.4889999999999999,
+     "packed_inplace": 0.629,
+     "persistent": 21.9525,
+     "intrusive_rebuild": 67.9245,
+     "intrusive_reuse": 23.877000000000002,
+     "aos_reuse": 27.3455,
+     "intrusive_cursor": 51.8495,
+     "aos_cursor": 54.451,
+     "intrusive_tail": 69.055,
+     "aos_tail": 12.6135
+    },
+    {
+     "n": 512,
+     "survive": 0,
+     "order": "none",
+     "packed": 0.735,
+     "packed_inplace": 0.5175000000000001,
+     "persistent": 25.356,
+     "intrusive_rebuild": 69.604,
+     "intrusive_reuse": 106.92949999999999,
+     "aos_reuse": 51.9005,
+     "intrusive_cursor": 126.79599999999999,
+     "aos_cursor": 64.4225,
+     "intrusive_tail": 69.1385,
+     "aos_tail": 12.154
+    },
+    {
+     "n": 512,
+     "survive": 0,
+     "order": "local",
+     "packed": 0.77,
+     "packed_inplace": 0.5175000000000001,
+     "persistent": 25.3505,
+     "intrusive_rebuild": 69.498,
+     "intrusive_reuse": 105.99549999999999,
+     "aos_reuse": 51.694,
+     "intrusive_cursor": 126.7485,
+     "aos_cursor": 64.348,
+     "intrusive_tail": 69.037,
+     "aos_tail": 12.0685
+    },
+    {
+     "n": 512,
+     "survive": 0,
+     "order": "chaotic",
+     "packed": 0.7404999999999999,
+     "packed_inplace": 0.518,
+     "persistent": 25.2485,
+     "intrusive_rebuild": 69.91999999999999,
+     "intrusive_reuse": 105.8015,
+     "aos_reuse": 51.912,
+     "intrusive_cursor": 126.043,
+     "aos_cursor": 64.539,
+     "intrusive_tail": 68.84649999999999,
+     "aos_tail": 12.0975
+    },
+    {
+     "n": 512,
+     "survive": 0.5,
+     "order": "none",
+     "packed": 0.7685,
+     "packed_inplace": 0.5535000000000001,
+     "persistent": 23.8315,
+     "intrusive_rebuild": 70.4865,
+     "intrusive_reuse": 65.001,
+     "aos_reuse": 37.7265,
+     "intrusive_cursor": 66.0055,
+     "aos_cursor": 34.224500000000006,
+     "intrusive_tail": 35.1285,
+     "aos_tail": 7.2525
+    },
+    {
+     "n": 512,
+     "survive": 0.5,
+     "order": "local",
+     "packed": 0.776,
+     "packed_inplace": 0.53,
+     "persistent": 24.0655,
+     "intrusive_rebuild": 69.961,
+     "intrusive_reuse": 65.3195,
+     "aos_reuse": 38.354,
+     "intrusive_cursor": 96.285,
+     "aos_cursor": 65.158,
+     "intrusive_tail": 69.3295,
+     "aos_tail": 12.2005
+    },
+    {
+     "n": 512,
+     "survive": 0.5,
+     "order": "chaotic",
+     "packed": 0.771,
+     "packed_inplace": 0.519,
+     "persistent": 23.8405,
+     "intrusive_rebuild": 70.0685,
+     "intrusive_reuse": 66.0315,
+     "aos_reuse": 40.329,
+     "intrusive_cursor": 98.6765,
+     "aos_cursor": 66.515,
+     "intrusive_tail": 69.357,
+     "aos_tail": 12.246500000000001
+    },
+    {
+     "n": 512,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 0.771,
+     "packed_inplace": 0.5535000000000001,
+     "persistent": 21.5315,
+     "intrusive_rebuild": 69.24000000000001,
+     "intrusive_reuse": 30.6605,
+     "aos_reuse": 24.9895,
+     "intrusive_cursor": 16.264499999999998,
+     "aos_cursor": 9.3275,
+     "intrusive_tail": 9.1845,
+     "aos_tail": 3.3735
+    },
+    {
+     "n": 512,
+     "survive": 0.9,
+     "order": "local",
+     "packed": 0.769,
+     "packed_inplace": 0.502,
+     "persistent": 21.531,
+     "intrusive_rebuild": 69.354,
+     "intrusive_reuse": 31.9575,
+     "aos_reuse": 25.8185,
+     "intrusive_cursor": 60.042,
+     "aos_cursor": 51.6435,
+     "intrusive_tail": 68.03999999999999,
+     "aos_tail": 12.197
+    },
+    {
+     "n": 512,
+     "survive": 0.9,
+     "order": "chaotic",
+     "packed": 0.7424999999999999,
+     "packed_inplace": 0.579,
+     "persistent": 21.700000000000003,
+     "intrusive_rebuild": 69.2105,
+     "intrusive_reuse": 32.226,
+     "aos_reuse": 29.057,
+     "intrusive_cursor": 60.3845,
+     "aos_cursor": 54.9455,
+     "intrusive_tail": 69.315,
+     "aos_tail": 12.125
+    },
+    {
+     "n": 512,
+     "survive": 1,
+     "order": "none",
+     "packed": 0.7715000000000001,
+     "packed_inplace": 0.437,
+     "persistent": 21.183500000000002,
+     "intrusive_rebuild": 70.172,
+     "intrusive_reuse": 22.0005,
+     "aos_reuse": 22.4315,
+     "intrusive_cursor": 1.5385,
+     "aos_cursor": 2.2794999999999996,
+     "intrusive_tail": 1.522,
+     "aos_tail": 2.335
+    },
+    {
+     "n": 512,
+     "survive": 1,
+     "order": "local",
+     "packed": 0.7725,
+     "packed_inplace": 0.462,
+     "persistent": 21.356,
+     "intrusive_rebuild": 69.8895,
+     "intrusive_reuse": 23.247,
+     "aos_reuse": 23.384,
+     "intrusive_cursor": 49.1515,
+     "aos_cursor": 48.548,
+     "intrusive_tail": 69.401,
+     "aos_tail": 12.1205
+    },
+    {
+     "n": 512,
+     "survive": 1,
+     "order": "chaotic",
+     "packed": 0.7404999999999999,
+     "packed_inplace": 0.5585,
+     "persistent": 21.094,
+     "intrusive_rebuild": 69.864,
+     "intrusive_reuse": 24.070999999999998,
+     "aos_reuse": 26.700499999999998,
+     "intrusive_cursor": 49.332,
+     "aos_cursor": 51.197,
+     "intrusive_tail": 69.13550000000001,
+     "aos_tail": 12.061
+    },
+    {
+     "n": 4096,
+     "survive": 0,
+     "order": "none",
+     "packed": 0.7115,
+     "packed_inplace": 0.5075000000000001,
+     "persistent": 25.494500000000002,
+     "intrusive_rebuild": 59.071,
+     "intrusive_reuse": 94.7835,
+     "aos_reuse": 52.731,
+     "intrusive_cursor": 117.71000000000001,
+     "aos_cursor": 64.907,
+     "intrusive_tail": 59.2795,
+     "aos_tail": 12.321
+    },
+    {
+     "n": 4096,
+     "survive": 0,
+     "order": "local",
+     "packed": 0.6885,
+     "packed_inplace": 0.51,
+     "persistent": 25.531,
+     "intrusive_rebuild": 59.017,
+     "intrusive_reuse": 94.9045,
+     "aos_reuse": 52.3095,
+     "intrusive_cursor": 115.9425,
+     "aos_cursor": 64.6525,
+     "intrusive_tail": 59.2855,
+     "aos_tail": 12.3035
+    },
+    {
+     "n": 4096,
+     "survive": 0,
+     "order": "chaotic",
+     "packed": 0.722,
+     "packed_inplace": 0.512,
+     "persistent": 25.537,
+     "intrusive_rebuild": 59.309,
+     "intrusive_reuse": 94.8335,
+     "aos_reuse": 52.320499999999996,
+     "intrusive_cursor": 113.973,
+     "aos_cursor": 65.055,
+     "intrusive_tail": 59.195,
+     "aos_tail": 12.0075
+    },
+    {
+     "n": 4096,
+     "survive": 0.5,
+     "order": "none",
+     "packed": 0.7045,
+     "packed_inplace": 0.509,
+     "persistent": 27.723,
+     "intrusive_rebuild": 58.8005,
+     "intrusive_reuse": 62.288,
+     "aos_reuse": 42.179500000000004,
+     "intrusive_cursor": 55.855000000000004,
+     "aos_cursor": 33.289500000000004,
+     "intrusive_tail": 30.024500000000003,
+     "aos_tail": 7.2605
+    },
+    {
+     "n": 4096,
+     "survive": 0.5,
+     "order": "local",
+     "packed": 0.6935,
+     "packed_inplace": 0.478,
+     "persistent": 28.033,
+     "intrusive_rebuild": 57.945,
+     "intrusive_reuse": 63.7645,
+     "aos_reuse": 43.2315,
+     "intrusive_cursor": 86.751,
+     "aos_cursor": 64.7955,
+     "intrusive_tail": 59.327,
+     "aos_tail": 12.096499999999999
+    },
+    {
+     "n": 4096,
+     "survive": 0.5,
+     "order": "chaotic",
+     "packed": 0.718,
+     "packed_inplace": 0.508,
+     "persistent": 27.9435,
+     "intrusive_rebuild": 58.8705,
+     "intrusive_reuse": 63.8275,
+     "aos_reuse": 45.2725,
+     "intrusive_cursor": 87.673,
+     "aos_cursor": 66.72300000000001,
+     "intrusive_tail": 59.077,
+     "aos_tail": 12.281500000000001
+    },
+    {
+     "n": 4096,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 0.731,
+     "packed_inplace": 0.508,
+     "persistent": 22.4875,
+     "intrusive_rebuild": 58.5835,
+     "intrusive_reuse": 30.1665,
+     "aos_reuse": 26.055500000000002,
+     "intrusive_cursor": 13.672,
+     "aos_cursor": 8.750499999999999,
+     "intrusive_tail": 8.542,
+     "aos_tail": 3.3795
+    },
+    {
+     "n": 4096,
+     "survive": 0.9,
+     "order": "local",
+     "packed": 0.688,
+     "packed_inplace": 0.4495,
+     "persistent": 22.399,
+     "intrusive_rebuild": 58.76,
+     "intrusive_reuse": 30.837,
+     "aos_reuse": 27.456,
+     "intrusive_cursor": 55.9885,
+     "aos_cursor": 51.1225,
+     "intrusive_tail": 58.819,
+     "aos_tail": 12.1995
+    },
+    {
+     "n": 4096,
+     "survive": 0.9,
+     "order": "chaotic",
+     "packed": 0.7175,
+     "packed_inplace": 0.502,
+     "persistent": 22.335500000000003,
+     "intrusive_rebuild": 58.6065,
+     "intrusive_reuse": 32.2695,
+     "aos_reuse": 30.695,
+     "intrusive_cursor": 57.068,
+     "aos_cursor": 54.941,
+     "intrusive_tail": 59.8425,
+     "aos_tail": 12.2745
+    },
+    {
+     "n": 4096,
+     "survive": 1,
+     "order": "none",
+     "packed": 0.7164999999999999,
+     "packed_inplace": 0.4305,
+     "persistent": 21.6325,
+     "intrusive_rebuild": 59.042500000000004,
+     "intrusive_reuse": 22.714,
+     "aos_reuse": 22.8525,
+     "intrusive_cursor": 3.223,
+     "aos_cursor": 2.3075,
+     "intrusive_tail": 3.1885000000000003,
+     "aos_tail": 2.3375000000000004
+    },
+    {
+     "n": 4096,
+     "survive": 1,
+     "order": "local",
+     "packed": 0.7204999999999999,
+     "packed_inplace": 0.445,
+     "persistent": 21.726,
+     "intrusive_rebuild": 58.653,
+     "intrusive_reuse": 24.258000000000003,
+     "aos_reuse": 24.716,
+     "intrusive_cursor": 49.605000000000004,
+     "aos_cursor": 48.4305,
+     "intrusive_tail": 59.1525,
+     "aos_tail": 12.1755
+    },
+    {
+     "n": 4096,
+     "survive": 1,
+     "order": "chaotic",
+     "packed": 0.722,
+     "packed_inplace": 0.524,
+     "persistent": 21.709,
+     "intrusive_rebuild": 58.81,
+     "intrusive_reuse": 25.6425,
+     "aos_reuse": 28.377499999999998,
+     "intrusive_cursor": 50.8305,
+     "aos_cursor": 52.808,
+     "intrusive_tail": 59.575,
+     "aos_tail": 12.316
+    },
+    {
+     "n": 65536,
+     "survive": 0,
+     "order": "none",
+     "packed": 0.9115,
+     "packed_inplace": 0.541,
+     "persistent": 29.2975,
+     "intrusive_rebuild": 66.5615,
+     "intrusive_reuse": 136.248,
+     "aos_reuse": 70.78,
+     "intrusive_cursor": 172.983,
+     "aos_cursor": 92.7505,
+     "intrusive_tail": 64.4605,
+     "aos_tail": 13.565999999999999
+    },
+    {
+     "n": 65536,
+     "survive": 0,
+     "order": "local",
+     "packed": 0.882,
+     "packed_inplace": 0.5385,
+     "persistent": 29.320999999999998,
+     "intrusive_rebuild": 62.864999999999995,
+     "intrusive_reuse": 128.385,
+     "aos_reuse": 71.2585,
+     "intrusive_cursor": 167.12,
+     "aos_cursor": 95.26400000000001,
+     "intrusive_tail": 63.663,
+     "aos_tail": 13.1265
+    },
+    {
+     "n": 65536,
+     "survive": 0,
+     "order": "chaotic",
+     "packed": 0.893,
+     "packed_inplace": 0.541,
+     "persistent": 29.3375,
+     "intrusive_rebuild": 61.1145,
+     "intrusive_reuse": 128.47899999999998,
+     "aos_reuse": 69.5575,
+     "intrusive_cursor": 159.7605,
+     "aos_cursor": 92.226,
+     "intrusive_tail": 62.7525,
+     "aos_tail": 13.1955
+    },
+    {
+     "n": 65536,
+     "survive": 0.5,
+     "order": "none",
+     "packed": 0.849,
+     "packed_inplace": 0.503,
+     "persistent": 34.9985,
+     "intrusive_rebuild": 61.230999999999995,
+     "intrusive_reuse": 86.09299999999999,
+     "aos_reuse": 56.007,
+     "intrusive_cursor": 76.12049999999999,
+     "aos_cursor": 39.7735,
+     "intrusive_tail": 33.084,
+     "aos_tail": 7.857
+    },
+    {
+     "n": 65536,
+     "survive": 0.5,
+     "order": "local",
+     "packed": 0.921,
+     "packed_inplace": 0.4975,
+     "persistent": 35.0345,
+     "intrusive_rebuild": 62.6365,
+     "intrusive_reuse": 87.381,
+     "aos_reuse": 54.798,
+     "intrusive_cursor": 131.71699999999998,
+     "aos_cursor": 82.642,
+     "intrusive_tail": 61.135,
+     "aos_tail": 13.3235
+    },
+    {
+     "n": 65536,
+     "survive": 0.5,
+     "order": "chaotic",
+     "packed": 0.8705,
+     "packed_inplace": 0.5445,
+     "persistent": 35.058,
+     "intrusive_rebuild": 64.787,
+     "intrusive_reuse": 85.4335,
+     "aos_reuse": 59.3845,
+     "intrusive_cursor": 133.8405,
+     "aos_cursor": 88.274,
+     "intrusive_tail": 63.557500000000005,
+     "aos_tail": 13.83
+    },
+    {
+     "n": 65536,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 0.8645,
+     "packed_inplace": 0.462,
+     "persistent": 28.602,
+     "intrusive_rebuild": 61.2535,
+     "intrusive_reuse": 43.8335,
+     "aos_reuse": 32.9435,
+     "intrusive_cursor": 15.861,
+     "aos_cursor": 9.129000000000001,
+     "intrusive_tail": 9.7305,
+     "aos_tail": 3.4185
+    },
+    {
+     "n": 65536,
+     "survive": 0.9,
+     "order": "local",
+     "packed": 0.95,
+     "packed_inplace": 0.4685,
+     "persistent": 28.564,
+     "intrusive_rebuild": 62.592,
+     "intrusive_reuse": 44.736000000000004,
+     "aos_reuse": 33.842,
+     "intrusive_cursor": 96.34100000000001,
+     "aos_cursor": 65.555,
+     "intrusive_tail": 63.078500000000005,
+     "aos_tail": 13.475
+    },
+    {
+     "n": 65536,
+     "survive": 0.9,
+     "order": "chaotic",
+     "packed": 0.9245,
+     "packed_inplace": 0.553,
+     "persistent": 28.667,
+     "intrusive_rebuild": 67.068,
+     "intrusive_reuse": 54.297,
+     "aos_reuse": 45.203,
+     "intrusive_cursor": 119.997,
+     "aos_cursor": 81.0535,
+     "intrusive_tail": 70.452,
+     "aos_tail": 15.061499999999999
+    },
+    {
+     "n": 65536,
+     "survive": 1,
+     "order": "none",
+     "packed": 0.8835,
+     "packed_inplace": 0.4575,
+     "persistent": 26.9095,
+     "intrusive_rebuild": 61.32,
+     "intrusive_reuse": 35.5945,
+     "aos_reuse": 29.2775,
+     "intrusive_cursor": 4.250500000000001,
+     "aos_cursor": 2.341,
+     "intrusive_tail": 4.0895,
+     "aos_tail": 2.3449999999999998
+    },
+    {
+     "n": 65536,
+     "survive": 1,
+     "order": "local",
+     "packed": 0.9359999999999999,
+     "packed_inplace": 0.46799999999999997,
+     "persistent": 26.991,
+     "intrusive_rebuild": 64.709,
+     "intrusive_reuse": 34.2265,
+     "aos_reuse": 30.5105,
+     "intrusive_cursor": 84.3825,
+     "aos_cursor": 61.498999999999995,
+     "intrusive_tail": 62.6825,
+     "aos_tail": 13.413
+    },
+    {
+     "n": 65536,
+     "survive": 1,
+     "order": "chaotic",
+     "packed": 0.8580000000000001,
+     "packed_inplace": 0.5455000000000001,
+     "persistent": 27.055999999999997,
+     "intrusive_rebuild": 70.90350000000001,
+     "intrusive_reuse": 45.811499999999995,
+     "aos_reuse": 43.117999999999995,
+     "intrusive_cursor": 108.4825,
+     "aos_cursor": 80.80850000000001,
+     "intrusive_tail": 70.71549999999999,
+     "aos_tail": 15.219000000000001
+    }
+   ],
+   "winners": {
+    "packed_inplace": 60
+   },
+   "count": 60,
+   "contiguousBest": 60,
+   "packedLosesToLinked": [
+    {
+     "n": 8,
+     "survive": 0.9,
+     "order": "none",
+     "packed": 6.83,
+     "bestLinked": 3.125
+    },
+    {
+     "n": 8,
+     "survive": 1,
+     "order": "none",
+     "packed": 6.8065,
+     "bestLinked": 0.7895000000000001
+    },
+    {
+     "n": 64,
+     "survive": 1,
+     "order": "none",
+     "packed": 1.4489999999999998,
+     "bestLinked": 1.2795
+    }
+   ],
+   "inplaceLosesToLinked": [],
+   "bestLinkedOverPacked": {
+    "median": 8.996660630357326,
+    "min": 0.11599206640711086,
+    "max": 17.870007262164126,
+    "n": 60
+   },
+   "bestLinkedOverInplace": {
+    "median": 23.403197770873554,
+    "min": 1.6379668049792533,
+    "max": 30.03499079189687,
+    "n": 60
+   }
+  },
+  "noise": {
+   "pinned": {
+    "series": 29,
+    "median": 1.1416000979401952,
+    "max": 1.677819083023544
+   },
+   "unpinned": {
+    "series": 27,
+    "median": 1.7190542420027815,
+    "max": 3.4084461507375226,
+    "runs": 5
+   }
+  }
+ },
+ "gc": {
+  "feasibility": {
+   "node": "v25.2.0",
+   "v8": "14.1.146.11-node.13",
+   "rounds": 20,
+   "summary": {
+    "unreachable listener is not delivered, later job": 20,
+    "a WeakRef created in this job holds its target to the end of the job": 20,
+    "a target not dereferenced in this job can die during a callback": 20,
+    "a target dereferenced earlier in the job survives a collection": 20,
+    "traversal continues over every entry with a collection in every callback": 20,
+    "a finalizer does not run during synchronous execution": 20,
+    "structural cleanup is later than endpoint death": 20,
+    "a cycle through client records does not retain itself": 20,
+    "handler lives while its target does, without extending it": 20,
+    "retention can follow activation without changing the record": 20,
+    "without a forced collection, allocation alone eventually clears a target": 20
+   }
+  },
+  "observer": {
+   "node": "v25.2.0",
+   "v8": "14.1.146.11-node.13",
+   "turns": 4000,
+   "results": {
+    "every 1": {
+     "pollEvery": 1,
+     "trials": 10,
+     "cleared": 0,
+     "medianTurnWhenCleared": null,
+     "medianMajorsSeen": 13,
+     "maxMajorsWithoutClearing": 14
+    },
+    "every 2": {
+     "pollEvery": 2,
+     "trials": 10,
+     "cleared": 2,
+     "medianTurnWhenCleared": 254,
+     "medianMajorsSeen": 13,
+     "maxMajorsWithoutClearing": 15
+    },
+    "every 10": {
+     "pollEvery": 10,
+     "trials": 10,
+     "cleared": 5,
+     "medianTurnWhenCleared": 1780,
+     "medianMajorsSeen": 13,
+     "maxMajorsWithoutClearing": 13
+    },
+    "every 100": {
+     "pollEvery": 100,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 300,
+     "medianMajorsSeen": 1,
+     "maxMajorsWithoutClearing": 0
+    },
+    "every 500": {
+     "pollEvery": 500,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 500,
+     "medianMajorsSeen": 2,
+     "maxMajorsWithoutClearing": 0
+    },
+    "end only": {
+     "pollEvery": 0,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 4000,
+     "medianMajorsSeen": 13,
+     "maxMajorsWithoutClearing": 0
+    }
+   }
+  },
+  "observerEarlier": {
+   "node": "v25.2.0",
+   "v8": "14.1.146.11-node.13",
+   "turns": 4000,
+   "results": {
+    "every 1": {
+     "pollEvery": 1,
+     "trials": 10,
+     "cleared": 0,
+     "medianTurnWhenCleared": null,
+     "medianMajorsSeen": 14,
+     "maxMajorsWithoutClearing": 15
+    },
+    "every 2": {
+     "pollEvery": 2,
+     "trials": 10,
+     "cleared": 0,
+     "medianTurnWhenCleared": null,
+     "medianMajorsSeen": 13,
+     "maxMajorsWithoutClearing": 15
+    },
+    "every 10": {
+     "pollEvery": 10,
+     "trials": 10,
+     "cleared": 8,
+     "medianTurnWhenCleared": 2120,
+     "medianMajorsSeen": 9,
+     "maxMajorsWithoutClearing": 13
+    },
+    "every 100": {
+     "pollEvery": 100,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 300,
+     "medianMajorsSeen": 1,
+     "maxMajorsWithoutClearing": 0
+    },
+    "every 500": {
+     "pollEvery": 500,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 500,
+     "medianMajorsSeen": 2,
+     "maxMajorsWithoutClearing": 0
+    },
+    "end only": {
+     "pollEvery": 0,
+     "trials": 10,
+     "cleared": 10,
+     "medianTurnWhenCleared": 4000,
+     "medianMajorsSeen": 14,
+     "maxMajorsWithoutClearing": 0
+    }
+   }
+  }
+ }
+}

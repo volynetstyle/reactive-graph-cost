@@ -1,0 +1,27 @@
+[
+  { "name": "witness: remove of a never-added handler, target alive", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 1 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "control 1: no remove", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "control 2: ordinary remove", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "control 3: two handlers, remove of an unknown third", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "add", "s": 0, "l": 0, "h": 1 }, { "kind": "remove", "s": 0, "l": 0, "h": 2 }, { "kind": "collect" }, { "kind": "probe" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "control 4: witness without a collection", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 1 }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "duplicate: one handler added twice, removed once, collected", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "collect" }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "zombie: a dead handler cannot be removed and keeps the source subscribed", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 1 }, { "kind": "collect" }, { "kind": "remove", "s": 0, "l": 0, "h": 0 }, { "kind": "pump" }, { "kind": "forcePurge" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "zombie: ends when its target dies and a purge runs", "sources": 1, "listeners": 1, "ops": [
+    { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 1 }, { "kind": "collect" }, { "kind": "dropListener", "l": 0 }, { "kind": "collect" }, { "kind": "forcePurge" }, { "kind": "raise", "s": 0 } ] },
+  { "name": "zombie: a clone during delivery drops it", "sources": 1, "listeners": 2,
+    "rules": [ { "l": 1, "h": 0, "when": 0, "ops": [ { "kind": "add", "s": 0, "l": 1, "h": 1 } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "remove", "s": 0, "l": 0, "h": 1 }, { "kind": "add", "s": 0, "l": 1, "h": 0 }, { "kind": "collect" }, { "kind": "raise", "s": 0 }, { "kind": "remove", "s": 0, "l": 1, "h": 0 }, { "kind": "remove", "s": 0, "l": 1, "h": 1 }, { "kind": "pump" }, { "kind": "raise", "s": 0 } ] },
+
+  { "name": "version: the old list keeps a handler alive through a delivery", "sources": 1, "listeners": 2,
+    "rules": [ { "l": 0, "h": 0, "when": 0, "ops": [ { "kind": "remove", "s": 0, "l": 1, "h": 0 }, { "kind": "collect" } ] } ],
+    "ops": [ { "kind": "add", "s": 0, "l": 0, "h": 0 }, { "kind": "add", "s": 0, "l": 1, "h": 0 }, { "kind": "raise", "s": 0 } ] }
+]
