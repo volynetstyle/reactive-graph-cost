@@ -160,7 +160,7 @@ For the signal runtimes the reference is the client's own test corpus and a rand
 
 The machine is a single laptop on mains power: \cpuName{}, \memoryGb{} GB of memory, \osName{}, \texttt{rustc} \rustcVersion{}, Node \nodeVersion{} (V8 \veeEightVersion{}). The processor has two performance cores and eight efficiency cores, and Windows 10 does not support Intel Thread Director. An earlier campaign without core pinning, of \noiseUnpinnedRuns{} processes, had a median ratio of slowest to fastest process of \noiseUnpinnedMedian{} across its measured series, and up to \noiseUnpinnedMax{}. We therefore held every process on the performance cores, which gave a median of \noisePinnedMedian{} and a maximum of \noisePinnedMax{}. All results below come from the pinned campaign.
 
-\paragraph{Gates fixed in advance.} Before the physical work, the repository recorded what each outcome would mean and that integration into an engine would run only if some finalist showed a VM-specific advantage. No finalist did, so we did not build one. This decision is itself a limit of the study (Section~\ref{sec:threats}).
+\paragraph{Gates fixed in advance.} Before the physical work, we wrote down what each outcome would mean and that integration into an engine would run only if some finalist showed a VM-specific advantage. No finalist did, so we did not build one. This decision is itself a limit of the study (Section~\ref{sec:threats}).
 
 \section{Behavioural results}
 \label{sec:behaviour}
@@ -338,7 +338,7 @@ Typed arrays cannot hold references, so a client must get from its own objects t
 \subsection{End to end: Alien Signals on dense slots}
 \label{sec:endtoend}
 
-Replay excludes the client. To test whether the layout effect survives integration, we rebuilt Alien Signals, which the author did not write, with its link objects replaced by seven-word slots in one \texttt{Int32Array}. Nodes stay objects and hold their own slot in a field, and links name nodes through a table from slot to node. The protocol was fixed in the repository before the backend was written: one layout, no tuning after measurement, and the outcome rule below.
+Replay excludes the client. To test whether the layout effect survives integration, we rebuilt Alien Signals, which the author did not write, with its link objects replaced by seven-word slots in one \texttt{Int32Array}. Nodes stay objects and hold their own slot in a field, and links name nodes through a table from slot to node. The protocol, 	exttt{M6-ALIEN-DENSE-PROTOCOL}, was written before the backend: one layout, no tuning after measurement, and the outcome rule below.
 
 The dense build passes \mSixCorpus{} corpus tests and differs on \mSixDiffer{} of \mSixPrograms{} programs from the frozen source. Reaching that took three corrections. Slots are reclaimed only at quiescent points, because Alien's walks read removed links, and one link can be removed twice. A node could keep naming a removed link, so we applied the tail-cursor fix that had already matched the frozen source. And on two programs the frozen source throws a \texttt{TypeError} by reading a missing subscriber list, which the dense build had to reproduce explicitly. Objects tolerate all of this silently, and reuse of a slot does not: that is a cost of the layout in engineering effort.
 
